@@ -42,7 +42,7 @@ Here a simple illustration:">
 
     
 
-    <h2 id="intro">Intro</h2>
+    <h1 id="intro">Intro</h1>
 <p>VPN was originally created to extend a private corporate LAN across a public network, allowing remote users to reach internal resources without exposing them directly to the internet. Rather than making file shares, intranet services, databases, or administrative interfaces publicly reachable, the VPN terminates an authenticated, encrypted tunnel at the network edge and then forwards authorized traffic into the internal office subnet.<br>
 OpenVPN became one of the first SSL/TLS-based generation of VPNs (~2002), comparing to older PPTP/IPsec lineage, which applies encription on IP-level.<br>
 Here a simple illustration:</p>
@@ -94,20 +94,21 @@ Here a simple illustration:</p>
         |                                                 |
 </code></pre><p>In case of OpenVPN, it&rsquo;s also really easy to install and configure clients - their usually presented on any major apps maketplace.<br>
 So we mostly will focus on setting up the server part.</p>
-<h2 id="prerequisites">Prerequisites</h2>
+<h1 id="prerequisites">Prerequisites</h1>
 <p>Prepare a machine running Ubuntu 22.04 with at least 2 vCPU, 2 GB RAM, and 20 GB disk.</p>
 <p>Also ensure your network edge has a static public IP and that port 4443 is forwarded from the router/firewall to this machine so OpenVPN clients can reach it from the internet.</p>
-<h2 id="server-set-up">Server set up</h2>
-<h3 id="installing-openvpn-and-easy-rsa">Installing OpenVPN and Easy-RSA</h3>
+<h1 id="server-set-up">Server set up</h1>
+<h2 id="installing-openvpn-and-easy-rsa">Installing OpenVPN and Easy-RSA</h2>
 <p>First, install openvpn itself:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt update
 </span></span><span style="display:flex;"><span>sudo apt install openvpn easy-rsa -y
-</span></span></code></pre></div><p>Let&rsquo;s assume the username both on the server and the client part is <code>testuser</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mkdir ~/easy-rsa
+</span></span></code></pre></div><p>Create a dedicated opencpn user:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo useradd -r -s /usr/sbin/nologin -M openvpn
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mkdir ~/easy-rsa
 </span></span><span style="display:flex;"><span>ln -s /usr/share/easy-rsa/* ~/easy-rsa/
-</span></span><span style="display:flex;"><span>sudo chown testuser ~/easy-rsa
+</span></span><span style="display:flex;"><span>sudo chown openvpn ~/easy-rsa
 </span></span><span style="display:flex;"><span>chmod <span style="color:#ae81ff">700</span> ~/easy-rsa
-</span></span></code></pre></div><h3 id="creating-a-pki-for-openvpn">Creating a PKI for OpenVPN</h3>
+</span></span></code></pre></div><h2 id="creating-a-pki-for-openvpn">Creating a PKI for OpenVPN</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd ~/easy-rsa
 </span></span><span style="display:flex;"><span>vi vars
 </span></span></code></pre></div><p>Insert the following:</p>
@@ -116,14 +117,14 @@ So we mostly will focus on setting up the server part.</p>
 </span></span></code></pre></div><p>Run:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>./easyrsa init-pki
 </span></span><span style="display:flex;"><span>./easyrsa build-ca nopass
-</span></span></code></pre></div><h3 id="generate-server-certificate-and-key">Generate Server Certificate and Key</h3>
+</span></span></code></pre></div><h2 id="generate-server-certificate-and-key">Generate Server Certificate and Key</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>./easyrsa gen-req server nopass
 </span></span><span style="display:flex;"><span>./easyrsa sign-req server server
 </span></span></code></pre></div><p>When prompted to confirm the signing request, type yes.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>openvpn --genkey --secret ta.key
 </span></span></code></pre></div><p>Copy the generated files to the <code>/etc/openvpn</code> directory:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo cp pki/ca.crt pki/issued/server.crt pki/private/server.key ta.key /etc/openvpn/server
-</span></span></code></pre></div><h3 id="configuring-openvpn-server">Configuring OpenVPN Server</h3>
+</span></span></code></pre></div><h2 id="configuring-openvpn-server">Configuring OpenVPN Server</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server/
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>sudo vi /etc/openvpn/server/server.conf
@@ -150,13 +151,13 @@ push &#34;dhcp-option DNS 1.1.1.1&#34;
 ...
 </code></pre><p>Add any other DNS servers you&rsquo;re intersted in.</p>
 <p>Adjust the Port and Protocol</p>
-<pre tabindex="0"><code>port 4443
+<pre tabindex="0"><code>port 443
 proto udp
 explicit-exit-notify 0
 </code></pre><p>It&rsquo;s better to setup udp. OpenVPN already does its own reliability/ordering where needed. If you run VPN traffic inside TCP, you can get the classic “TCP-over-TCP meltdown” problem: worse throughput and higher latency.</p>
-<p><em>But</em> for restrictive networks that block UDP - use:</p>
+<p><em><em>But</em></em> for restrictive networks that block UDP - use:</p>
 <pre tabindex="0"><code>proto tcp
-</code></pre><h3 id="adjusting-the-openvpn-server-networking-configuration">Adjusting the OpenVPN Server Networking Configuration</h3>
+</code></pre><h2 id="adjusting-the-openvpn-server-networking-configuration">Adjusting the OpenVPN Server Networking Configuration</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo vi /etc/sysctl.conf
 </span></span></code></pre></div><p>Then add the following line at the bottom of the file:</p>
 <pre tabindex="0"><code>net.ipv4.ip_forward = 1
@@ -164,7 +165,8 @@ explicit-exit-notify 0
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo sysctl -p
 </span></span></code></pre></div><p>Expected output:</p>
 <pre tabindex="0"><code>net.ipv4.ip_forward = 1
-</code></pre><h3 id="firewall-configuration">Firewall Configuration</h3>
+</code></pre><h2 id="firewall-configuration">Firewall Configuration</h2>
+<p><strong><em>Only relevant for UFW/iptables</em></strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ip route list default
 </span></span></code></pre></div><p>Ecpected output:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>default via 10.129.0.1 dev eth0 proto dhcp src 10.129.0.40 metric <span style="color:#ae81ff">100</span>
@@ -196,16 +198,16 @@ COMMIT
 <pre tabindex="0"><code>DEFAULT_FORWARD_POLICY=&#34;ACCEPT&#34;
 </code></pre><p>Save file and quit.</p>
 <p>Allos needed ports:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo ufw allow 4443/tcp
-</span></span><span style="display:flex;"><span>sudo ufw allow 4443/udp
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo ufw allow 443/tcp
+</span></span><span style="display:flex;"><span>sudo ufw allow 443/udp
 </span></span><span style="display:flex;"><span>sudo ufw allow OpenSSH
-</span></span></code></pre></div><p>And for DNS port:</p>
+</span></span></code></pre></div><p>And for DNS port (optional):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo ufw allow 53/tcp
 </span></span><span style="display:flex;"><span>sudo ufw allow 53/udp
 </span></span></code></pre></div><p>Reload rules:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo ufw disable
 </span></span><span style="display:flex;"><span>sudo ufw enable
-</span></span></code></pre></div><h3 id="starting-openvpn-server">Starting OpenVPN Server</h3>
+</span></span></code></pre></div><h2 id="starting-openvpn-server">Starting OpenVPN Server</h2>
 <p>Enable the daemon:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl -f enable openvpn-server@server.service
 </span></span></code></pre></div><p>Start:</p>
@@ -214,49 +216,22 @@ COMMIT
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl status openvpn-server@server.service
 </span></span></code></pre></div><p>Check the logs in case of issues:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo journalctl -u openvpn-server@server.service
-</span></span></code></pre></div><h3 id="creating-the-client-configuration-infrastructure">Creating the Client Configuration Infrastructure</h3>
+</span></span></code></pre></div><h2 id="creating-the-client-configuration-infrastructure">Creating the Client Configuration Infrastructure</h2>
 <p>Make a directory to store certs in (do only once):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mkdir -p ~/client-configs/keys
 </span></span><span style="display:flex;"><span>chmod -R <span style="color:#ae81ff">700</span> ~/client-configs
 </span></span></code></pre></div><p>Copy server certs - do it only once, when setting up the server, not on every new client certs generation:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cp ~/easy-rsa/ta.key ~/client-configs/keys/
 </span></span><span style="display:flex;"><span>sudo cp /etc/openvpn/server/ca.crt ~/client-configs/keys/
-</span></span><span style="display:flex;"><span>sudo chown gas.gas ~/client-configs/keys/*
+</span></span><span style="display:flex;"><span>sudo chown openvpn.openvpn ~/client-configs/keys/*
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/client-configs/base.conf
 </span></span></code></pre></div><p>Open and edit the config:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>vi ~/client-configs/base.conf
 </span></span></code></pre></div><p>Change to the following:</p>
-<pre tabindex="0"><code>remote &lt;PUBLIC_IPV4&gt; 4443
+<pre tabindex="0"><code>remote &lt;PUBLIC_IPV4&gt; 443
 proto udp # or proto tcp in case udp can&#39;t be established
-user nobody
-group nogroup
-</code></pre><p>Usually it&rsquo;s useful to setup routing to only apply vpn on target network subnet addresses</p>
-<p>Discover subnets in the local networks (office) you want to expose:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ip addr | grep <span style="color:#e6db74">&#34;inet 192&#34;</span>
-</span></span></code></pre></div><p>Possible output:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>inet 192.168.88.81/24 brd 192.168.88.255 scope global dynamic noprefixroute enp11s0
-</span></span></code></pre></div><p>Search for all machines in that subnet to be sure that that&rsquo;s what you&rsquo;ll need:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>nmap -sn 192.168.88.0/24
-</span></span></code></pre></div><p>Sample output:</p>
-<pre tabindex="0"><code>Nmap scan report for router.lan (192.168.88.1)
-Host is up (0.0026s latency).
-Nmap scan report for 192.168.88.61
-Host is up (0.0052s latency).
-Nmap scan report for 192.168.88.63
-Host is up (0.00041s latency).
-Nmap scan report for 192.168.88.75
-Host is up (0.076s latency).
-Nmap scan report for hq-2 (192.168.88.81)
-Host is up (0.000021s latency).
-...
-</code></pre><p>And after that, you can just add that subnet to the client config, so VPN could route users to these machines when any ip in that range being used:</p>
-<pre tabindex="0"><code># Split tunnel: do NOT accept default-route from server
-pull-filter ignore &#34;redirect-gateway&#34;
-# Route only the office LAN(s) through OpenVPN
-route 192.168.88.0 255.255.255.0
-</code></pre><p>The only disadvantage in that simple setup - if the office subnet interfers with the users&rsquo; home local network, but it usually doesn&rsquo;t happen, and not really a huge issue.</p>
-<p>Comment out the keys:</p>
+</code></pre><p>Comment out the keys:</p>
 <pre tabindex="0"><code>;ca ca.crt
 ;cert client.crt
 ;key client.key
@@ -298,7 +273,33 @@ key-direction 1
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    &lt;<span style="color:#f92672">(</span>echo -e <span style="color:#e6db74">&#39;&lt;/tls-crypt&gt;&#39;</span><span style="color:#f92672">)</span> <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    &gt; <span style="color:#e6db74">${</span>OUTPUT_DIR<span style="color:#e6db74">}</span>/<span style="color:#e6db74">${</span>1<span style="color:#e6db74">}</span>.ovpn
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>chmod <span style="color:#ae81ff">700</span> ~/client-configs/make_config.sh
-</span></span></code></pre></div><h3 id="generating-client-configurations">Generating Client Configurations</h3>
+</span></span></code></pre></div><h3 id="optional-adding-subnet-routing-to-client-config"><em>(Optional)</em> Adding subnet routing to client config</h3>
+<p>Usually it&rsquo;s useful to setup routing to only apply vpn on target network subnet addresses</p>
+<p>Discover subnets in the local networks (office) you want to expose:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ip addr | grep <span style="color:#e6db74">&#34;inet 192&#34;</span>
+</span></span></code></pre></div><p>Possible output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>inet 192.168.88.81/24 brd 192.168.88.255 scope global dynamic noprefixroute enp11s0
+</span></span></code></pre></div><p>Search for all machines in that subnet to be sure that that&rsquo;s what you&rsquo;ll need:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>nmap -sn 192.168.88.0/24
+</span></span></code></pre></div><p>Sample output:</p>
+<pre tabindex="0"><code>Nmap scan report for router.lan (192.168.88.1)
+Host is up (0.0026s latency).
+Nmap scan report for 192.168.88.61
+Host is up (0.0052s latency).
+Nmap scan report for 192.168.88.63
+Host is up (0.00041s latency).
+Nmap scan report for 192.168.88.75
+Host is up (0.076s latency).
+Nmap scan report for hq-2 (192.168.88.81)
+Host is up (0.000021s latency).
+...
+</code></pre><p>And after that, you can just add that subnet to the client config, so VPN could route users to these machines when any ip in that range being used:</p>
+<pre tabindex="0"><code># Split tunnel: do NOT accept default-route from server
+pull-filter ignore &#34;redirect-gateway&#34;
+# Route only the office LAN(s) through OpenVPN
+route 192.168.88.0 255.255.255.0
+</code></pre><p>The only disadvantage in that simple setup - if the office subnet interfers with the users&rsquo; home local network, but it usually doesn&rsquo;t happen, and not really a huge issue.</p>
+<h2 id="generating-client-configurations">Generating Client Configurations</h2>
 <p>Convinience script (you can put it to the ~/client-configs/generate_client_config.sh and run from there like <code>./generate_client_config.sh testuser</code>)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env bash
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>set -Eeuo pipefail
@@ -359,25 +360,18 @@ key-direction 1
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>log <span style="color:#e6db74">&#34;Done&#34;</span>
 </span></span><span style="display:flex;"><span>log <span style="color:#e6db74">&#34;Generated client config: </span>$OVPN_FILE<span style="color:#e6db74">&#34;</span>
-</span></span></code></pre></div><p>First, generate  needed certs for the new client (just pass-by all the suggestion from the easyrsa generator):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd ~/easy-rsa
-</span></span><span style="display:flex;"><span>./easyrsa gen-req testuser nopass
-</span></span></code></pre></div><p>Sign, type yes in the end:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>./easyrsa sign-req client testuser
-</span></span></code></pre></div><p>And then copy all that to keep all client certs in a central place:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cp pki/private/testuser.key pki/issued/testuser.crt ~/client-configs/keys/
-</span></span></code></pre></div><p>Now, generate the actual config file:</p>
+</span></span></code></pre></div><p>Now, generate the config file:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd ~/client-configs
-</span></span><span style="display:flex;"><span>./make_config.sh testuser
+</span></span><span style="display:flex;"><span>./generate_client_config.sh testuser
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>ls ~/client-configs/files
 </span></span></code></pre></div><p>The file should be there:</p>
 <pre tabindex="0"><code>~/client-configs/files/testuser.ovpn
 </code></pre><p>Copy it to the client machine (run it on your local machine):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>scp &lt;USER&gt;@&lt;PUBLIC_IPV4&gt;:/home/gas/client-configs/files/testuser.ovpn ~/Documents/openvpn-configs/
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>scp &lt;USER&gt;@&lt;PUBLIC_IPV4&gt;:$HOME/client-configs/files/testuser.ovpn ~/Documents/openvpn-configs/
 </span></span></code></pre></div><p>That&rsquo;s it - you just need to share that <code>.ovpn</code> file with the VPN users, and they can load it into the OpenVPN client app.<br>
 Since only office subnet-realted IPs will be routed through the VPN, user can use, for example, another VPN which can work for the rest of the traffic - no problem at all.</p>
-<h3 id="revoking-someone-access">Revoking someone access</h3>
+<h2 id="revoking-someone-access">Revoking someone access</h2>
 <p>Run easyrsa command, answering yes:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd ~/easy-rsa
 </span></span><span style="display:flex;"><span>./easyrsa revoke testuser

@@ -323,10 +323,12 @@ In case you have a domain, it would be easy:</p>
 </code></pre><p>The most convinient option for the client app I found - <a href="https://hiddify.com/">Hiddify</a>. It&rsquo;s available on Play Store and App Store.<br>
 You just choose an option to paste the URI from the buffer and you&rsquo;re good to go.<br>
 <strong>Important note for Mac OS:</strong> get the app for <em>ipads</em> from the App Store. Hiddify desktop app build are unstable atm (on March. 2026).</p>
-<h1 id="pihole">PiHole</h1>
+<h1 id="pihole-optional-step">PiHole (Optional step)</h1>
 <p>As a final touch - we can also install a <a href="https://docs.pi-hole.net/main/">PiHole</a> on VPN server machine, to also <strong>filter ads</strong>.<br>
 The general idea there is to set the local PiHole app as a DNS endpoint, which acts as a <a href="https://en.wikipedia.org/wiki/DNS_sinkhole">DNS sinkhole</a> for domains associated with ads, and bypasses the rest to the real public DNS.<br>
 Since all the VPN traffic anyway will go through that server, it automatically will be filtered by locally running PiHole.</p>
+<p><strong><em>CAUTION</em></strong>:<br>
+Pi-hole is designed to be lightweight, but it can experience performance spikes during heavy operations like blocklist updates. If you have a large number of blocklists or are using low-resource hardware (e.g., a device with 256MB RAM), you may observe high CPU usage. <a href="https://docs.pi-hole.net/guides/misc/benchmark/">Here is</a> a nice doc about perf. tuning.</p>
 <h2 id="installation">Installation</h2>
 <p>Following the official site, the easiest way to install is:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl -sSL https://install.pi-hole.net | sudo bash

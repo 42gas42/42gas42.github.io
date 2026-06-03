@@ -48,7 +48,7 @@
       <link>https://gasparian.github.io/openvpn/</link>
       <pubDate>Wed, 09 Aug 2023 18:13:51 +0100</pubDate>
       <guid>https://gasparian.github.io/openvpn/</guid>
-      <description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;&#xA;&lt;p&gt;VPN was originally created to extend a private corporate LAN across a public network, allowing remote users to reach internal resources without exposing them directly to the internet. Rather than making file shares, intranet services, databases, or administrative interfaces publicly reachable, the VPN terminates an authenticated, encrypted tunnel at the network edge and then forwards authorized traffic into the internal office subnet.&lt;br&gt;&#xA;OpenVPN became one of the first SSL/TLS-based generation of VPNs (~2002), comparing to older PPTP/IPsec lineage, which applies encription on IP-level.&lt;br&gt;&#xA;Here a simple illustration:&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;&#xA;&lt;p&gt;VPN was originally created to extend a private corporate LAN across a public network, allowing remote users to reach internal resources without exposing them directly to the internet. Rather than making file shares, intranet services, databases, or administrative interfaces publicly reachable, the VPN terminates an authenticated, encrypted tunnel at the network edge and then forwards authorized traffic into the internal office subnet.&lt;br&gt;&#xA;OpenVPN became one of the first SSL/TLS-based generation of VPNs (~2002), comparing to older PPTP/IPsec lineage, which applies encription on IP-level.&lt;br&gt;&#xA;Here a simple illustration:&lt;/p&gt;</description>
     </item>
     <item>
       <title>cProfile</title>
