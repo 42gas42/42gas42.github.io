@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="description" content="Motivation
+Sometimes, you need some simple way of “proxying” traffic between regions or subnets. One of the simplest and most performant ways to do that is using NAT.
+The thing is, with a “classic” proxy, you create at least two connections, and it often operates at the application layer of the OSI model. But actually, in many cases, simple IP packet forwarding is enough.
+An example could be cross-region VPN access, where the goal is to have a server in region A and redirect TCP/UDP traffic coming to, let’s say, port 4443, to a VPN server in region B. In that case, you basically just need to rewrite the UDP packet destination IP address, which is an L3 operation, while selecting the packets by looking at the destination port, which is L4. This method does not require heavy encryption or application-level processing, and it runs entirely in kernel space.">  
+
+  <title>
+    
+      Nat Gateway
+    
+  </title>
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/" />
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
+  
+  
+  <link rel="stylesheet" href="/css/custom.c7e593a8810aa2360e6e7baeeda7248137ac4e73e8c30a0b151c3d0de408150af9872b75dfa565c3a5758adb121f6ef23469441e915fee619a1bbe9c07fdbfcf.css" integrity="sha512-x&#43;WTqIEKojYObnuu7ackgTesTnPowwoLFRw9DeQIFQr5hyt136Vlw6V1itsSH27yNGlEHpFf7mGaG76cB/2/zw==" />
+  
+</head>
+<body a="auto">
+        <main class="page-content" aria-label="Content">
+            <div class="w">
+<a href="/">&lt;--</a>
+
+
+<article>
+    <p class="post-meta">
+        <time datetime="2025-12-30 16:06:44 &#43;0200 &#43;0200">
+            2025-12-30
+        </time>
+    </p>
+
+    <h1>Nat Gateway</h1>
+
+    
+
+    <h1 id="motivation">Motivation</h1>
+<p>Sometimes, you need some simple way of “proxying” traffic between regions or subnets. One of the simplest and most performant ways to do that is using <a href="https://en.wikipedia.org/wiki/Network_address_translation">NAT</a>.</p>
+<p>The thing is, with a “classic” proxy, you create at least two connections, and it often operates at the application layer of the OSI model. But actually, in many cases, simple IP packet forwarding is enough.</p>
+<p>An example could be cross-region VPN access, where the goal is to have a server in region A and redirect TCP/UDP traffic coming to, let’s say, port 4443, to a VPN server in region B. In that case, you basically just need to rewrite the UDP packet destination IP address, which is an L3 operation, while selecting the packets by looking at the destination port, which is L4. This method does not require heavy encryption or application-level processing, and it runs entirely in kernel space.</p>
+<p>In Linux, there is a kernel framework called <a href="https://en.wikipedia.org/wiki/Netfilter">netfilter</a>, which is responsible for packet filtering, NAT, and traffic redirection.</p>
+<p>Historically, there was the <a href="https://en.wikipedia.org/wiki/Iptables">iptables</a> user-space utility for defining packet filtering and NAT rules. But since Linux kernel 3.13, a more modern tool exists: <a href="https://en.wikipedia.org/wiki/Nftables">nftables</a>. Conceptually, nftables uses a small virtual machine inside the kernel, which executes bytecode-like rules to inspect packets, match conditions, and apply actions such as filtering, NAT, or marking packets.</p>
+<p>So let’s configure simple nftables rules that combine firewalling and IPv4 traffic redirection.</p>
+<h1 id="set-up">Set up</h1>
+<p>Check that forwarding enabled:</p>
+<pre tabindex="0"><code>sysctl net.ipv4.ip_forward
+</code></pre><p>If <code>0</code> —&gt; enable it:</p>
+<pre tabindex="0"><code>sudo sysctl -w net.ipv4.ip_forward=1
+echo &#39;net.ipv4.ip_forward=1&#39; | sudo tee /etc/sysctl.d/99-forwarding.conf
+sudo sysctl --system
+</code></pre><p>Create <code>sudo vi /etc/nftables.conf</code>:</p>
+<pre tabindex="0"><code>#!/usr/sbin/nft -f
+
+flush ruleset
+
+table inet filter {
+        chain input {
+                type filter hook input priority 0; policy drop;
+
+                ct state established,related accept
+                iifname &#34;lo&#34; accept
+
+                tcp dport 443 accept
+                tcp dport 80 accept
+                tcp dport 22 accept
+
+        }
+        chain forward {
+                type filter hook forward priority 0; policy accept;
+        }
+        chain output {
+                type filter hook output priority 0; policy accept;
+        }
+}
+
+table ip nat {
+    chain prerouting {
+        type nat hook prerouting priority dstnat; policy accept;
+
+        tcp dport { 4443 } dnat to 2.2.2.2
+        udp dport { 4443 } dnat to 2.2.2.2 
+    }
+
+    chain postrouting {
+        type nat hook postrouting priority srcnat; policy accept;
+
+        ip daddr 2.2.2.2 tcp dport { 4443 } masquerade
+        ip daddr 2.2.2.2 udp dport { 4443 } masquerade
+
+        iifname &#34;tun0&#34; masquerade
+    }
+}
+</code></pre><h2 id="explanation">Explanation</h2>
+<p>Remove all existing nftables rules before applying this config. Be careful with this on a remote server: if the new rules are wrong, you can accidentally lock yourself out.</p>
+<pre tabindex="0"><code>flush ruleset
+</code></pre><p>The &ldquo;inet&rdquo; family applies to both IPv4 and IPv6. Here we define what traffic is allowed to reach this machine itself (on ports 443, 80, 22), what traffic can be forwarded through it (any), and what traffic it can send out (all).</p>
+<pre tabindex="0"><code>table inet filter {
+        chain input {
+        ...
+        }
+        chain forward {
+        ...
+        }
+        chain output {
+        ...
+        }
+}
+</code></pre><p>Next, is ipv4 <code>nat</code> for traffic redirection:</p>
+<pre tabindex="0"><code>table ip nat {
+    chain prerouting {
+    ...
+    }
+
+    chain postrouting {
+    ...
+    }
+}
+</code></pre><p>In <code>prerouting</code>, we catch incoming TCP and UDP traffic on port <code>4443</code> before the kernel decides where to send it, and rewrite its destination to the backend server <code>2.2.2.2</code>. Since we don’t specify another port, the original port is preserved: <code>this_machine:4443</code> becomes <code>2.2.2.2:4443</code>.</p>
+<p>In <code>postrouting</code>, we apply <code>masquerade</code> for traffic going to that backend. This makes the backend see our machine as the source, so replies come back through the same path and nftables/conntrack can translate them back to the original client. The extra <code>tun0</code> masquerade rule is useful when the same machine also works as a VPN gateway, though in a stricter setup I’d usually limit it by subnet and outgoing interface.</p>
+<h2 id="running">Running</h2>
+<p>Apply new config and restart a service:</p>
+<pre tabindex="0"><code>sudo nft -f /etc/nftables.conf
+sudo systemctl restart nftables
+sudo systemctl status nftables
+</code></pre><p>If all good - enable the service:</p>
+<pre tabindex="0"><code>sudo systemctl enable nftables
+</code></pre><p>You may also use <a href="https://en.wikipedia.org/wiki/Iftop">iftop</a> for network monitoring.</p>
+<hr>
+
+</article>
+
+                
+    
+    
+        <!-- This is footer.
+You can edit this in ../nostyleplease/layouts/footer.md -->
+
+    
+
+
+            </div>
+        </main>
+    </body>
+</html>

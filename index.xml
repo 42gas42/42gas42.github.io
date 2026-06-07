@@ -6,14 +6,21 @@
     <description>Recent content on ░▒▓██▓▒░</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Oct 2025 20:25:08 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 30 Dec 2025 16:06:44 +0200</lastBuildDate>
     <atom:link href="https://gasparian.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nat Gateway</title>
+      <link>https://gasparian.github.io/nat-gateway/</link>
+      <pubDate>Tue, 30 Dec 2025 16:06:44 +0200</pubDate>
+      <guid>https://gasparian.github.io/nat-gateway/</guid>
+      <description>&lt;h1 id=&#34;motivation&#34;&gt;Motivation&lt;/h1&gt;&#xA;&lt;p&gt;Sometimes, you need some simple way of “proxying” traffic between regions or subnets. One of the simplest and most performant ways to do that is using &lt;a href=&#34;https://en.wikipedia.org/wiki/Network_address_translation&#34;&gt;NAT&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;The thing is, with a “classic” proxy, you create at least two connections, and it often operates at the application layer of the OSI model. But actually, in many cases, simple IP packet forwarding is enough.&lt;/p&gt;&#xA;&lt;p&gt;An example could be cross-region VPN access, where the goal is to have a server in region A and redirect TCP/UDP traffic coming to, let’s say, port 4443, to a VPN server in region B. In that case, you basically just need to rewrite the UDP packet destination IP address, which is an L3 operation, while selecting the packets by looking at the destination port, which is L4. This method does not require heavy encryption or application-level processing, and it runs entirely in kernel space.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>A̶n̶y̶d̶e̶s̶k̶ --&gt; Rustdesk!</title>
       <link>https://gasparian.github.io/rustdesk/</link>
       <pubDate>Tue, 21 Oct 2025 20:25:08 +0100</pubDate>
       <guid>https://gasparian.github.io/rustdesk/</guid>
-      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;AnyDesk&lt;/code&gt; is one of the most popular remote desktop tools, used worldwide, &lt;em&gt;including&lt;/em&gt; in some security-sensitive industries. The issue is that closed-source software is hard to audit, and it’s especially risky if the vendor operates in jurisdictions with broad government access powers (AnyDesk is a German company and (at least for its public infrastructure) relies on third-party OVHcloud hosting (French, based in the EU), which is a huge concern).&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://anydesk.com/en&#34;&gt;AnyDesk&lt;/a&gt; is one of the most popular remote desktop tools, used worldwide, &lt;em&gt;including&lt;/em&gt; in some security-sensitive industries. The issue is that closed-source software is hard to audit, and it’s especially risky if the vendor operates in jurisdictions you may be concerned with (AnyDesk is a German company and (at least for its public infrastructure) relies on third-party &lt;a href=&#34;https://www.ovhcloud.com/en/&#34;&gt;OVHcloud hosting&lt;/a&gt; (French).&lt;/p&gt;&#xA;&lt;p&gt;At a high level, this kind of software uses centralized “rendezvous” (sometimes called “broker” or “signaling”) servers to match clients and help them establish a peer-to-peer (P2P) connection. If a direct P2P connection can’t be established due to NAT, complex network topologies, or restrictive firewalls—the connection typically falls back to a relay server that forwards traffic between the endpoints.&lt;/p&gt;</description>
     </item>
     <item>
       <title>LLMs for On-Premises Deployment</title>
