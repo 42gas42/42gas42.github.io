@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="description" content="Arkenfox setup
+TODO: some intro about what it is and why its needed
+
+Create separate profile in firefox, here it is:
+
+&ldquo;~/Library/Application Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox&rdquo;
+You can find it&rsquo;s location folder by looking at about:profiles.
+
+Create a copy of it:
+
+sudo mkdir -p &ldquo;~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox.bak&rdquo;
+sudo cp -R ~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/* ~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox.bak
+
+
+Clone arkenfox user.js to ~/Documents:
+git clone https://github.com/arkenfox/user.js.git
+
+
+Copy some files from arkenfox repo to profile:
+sudo cp ~/Documents/user.js/user.js /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/
+sudo cp ~/Documents/user.js/updater.sh /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/
+sudo cp ~/Documents/user.js/prefsCleaner.sh /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/">  
+
+  <title>
+    
+      Arkenfox
+    
+  </title>
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/" />
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.900100e9dbee2d56c58fac8bb717037cae7e26a9c36c29d2ff587bdd65f0cbbe510b41d81a3bb234919cdfdc7550d786b2fab70c8fc507772d732fe097106d12.css" integrity="sha512-kAEA6dvuLVbFj6yLtxcDfK5&#43;JqnDbCnS/1h73WXwy75RC0HYGjuyNJGc39x1UNeGsvq3DI/FB3ctcy/glxBtEg==" />
+  
+  
+  <link rel="stylesheet" href="/css/custom.c8e1e56572d2f8834784c95261979120d7fa0ad620c99384652a97322238f5f3df327cfe6e7202f2aae7889077f7df104d752d3ec8512583c19a881059e58ab2.css" integrity="sha512-yOHlZXLS&#43;INHhMlSYZeRINf6CtYgyZOEZSqXMiI49fPfMnz&#43;bnIC8qrniJB3998QTXUtPshRJYPBmogQWeWKsg==" />
+  
+</head>
+<body a="auto">
+        <main class="page-content" aria-label="Content">
+            <div class="w">
+<a href="/">&lt;--</a>
+
+
+<article>
+    <p class="post-meta">
+        <time datetime="2026-07-18 17:06:54 &#43;0200 CEST">
+            2026-07-18
+        </time>
+    </p>
+
+    <h1>Arkenfox</h1>
+
+    
+
+    <h1 id="arkenfox-setup">Arkenfox setup</h1>
+<p>TODO: some intro about what it is and why its needed</p>
+<ol>
+<li>Create separate profile in firefox, here it is:</li>
+</ol>
+<p>&ldquo;~/Library/Application Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox&rdquo;</p>
+<p>You can find it&rsquo;s location folder by looking at <code>about:profiles</code>.</p>
+<ol>
+<li>Create a copy of it:</li>
+</ol>
+<p>sudo mkdir -p &ldquo;~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox.bak&rdquo;</p>
+<p>sudo cp -R ~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/* ~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox.bak</p>
+<ol start="3">
+<li>
+<p>Clone arkenfox user.js to <code>~/Documents</code>:
+git clone <a href="https://github.com/arkenfox/user.js.git">https://github.com/arkenfox/user.js.git</a></p>
+</li>
+<li>
+<p>Copy some files from arkenfox repo to profile:
+sudo cp ~/Documents/user.js/user.js /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/
+sudo cp ~/Documents/user.js/updater.sh /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/
+sudo cp ~/Documents/user.js/prefsCleaner.sh /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/</p>
+</li>
+<li>
+<p>Cd to the profile folder and create user-overrides.js in the profile folder:</p>
+</li>
+</ol>
+<pre tabindex="0"><code>// =======================
+// Clearnet Hardened Firefox Profile - Arkenfox Overrides
+// Goal:
+// - DuckDuckGo default search via policies.json, not user.js
+// - No search suggestions / URL-bar suggestions / form history
+// - Blank new tabs and blank home page
+// - Restore previous open tabs + pinned tabs
+// - Clear cookies/storage globally, keep trusted logins via site exceptions
+// - Hardware access only by user consent
+// - Stronger privacy without breaking normal clearnet browsing too much
+// =======================
+
+
+// ======================================================
+// 1. Background network checks
+// ======================================================
+
+user_pref(&#34;network.captive-portal-service.enabled&#34;, false);
+user_pref(&#34;network.connectivity-service.enabled&#34;, false);
+
+
+// ======================================================
+// 2. Address bar / search behavior
+// ======================================================
+
+// Keep URL-bar search enabled for DuckDuckGo via policies.json.
+user_pref(&#34;keyword.enabled&#34;, true);
+
+// Avoid DNS guessing / single-word fixups.
+user_pref(&#34;browser.fixup.dns_first_for_single_words&#34;, false);
+user_pref(&#34;browser.fixup.alternate.enabled&#34;, false);
+
+// Disable search suggestions.
+user_pref(&#34;browser.search.suggest.enabled&#34;, false);
+user_pref(&#34;browser.search.suggest.enabled.private&#34;, false);
+user_pref(&#34;browser.urlbar.suggest.searches&#34;, false);
+user_pref(&#34;browser.urlbar.suggest.engines&#34;, false);
+user_pref(&#34;browser.urlbar.showSearchSuggestionsFirst&#34;, false);
+
+// Disable Firefox Suggest / Quick Suggest / sponsored / trending.
+user_pref(&#34;browser.urlbar.quicksuggest.enabled&#34;, false);
+user_pref(&#34;browser.urlbar.suggest.quicksuggest.all&#34;, false);
+user_pref(&#34;browser.urlbar.suggest.quicksuggest.sponsored&#34;, false);
+user_pref(&#34;browser.urlbar.suggest.trending&#34;, false);
+
+// Disable URL-bar suggestions from local data.
+user_pref(&#34;browser.urlbar.suggest.history&#34;, false);
+user_pref(&#34;browser.urlbar.suggest.bookmark&#34;, false);
+user_pref(&#34;browser.urlbar.suggest.openpage&#34;, false);
+user_pref(&#34;browser.urlbar.suggest.topsites&#34;, false);
+user_pref(&#34;browser.urlbar.autoFill&#34;, false);
+
+// Avoid speculative URL-bar connections.
+user_pref(&#34;browser.urlbar.speculativeConnect.enabled&#34;, false);
+
+// Show full URLs.
+user_pref(&#34;browser.urlbar.trimURLs&#34;, false);
+
+
+// ======================================================
+// 3. Form/search history
+// ======================================================
+
+user_pref(&#34;browser.formfill.enable&#34;, false);
+
+
+// ======================================================
+// 4. Startup / new tab / home page
+// ======================================================
+
+// 3 = restore previous session.
+// Required for previous tabs and pinned tabs.
+user_pref(&#34;browser.startup.page&#34;, 3);
+
+// Blank home page / new window fallback.
+user_pref(&#34;browser.startup.homepage&#34;, &#34;about:blank&#34;);
+
+// Blank new tab.
+user_pref(&#34;browser.newtabpage.enabled&#34;, false);
+user_pref(&#34;browser.newtabpage.activity-stream.enabled&#34;, false);
+user_pref(&#34;browser.newtab.preload&#34;, false);
+
+
+// ======================================================
+// 5. Session restore behavior
+// ======================================================
+
+// Keep crash/session restore enabled.
+user_pref(&#34;browser.sessionstore.resume_from_crash&#34;, true);
+
+// Store only current page per tab, not long back/forward chains.
+user_pref(&#34;browser.sessionstore.max_serialize_back&#34;, 0);
+user_pref(&#34;browser.sessionstore.max_serialize_forward&#34;, 0);
+
+// Do not keep closed-tab/window undo history.
+user_pref(&#34;browser.sessionstore.max_tabs_undo&#34;, 0);
+user_pref(&#34;browser.sessionstore.max_windows_undo&#34;, 0);
+
+// Session data write interval.
+user_pref(&#34;browser.sessionstore.interval&#34;, 15000);
+
+
+// ======================================================
+// 6. Passwords / logins
+// ======================================================
+
+// Keep Firefox password manager.
+user_pref(&#34;signon.rememberSignons&#34;, true);
+
+// Do not autofill saved credentials automatically.
+user_pref(&#34;signon.autofillForms&#34;, false);
+
+
+// ======================================================
+// 7. Shutdown cleanup
+// ======================================================
+
+// Keep sanitize-on-shutdown enabled.
+user_pref(&#34;privacy.sanitize.sanitizeOnShutdown&#34;, true);
+
+// Critical: do NOT clear history/session data,
+// otherwise previous-session restore can break.
+user_pref(&#34;privacy.clearOnShutdown.history&#34;, false);
+user_pref(&#34;privacy.clearOnShutdown_v2.historyFormDataAndDownloads&#34;, false);
+user_pref(&#34;privacy.clearHistory.historyFormDataAndDownloads&#34;, false);
+
+// Do NOT clear site settings; cookie exceptions live there.
+user_pref(&#34;privacy.clearOnShutdown.siteSettings&#34;, false);
+user_pref(&#34;privacy.clearOnShutdown_v2.siteSettings&#34;, false);
+
+// Clear cookies/storage globally.
+// Trusted logins should survive via cookie exceptions.
+user_pref(&#34;privacy.clearOnShutdown.cookies&#34;, true);
+user_pref(&#34;privacy.clearOnShutdown_v2.cookiesAndStorage&#34;, true);
+
+// Clear cache and offline app data.
+user_pref(&#34;privacy.clearOnShutdown.cache&#34;, true);
+user_pref(&#34;privacy.clearOnShutdown_v2.cache&#34;, true);
+user_pref(&#34;privacy.clearOnShutdown.offlineApps&#34;, true);
+
+// Clear downloads/form data on shutdown.
+user_pref(&#34;privacy.clearOnShutdown.downloads&#34;, true);
+user_pref(&#34;privacy.clearOnShutdown.formdata&#34;, true);
+
+
+// ======================================================
+// 8. Tracking protection / HTTPS / attribution
+// ======================================================
+
+// Strong Enhanced Tracking Protection.
+// Usually good UX/privacy balance.
+user_pref(&#34;browser.contentblocking.category&#34;, &#34;strict&#34;);
+
+// HTTPS-Only Mode.
+// May need manual exceptions for old local devices / legacy HTTP sites.
+user_pref(&#34;dom.security.https_only_mode&#34;, true);
+user_pref(&#34;dom.security.https_only_mode_pbm&#34;, true);
+
+// Reduce cross-origin referrer leakage.
+user_pref(&#34;network.http.referer.XOriginTrimmingPolicy&#34;, 2);
+
+// Disable privacy-invasive attribution/reporting surfaces.
+user_pref(&#34;dom.private-attribution.submission.enabled&#34;, false);
+
+
+// ======================================================
+// 9. Geolocation / telemetry / experiments
+// ======================================================
+
+// Block geolocation by default.
+user_pref(&#34;permissions.default.geo&#34;, 2);
+user_pref(&#34;geo.enabled&#34;, false);
+user_pref(&#34;geo.provider.network.url&#34;, &#34;&#34;);
+
+// Disable Firefox telemetry / studies / experiments.
+user_pref(&#34;datareporting.healthreport.uploadEnabled&#34;, false);
+user_pref(&#34;datareporting.policy.dataSubmissionEnabled&#34;, false);
+user_pref(&#34;toolkit.telemetry.enabled&#34;, false);
+user_pref(&#34;toolkit.telemetry.unified&#34;, false);
+user_pref(&#34;toolkit.telemetry.archive.enabled&#34;, false);
+user_pref(&#34;app.shield.optoutstudies.enabled&#34;, false);
+user_pref(&#34;app.normandy.enabled&#34;, false);
+user_pref(&#34;app.normandy.api_url&#34;, &#34;&#34;);
+
+
+// ======================================================
+// 10. Google Safe Browsing minimization
+// ======================================================
+
+// Privacy gain: fewer Google-related Safe Browsing calls.
+// Security cost: weaker malware/phishing/download protection.
+// Keep this block if your priority is &#34;no Google-related network services&#34;.
+user_pref(&#34;browser.safebrowsing.malware.enabled&#34;, false);
+user_pref(&#34;browser.safebrowsing.phishing.enabled&#34;, false);
+user_pref(&#34;browser.safebrowsing.downloads.enabled&#34;, false);
+user_pref(&#34;browser.safebrowsing.downloads.remote.enabled&#34;, false);
+user_pref(&#34;browser.safebrowsing.provider.google4.dataSharing.enabled&#34;, false);
+user_pref(&#34;browser.safebrowsing.provider.google4.updateURL&#34;, &#34;&#34;);
+user_pref(&#34;browser.safebrowsing.provider.google4.gethashURL&#34;, &#34;&#34;);
+user_pref(&#34;browser.safebrowsing.provider.google.updateURL&#34;, &#34;&#34;);
+user_pref(&#34;browser.safebrowsing.provider.google.gethashURL&#34;, &#34;&#34;);
+
+
+// ======================================================
+// 11. Hardware / device access
+// ======================================================
+
+// 0 = ask, 1 = allow, 2 = block.
+user_pref(&#34;permissions.default.camera&#34;, 0);
+user_pref(&#34;permissions.default.microphone&#34;, 0);
+user_pref(&#34;permissions.default.screen&#34;, 0);
+
+// Block noisy/risky permission types.
+user_pref(&#34;permissions.default.desktop-notification&#34;, 2);
+user_pref(&#34;permissions.default.xr&#34;, 2);
+
+// Autoplay off.
+user_pref(&#34;media.autoplay.default&#34;, 5);
+user_pref(&#34;media.autoplay.blocking_policy&#34;, 2);
+
+// Minimize device/sensor APIs.
+user_pref(&#34;dom.webmidi.enabled&#34;, false);
+user_pref(&#34;dom.gamepad.enabled&#34;, false);
+user_pref(&#34;device.sensors.enabled&#34;, false);
+user_pref(&#34;dom.vibrator.enabled&#34;, false);
+
+// WebRTC: keep video calls usable, but limit local IP exposure.
+user_pref(&#34;media.peerconnection.ice.default_address_only&#34;, true);
+user_pref(&#34;media.peerconnection.ice.no_host&#34;, true);
+
+
+// ======================================================
+// 12. Optional integrations / services
+// ======================================================
+
+// Disable Pocket.
+user_pref(&#34;extensions.pocket.enabled&#34;, false);
+
+// Disable Firefox Account / Sync.
+// If you use Firefox Sync, remove this line.
+user_pref(&#34;identity.fxaccounts.enabled&#34;, false);
+
+// Disable DRM.
+// If you use Netflix, Spotify Web Player, some paid streaming sites,
+// remove or set this to true.
+user_pref(&#34;media.eme.enabled&#34;, false);
+</code></pre><ol start="6">
+<li>
+<p>Close Firefox</p>
+</li>
+<li>
+<p>(First time) Change ownership of arkenfox related files and ensure executables:</p>
+</li>
+</ol>
+<pre tabindex="0"><code>sudo chown &#34;$USER&#34;:&#34;$(id -gn)&#34; user.js prefsCleaner.sh user-overrides.js updater.sh
+</code></pre><pre tabindex="0"><code>chmod u+x updater.sh prefsCleaner.sh 
+</code></pre><ol start="8">
+<li>
+<p>While in the profile folder, run <code>./updater.sh</code> and <code>./prefsCleaner.sh</code></p>
+</li>
+<li>
+<p>Run Firefox again, check that it works</p>
+</li>
+<li>
+<p>Add ublock origin extension.</p>
+</li>
+<li>
+<p>Go to the Settings &ndash;&gt; Privacy &amp; Security &ndash;&gt; add expections to the coockies store between sessions, to not log back to certain services, like mail, etc.</p>
+</li>
+</ol>
+
+</article>
+
+                
+    
+    
+        <!-- This is footer.
+You can edit this in ../nostyleplease/layouts/footer.md -->
+
+    
+
+
+            </div>
+        </main>
+    </body>
+</html>

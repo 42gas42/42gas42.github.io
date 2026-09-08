@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
    <meta name="description" content="Introduction
-AnyDesk is one of the most popular remote desktop tools, used worldwide, including in some security-sensitive industries. The issue is that closed-source software is hard to audit, and it’s especially risky if the vendor operates in jurisdictions you may be concerned with (AnyDesk is a German company and (at least for its public infrastructure) relies on third-party OVHcloud hosting (French).
+AnyDesk is one of the most popular remote desktop tools, used worldwide, including in some security-sensitive industries. The issue is that closed-source software is hard to audit, and it’s especially risky if the vendor operates in jurisdictions you may be concerned with.
 At a high level, this kind of software uses centralized “rendezvous” (sometimes called “broker” or “signaling”) servers to match clients and help them establish a peer-to-peer (P2P) connection. If a direct P2P connection can’t be established due to NAT, complex network topologies, or restrictive firewalls—the connection typically falls back to a relay server that forwards traffic between the endpoints.">  
 
   <title>
@@ -42,7 +42,7 @@ At a high level, this kind of software uses centralized “rendezvous” (someti
     
 
     <h2 id="introduction">Introduction</h2>
-<p><a href="https://anydesk.com/en">AnyDesk</a> is one of the most popular remote desktop tools, used worldwide, <em>including</em> in some security-sensitive industries. The issue is that closed-source software is hard to audit, and it’s especially risky if the vendor operates in jurisdictions you may be concerned with (AnyDesk is a German company and (at least for its public infrastructure) relies on third-party <a href="https://www.ovhcloud.com/en/">OVHcloud hosting</a> (French).</p>
+<p><a href="https://anydesk.com/en">AnyDesk</a> is one of the most popular remote desktop tools, used worldwide, <em>including</em> in some security-sensitive industries. The issue is that closed-source software is hard to audit, and it’s especially risky if the vendor operates in jurisdictions you may be concerned with.</p>
 <p>At a high level, this kind of software uses centralized “rendezvous” (sometimes called “broker” or “signaling”) servers to match clients and help them establish a peer-to-peer (P2P) connection. If a direct P2P connection can’t be established due to NAT, complex network topologies, or restrictive firewalls—the connection typically falls back to a relay server that forwards traffic between the endpoints.</p>
 <p>Even if the vendor states that traffic is end-to-end encrypted, you still have to trust the vendor’s binaries and update mechanism. A malicious or compromised update could weaken or disable encryption, or misuse/replace certificates and keys. With closed-source clients and servers, it’s difficult to independently verify what is happening on the wire over time.</p>
 <p>For example, there were several quite severe flaws recently:</p>
