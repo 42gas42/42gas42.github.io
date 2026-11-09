@@ -25,8 +25,10 @@ I&rsquo;ll be focusing on running the server part on a RaspberryPi, but this gui
   <link rel="stylesheet" href="/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
   
   
-  <link rel="stylesheet" href="/css/custom.c7e593a8810aa2360e6e7baeeda7248137ac4e73e8c30a0b151c3d0de408150af9872b75dfa565c3a5758adb121f6ef23469441e915fee619a1bbe9c07fdbfcf.css" integrity="sha512-x&#43;WTqIEKojYObnuu7ackgTesTnPowwoLFRw9DeQIFQr5hyt136Vlw6V1itsSH27yNGlEHpFf7mGaG76cB/2/zw==" />
+  <link rel="stylesheet" href="/css/custom.a4cdf433851ea883e637fbe7fa9d46d4c7e92ee6757e24e4f8bcaed1f1c4f23c8b5896912bfd15d5ed633578137bb4f922457178d502e3c3c53a5948d6e49863.css" integrity="sha512-pM30M4UeqIPmN/vn&#43;p1G1MfpLuZ1fiTk&#43;Lyu0fHE8jyLWJaRK/0V1e1jNXgTe7T5IkVxeNUC48PFOllI1uSYYw==" />
   
+  
+  <script defer src="/js/copy-code.min.d1553503490b14f11456abfee0e4598e8027a749789d393a9221561aa620ea775d7e63490c617bef04589bac76968063847a2353729f6bbbb0c894da48297877.js" integrity="sha512-0VU1A0kLFPEUVqv&#43;4ORZjoAnp0l4nTk6kiFWGqYg6nddfmNJDGF77wRYm6x2loBjhHojU3Kfa7uwyJTaSCl4dw=="></script>
 </head>
 <body a="auto">
         <main class="page-content" aria-label="Content">
@@ -54,7 +56,7 @@ In this post, I&rsquo;ll explain one of the simplest ways to set up a modern ant
 I&rsquo;ll be focusing on running the server part on a RaspberryPi, but this guide would stay the same in case of the VM on a VPC of your choice.</p>
 <h1 id="hardware">Hardware</h1>
 <p><strong>Raspberry PI</strong> looks like a good option, since it&rsquo;s a powerful mini-computer with all needed interfaces for the fair price.<br>
-The best option is to order it from Chinese marketplaces such as AliExpress. I used the Raspberry Pi 4B with 8 GB of RAM as an example, but you can choose a simpler model without Ethernet or USB-A and with 2 GB of RAM — it should serve the needs of dozens of users just fine.<br>
+The best option is to order it from Chinese marketplaces such as AliExpress. I used the Raspberry Pi 4B with 8 GB of RAM as an example, but you can choose a simpler model with 2 GB of RAM — it should serve the needs of dozens of users just fine.<br>
 I suggest to buy a complete set with the housing and a power unit, like <a href="https://www.aliexpress.com/item/1005004388968309.html?spm=a2g0o.order_list.order_list_main.41.4ace1802HcxGeZ">this one</a>.</p>
 <div style="display: flex; justify-content: center; align-items: center; gap: 20px; max-width: 60%; margin: 20px auto;">
   <img src="/home-vpn-static/raspi-inside-1.jpg" style="max-width: 100%; height: 450px; object-fit: cover; object-position: center;" />
@@ -62,12 +64,12 @@ I suggest to buy a complete set with the housing and a power unit, like <a href=
 <p>The best choice will be to install there Ubuntu Server with <a href="https://www.raspberrypi.com/software/">Raspberry PI Imager</a>. Don&rsquo;t forget to add your ssh key during configuration, and connect Pi to the router via Ethernet.</p>
 <h1 id="software">Software</h1>
 <p>The problem is that nowadays it&rsquo;s pretty easy to sniff the traffic with <a href="https://en.wikipedia.org/wiki/Deep_packet_inspection">dpi</a>, detect packets of the popular VPN protocols and drop them.<br>
-The general solution is to built a proxy based on protocol like <a href="https://shadowsocks.org/">Shadowsocks</a>, which is designed to be hard to detect, bypass firewalls and have traffic encryption.<br>
-In contrast with more &ldquo;traditional&rdquo; VPN solutions like <a href="https://en.wikipedia.org/wiki/OpenVPN">OpenVPN</a> or <a href="https://en.wikipedia.org/wiki/WireGuard">WireGuard</a>, where encription is applied on the IP level, modern VPNs modify traffic on the application level, making it harder to detect it.<br>
-As of 2026, there are two prominent ones: <a href="https://xtls.github.io/en/config/outbounds/vless.html">Vless</a> and <a href="https://v2.hysteria.network/">Hysteria(2)</a>, trully opensource, with significant number of maintainers.<br>
-In particullar, VLESS+REALITY is a stealth-focused setup: VLESS provides the lightweight proxy layer, while REALITY disguises it as legitimate TLS traffic without requiring a real certificate.<br>
+The general solution is to build a proxy based on protocol like <a href="https://shadowsocks.org/">Shadowsocks</a>, which is designed to be hard to detect, bypass firewalls and have traffic encryption.<br>
+In contrast with more &ldquo;traditional&rdquo; VPN solutions like <a href="https://en.wikipedia.org/wiki/OpenVPN">OpenVPN</a> or <a href="https://en.wikipedia.org/wiki/WireGuard">WireGuard</a>, where encryption is applied on the IP level, modern VPNs modify traffic on the application level, making it harder to detect it.<br>
+As of 2026, there are two prominent ones: <a href="https://xtls.github.io/en/config/outbounds/vless.html">VLESS</a> and <a href="https://v2.hysteria.network/">Hysteria(2)</a>, truly opensource, with significant number of maintainers.<br>
+In particular, VLESS+REALITY is a stealth-focused setup: VLESS provides the lightweight proxy layer, while REALITY disguises it as legitimate TLS traffic without requiring a real certificate.<br>
 Hysteria2 is a QUIC-based proxy designed for speed and resilience, with strong performance on high-latency, lossy, or unstable networks.</p>
-<h1 id="vless-through-xray">Vless through XRay</h1>
+<h1 id="vless-through-xray">VLESS through XRay</h1>
 <p>Let&rsquo;s set up <a href="https://xtls.github.io/en/config/outbounds/vless.html">VLESS</a> + <a href="https://xtls.github.io/en/config/transport.html">REALITY</a> transport with <a href="https://xtls.github.io/en/config/transport.html#xtlsobject">XTLS Vision</a> on top of <a href="https://github.com/XTLS/Xray-core">Xray-core</a>.<br>
 What all that about:</p>
 <ul>
@@ -75,21 +77,29 @@ What all that about:</p>
 <li><strong>REALITY</strong> — a transport layer for making traffic look like normal TLS/web traffic from the outside.</li>
 <li><strong>XTLS Vision</strong> — the flow/control mode used with Xray to improve efficiency and performance.</li>
 </ul>
-<p>That all is the part of Xray, a project that extends and enhances the capabilities of <a href="https://www.v2ray.com/en/index.html">V2Ray</a>. V2Ray can be compared with Shadowsocks protocol and can be called it&rsquo;s successor (after the original Shadowsocks has been removed from the internet), rather than higher-level vpn/proxy solutions like Outline.<br>
+<p>That all is the part of Xray, a project that extends and enhances the capabilities of <a href="https://www.v2ray.com/en/index.html">V2Ray</a>. V2Ray can be compared with Shadowsocks protocol and can be called its successor (after the original Shadowsocks has been removed from the internet), rather than higher-level vpn/proxy solutions like Outline.<br>
 Xray supports VLESS, while V2Ray does not natively include it, making Xray the appropriate choice for this setup.<br>
 So, let&rsquo;s configure XRay server and client.</p>
 <h2 id="server-ubuntu">Server (Ubuntu)</h2>
 <p>Install XRay:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-</span></span></code></pre></div><p>Then, create a REALITY public/private key pair (X25519), generate it ONCE per inbound (server):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>xray x25519
-</span></span></code></pre></div><p>Generated key pair used by REALITY for the server/client cryptographic handshake.</p>
-<p>Then generate a short uuid for that server:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>openssl rand -hex <span style="color:#ae81ff">8</span>
-</span></span></code></pre></div><p>And finally - create the first client ID with <code style="background-color: #808080;">xray uuid</code>.</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></span></span></code></pre></div>
+</div><p>Then, create a REALITY public/private key pair (X25519), generate it ONCE per inbound (server):</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>xray x25519</span></span></code></pre></div>
+</div><p>Generated key pair used by REALITY for the server/client cryptographic handshake.</p>
+<p>Then generate a short ID for that server:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>openssl rand -hex <span style="color:#ae81ff">8</span></span></span></code></pre></div>
+</div><p>And finally - create the first client ID with <code style="background-color: #808080;">xray uuid</code>.</p>
 <p>You should do it for every new client, and update the server config with the new client entry (see example below).</p>
 <p>Create a config file at <code style="background-color: #808080;">/usr/local/etc/xray/config.json</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;inbounds&#34;</span>: [
 </span></span><span style="display:flex;"><span>    {
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;listen&#34;</span>: <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>,
@@ -111,8 +121,8 @@ So, let&rsquo;s configure XRay server and client.</p>
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;realitySettings&#34;</span>: {
 </span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;show&#34;</span>: <span style="color:#66d9ef">false</span>,
 </span></span><span style="display:flex;"><span>          <span style="color:#75715e">//... or any other public, highly-available service
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#75715e">// which is reachable from the server
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#f92672">&#34;dest&#34;</span>: <span style="color:#e6db74">&#34;www.cloudflare.com:443&#34;</span>, 
+</span></span></span><span style="display:flex;"><span>          <span style="color:#75715e">// which is reachable from the server
+</span></span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;dest&#34;</span>: <span style="color:#e6db74">&#34;www.cloudflare.com:443&#34;</span>, 
 </span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;xver&#34;</span>: <span style="color:#ae81ff">0</span>,
 </span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;serverNames&#34;</span>: [<span style="color:#e6db74">&#34;www.cloudflare.com&#34;</span>],
 </span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;privateKey&#34;</span>: <span style="color:#e6db74">&#34;&lt;PRIVATE_KEY&gt;&#34;</span>, 
@@ -133,12 +143,14 @@ So, let&rsquo;s configure XRay server and client.</p>
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;settings&#34;</span>: {}
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  ]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Pay attention, that we&rsquo;re using here <code>www.cloudflare.com</code> for masquerading, which should be allowed in the area where client operates. Free to choose your own.<br>
-Also, by masquerading here meant that the specified &ldquo;target&rdquo; websites SNIs will be use for tls handshake, which could be crucial for fooling packet inspection software.</p>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</div><p>Pay attention, that we&rsquo;re using here <code>www.cloudflare.com</code> for masquerading, which should be allowed in the area where client operates. Free to choose your own.<br>
+Also, by masquerading here meant that the specified &ldquo;target&rdquo; websites SNIs will be used for tls handshake, which could be crucial for fooling packet inspection software.</p>
 <p>Test that config is correct:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>xray run -test -config /usr/local/etc/xray/config.json
-</span></span></code></pre></div><p>Start the service: <code style="background-color: #808080;">sudo systemctl start xray</code><br>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>xray run -test -config /usr/local/etc/xray/config.json</span></span></code></pre></div>
+</div><p>Start the service: <code style="background-color: #808080;">sudo systemctl start xray</code><br>
 Enable it to start on boot: <code style="background-color: #808080;">sudo systemctl enable xray</code><br>
 Check the status: <code style="background-color: #808080;">sudo systemctl status xray</code><br>
 Or check logs: <code style="background-color: #808080;">journalctl -u xray</code></p>
@@ -148,12 +160,18 @@ Ensure your firewall allows traffic on a selected port using <code style="backgr
 <h3 id="mobile--mac-os">Mobile / Mac OS</h3>
 <p>Install <a href="https://v2boxapp.org/">V2BOX</a> from the store.</p>
 <p>The simplest way to configure would be just to construct a link and paste into the app:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>vless://&lt;UUID&gt;@&lt;SERVER_IPV4&gt;:&lt;PORT&gt;?type<span style="color:#f92672">=</span>tcp&amp;encryption<span style="color:#f92672">=</span>none&amp;security<span style="color:#f92672">=</span>reality&amp;flow<span style="color:#f92672">=</span>xtls-rprx-vision&amp;sni<span style="color:#f92672">=</span>www.cloudflare.com&amp;fp<span style="color:#f92672">=</span>chrome&amp;pbk<span style="color:#f92672">=</span>&lt;PUBLIC_KEY/PASSWORD&gt;&amp;sid<span style="color:#f92672">=</span>&lt;SHORT_ID&gt;#&lt;CONNECTION_NAME&gt;  
-</span></span></code></pre></div><h3 id="linux-ubuntu">Linux (Ubuntu)</h3>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>vless://&lt;UUID&gt;@&lt;SERVER_IPV4&gt;:&lt;PORT&gt;?type<span style="color:#f92672">=</span>tcp&amp;encryption<span style="color:#f92672">=</span>none&amp;security<span style="color:#f92672">=</span>reality&amp;flow<span style="color:#f92672">=</span>xtls-rprx-vision&amp;sni<span style="color:#f92672">=</span>www.cloudflare.com&amp;fp<span style="color:#f92672">=</span>chrome&amp;pbk<span style="color:#f92672">=</span>&lt;PUBLIC_KEY/PASSWORD&gt;&amp;sid<span style="color:#f92672">=</span>&lt;SHORT_ID&gt;#&lt;CONNECTION_NAME&gt;  </span></span></code></pre></div>
+</div><h3 id="linux-ubuntu">Linux (Ubuntu)</h3>
 <p>Install the same xray executable the same way you did for the server:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-</span></span></code></pre></div><p>Add generated ids and keys to the <code>/usr/local/etc/xray/config.json</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></span></span></code></pre></div>
+</div><p>Add generated ids and keys to the <code>/usr/local/etc/xray/config.json</code>:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;log&#34;</span>: { <span style="color:#f92672">&#34;loglevel&#34;</span>: <span style="color:#e6db74">&#34;warning&#34;</span> },
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;inbounds&#34;</span>: [
@@ -162,6 +180,11 @@ Ensure your firewall allows traffic on a selected port using <code style="backgr
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#ae81ff">1081</span>,
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;protocol&#34;</span>: <span style="color:#e6db74">&#34;socks&#34;</span>,
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;settings&#34;</span>: { <span style="color:#f92672">&#34;udp&#34;</span>: <span style="color:#66d9ef">true</span> }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;listen&#34;</span>: <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#ae81ff">1082</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;protocol&#34;</span>: <span style="color:#e6db74">&#34;http&#34;</span>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  ],
 </span></span><span style="display:flex;"><span>
@@ -195,17 +218,23 @@ Ensure your firewall allows traffic on a selected port using <code style="backgr
 </span></span><span style="display:flex;"><span>      }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  ]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><strong>NOTE:</strong> With that config, you only tunnel the traffic that you explicitly send into Xray’s local proxy ports.</p>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</div><p><strong>NOTE:</strong> With that config, you only tunnel the traffic that you explicitly send into Xray’s local proxy ports.</p>
 <p>Then enable and reload the daemon:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl enable xray
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl enable xray
 </span></span><span style="display:flex;"><span>sudo systemctl start xray
-</span></span><span style="display:flex;"><span>sudo systemctl status xray
-</span></span></code></pre></div><p>If everything is green — great, it means our proxy has started up on <code>127.0.0.1:1081</code>. Next, go check the IP using any public service:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl --socks5-hostname 127.0.0.1:1081 -4 -s --max-time <span style="color:#ae81ff">5</span> https://api.ipify.org
-</span></span></code></pre></div><p>Or via http proxy env var:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>HTTP_PROXY<span style="color:#f92672">=</span>http://127.0.0.1:1081 HTTPS_PROXY<span style="color:#f92672">=</span>http://127.0.0.1:1081 curl -s https://api.ipify.org
-</span></span></code></pre></div><p>The IPv4 address should match the server ip.<br>
+</span></span><span style="display:flex;"><span>sudo systemctl status xray</span></span></code></pre></div>
+</div><p>If everything is green — great, it means our proxy has started up on <code>127.0.0.1:1081</code>. Next, go check the IP using any public service:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl --socks5-hostname 127.0.0.1:1081 -4 -s --max-time <span style="color:#ae81ff">5</span> https://api.ipify.org</span></span></code></pre></div>
+</div><p>Or via http proxy env var:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>HTTP_PROXY<span style="color:#f92672">=</span>http://127.0.0.1:1082 HTTPS_PROXY<span style="color:#f92672">=</span>http://127.0.0.1:1082 curl -s https://api.ipify.org</span></span></code></pre></div>
+</div><p>The IPv4 address should match the server ip.<br>
 In the example above, traffic is routed through Xray either by explicit SOCKS arguments (for example, &ndash;socks5-hostname) or by proxy environment variables. For SOCKS-based routing, use ALL_PROXY=socks5h://127.0.0.1:1081. For HTTP-aware clients, use HTTP_PROXY/HTTPS_PROXY (or lowercase http_proxy/https_proxy).</p>
 <h1 id="hysteria2">Hysteria2</h1>
 <p>Now, move to <a href="https://v2.hysteria.network/">Hysteria2</a>.<br>
@@ -213,7 +242,7 @@ What is that about:</p>
 <ul>
 <li><strong>Hysteria2</strong> — a modern proxy protocol built on top of QUIC, designed for speed, efficiency, and censorship resistance.</li>
 <li><strong>QUIC</strong> — a UDP-based transport protocol that improves connection performance, especially on lossy or unstable networks.</li>
-<li><strong>HTTP/3 masquerading</strong> — by default, Hysteria2 mimics normal HTTP/3 traffic, which helps it blend in on the network. BUT, comparing to VLESS+REALITY, here, the spcified masquerading in the config is just a placeholder website, which can cover the VPN server during http probing. And SNI of the vpn itself domain will be used then during communication with the client.</li>
+<li><strong>HTTP/3 masquerading</strong> — by default, Hysteria2 mimics normal HTTP/3 traffic, which helps it blend in on the network. BUT, comparing to VLESS+REALITY, here, the specified masquerading in the config is just a placeholder website, which can cover the VPN server during http probing. And SNI of the vpn itself domain will be used then during communication with the client.</li>
 </ul>
 <p>Unlike the VLESS + REALITY + XTLS Vision stack, Hysteria2 is a self-contained protocol rather than a combination of separate layers.<br>
 It does not rely on Xray-core or V2Ray; instead, it has its own server and client implementation.<br>
@@ -221,15 +250,19 @@ Its main focus is transport performance and resilience, particularly on high-lat
 <p>So, let&rsquo;s configure the Hysteria2 server and client.</p>
 <h2 id="server-ubuntu-1">Server (Ubuntu)</h2>
 <p>Install server script:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bash &lt;<span style="color:#f92672">(</span>curl -fsSL https://get.hy2.sh/<span style="color:#f92672">)</span>
-</span></span></code></pre></div><p>It will also create <code>hysteria</code> group and user.<br>
-In case you <strong>DON&rsquo;T</strong> have a registered domain - generate self-signed ones (otherwise - go direcly to the server config file):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt update
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bash &lt;<span style="color:#f92672">(</span>curl -fsSL https://get.hy2.sh/<span style="color:#f92672">)</span></span></span></code></pre></div>
+</div><p>It will also create <code>hysteria</code> group and user.<br>
+In case you <strong>DON&rsquo;T</strong> have a registered domain - generate your own certs (otherwise - go directly to the server config file):</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt update
 </span></span><span style="display:flex;"><span>sudo apt install easy-rsa -y
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>mkdir ~/easy-rsa
 </span></span><span style="display:flex;"><span>ln -s /usr/share/easy-rsa/* ~/easy-rsa/
-</span></span><span style="display:flex;"><span>sudo chown gas ~/easy-rsa
+</span></span><span style="display:flex;"><span>sudo chown $USER ~/easy-rsa
 </span></span><span style="display:flex;"><span>chmod <span style="color:#ae81ff">700</span> ~/easy-rsa
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>cd ~/easy-rsa
@@ -242,17 +275,17 @@ In case you <strong>DON&rsquo;T</strong> have a registered domain - generate sel
 </span></span><span style="display:flex;"><span>./easyrsa build-ca nopass
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>./easyrsa gen-req server nopass
-</span></span><span style="display:flex;"><span>./easyrsa sign-req server server
-</span></span></code></pre></div><p>Copy cert and a key into the Hysteria folder:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo cp /home/gas/easy-rsa/pki/issued/server.crt /home/gas/easy-rsa/pki/private/server.key /etc/hysteria
-</span></span></code></pre></div><p>Set permission to only allow <code>root</code> and <code>hysteria</code> users to interact with the keys:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># directory: accessible to root and hysteria group</span>
+</span></span><span style="display:flex;"><span>./easyrsa sign-req server server</span></span></code></pre></div>
+</div><p>Copy cert and a key into the Hysteria folder:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo cp ~/easy-rsa/pki/issued/server.crt ~/easy-rsa/pki/private/server.key /etc/hysteria</span></span></code></pre></div>
+</div><p>Set permission to only allow <code>root</code> and <code>hysteria</code> users to interact with the keys:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># directory: accessible to root and hysteria group</span>
 </span></span><span style="display:flex;"><span>sudo chown root:hysteria /etc/hysteria
 </span></span><span style="display:flex;"><span>sudo chmod <span style="color:#ae81ff">750</span> /etc/hysteria
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># config: owned by root, readable by hysteria</span>
-</span></span><span style="display:flex;"><span>sudo chown root:hysteria /etc/hysteria/config.yaml
-</span></span><span style="display:flex;"><span>sudo chmod <span style="color:#ae81ff">640</span> /etc/hysteria/config.yaml
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># cert: readable by hysteria</span>
 </span></span><span style="display:flex;"><span>sudo chown root:hysteria /etc/hysteria/server.crt
@@ -260,21 +293,31 @@ In case you <strong>DON&rsquo;T</strong> have a registered domain - generate sel
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># key: readable by hysteria, not world-readable</span>
 </span></span><span style="display:flex;"><span>sudo chown root:hysteria /etc/hysteria/server.key
-</span></span><span style="display:flex;"><span>sudo chmod <span style="color:#ae81ff">640</span> /etc/hysteria/server.key
-</span></span></code></pre></div><p>Use this generated cert to create pinSHA256 hash:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>openssl x509 -noout -fingerprint -sha256 -in /etc/hysteria/server.crt
-</span></span></code></pre></div><p>Save that hex-string, it would be needed for Client setup.</p>
+</span></span><span style="display:flex;"><span>sudo chmod <span style="color:#ae81ff">640</span> /etc/hysteria/server.key</span></span></code></pre></div>
+</div><p>Use this generated cert to create pinSHA256 hash:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>openssl x509 -noout -fingerprint -sha256 -in /etc/hysteria/server.crt | sed <span style="color:#e6db74">&#39;s/^.*=//; s/://g&#39;</span></span></span></code></pre></div>
+</div><p>Save that hex-string, it would be needed for Client setup.</p>
 <p>Allow 5443 port:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo ufw allow <span style="color:#ae81ff">5443</span>
-</span></span></code></pre></div><p>Generate a password:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install pwgen
-</span></span><span style="display:flex;"><span>pwgen -s -y <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">1</span>
-</span></span></code></pre></div><p>Encode raw password:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python3 -c <span style="color:#e6db74">&#39;import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1], safe=&#34;&#34;))&#39;</span> <span style="color:#e6db74">&#39;&lt;PASSWORD&gt;&#39;</span>
-</span></span></code></pre></div><p>Save that url-encoded password, it would be needed for Client setup.
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo ufw allow <span style="color:#ae81ff">5443</span></span></span></code></pre></div>
+</div><p>Generate a password:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install pwgen
+</span></span><span style="display:flex;"><span>pwgen -s -y <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">1</span></span></span></code></pre></div>
+</div><p>Encode raw password:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python3 -c <span style="color:#e6db74">&#39;import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1], safe=&#34;&#34;))&#39;</span> <span style="color:#e6db74">&#39;&lt;PASSWORD&gt;&#39;</span></span></span></code></pre></div>
+</div><p>Save that url-encoded password, it would be needed for Client setup.
 The raw one - goes into the server config.</p>
 <p>Finally, define server config at <code>/etc/hysteria/config.yaml</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">listen</span>: :<span style="color:#ae81ff">5443</span> 
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">listen</span>: :<span style="color:#ae81ff">5443</span> 
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">tls</span>:
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">cert</span>: <span style="color:#ae81ff">/etc/hysteria/server.crt</span>
@@ -289,9 +332,11 @@ The raw one - goes into the server config.</p>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">proxy</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">proxy</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">url</span>: <span style="color:#ae81ff">https://news.ycombinator.com/</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">rewriteHost</span>: <span style="color:#66d9ef">true</span>
-</span></span></code></pre></div><p>Or in case of existing domain:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">listen</span>: :<span style="color:#ae81ff">5443</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">rewriteHost</span>: <span style="color:#66d9ef">true</span></span></span></code></pre></div>
+</div><p>Or in case of existing domain:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">listen</span>: :<span style="color:#ae81ff">5443</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">acme</span>:
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">domains</span>:
@@ -307,22 +352,38 @@ The raw one - goes into the server config.</p>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">proxy</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">proxy</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">url</span>: <span style="color:#ae81ff">https://news.ycombinator.com/</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">rewriteHost</span>: <span style="color:#66d9ef">true</span>
-</span></span></code></pre></div><p>Finally, run server app:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl start hysteria-server.service
-</span></span><span style="display:flex;"><span>sudo systemctl status hysteria-server.service
-</span></span><span style="display:flex;"><span>sudo systemctl enable --now hysteria-server.service
-</span></span></code></pre></div><p>Check logs in case of troubles:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>journalctl --no-pager -e -u hysteria-server.service
-</span></span></code></pre></div><h2 id="client-setup">Client Setup</h2>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">rewriteHost</span>: <span style="color:#66d9ef">true</span></span></span></code></pre></div>
+</div><p>For the ACME variant, allow the ACME HTTP challenge port:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo ufw allow 80/tcp</span></span></code></pre></div>
+</div><div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># config: owned by root, readable by hysteria</span>
+</span></span><span style="display:flex;"><span>sudo chown root:hysteria /etc/hysteria/config.yaml
+</span></span><span style="display:flex;"><span>sudo chmod <span style="color:#ae81ff">640</span> /etc/hysteria/config.yaml</span></span></code></pre></div>
+</div><p>Finally, run server app:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl enable --now hysteria-server.service
+</span></span><span style="display:flex;"><span>sudo systemctl status hysteria-server.service</span></span></code></pre></div>
+</div><p>Check logs in case of troubles:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>journalctl --no-pager -e -u hysteria-server.service</span></span></code></pre></div>
+</div><h2 id="client-setup">Client Setup</h2>
 <p>The easiest way - is to share an URI with all needed configurations.<br>
 In case you have a domain, it would be easy:</p>
-<pre tabindex="0"><code>hy2://&lt;USER&gt;:&lt;URL_ENCODED_PASSWORD&gt;@vpn.example.com:5443/?sni=vpn.example.com
-</code></pre><p>Otherwise:</p>
-<pre tabindex="0"><code>hy2://&lt;USER&gt;:&lt;URL_ENCODED_PASSWORD&gt;@&lt;YOUR_SERVER_IPV4&gt;:5443/?sni=&lt;CERT_SNI&gt;&amp;insecure=1&amp;pinSHA256=&lt;CERT_SHA256&gt;
-</code></pre><p>The most convinient option for the client app I found - <a href="https://hiddify.com/">Hiddify</a>. It&rsquo;s available on Play Store and App Store.<br>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <pre tabindex="0"><code>hy2://&lt;USER&gt;:&lt;URL_ENCODED_PASSWORD&gt;@vpn.example.com:5443/?sni=vpn.example.com</code></pre>
+</div><p>Otherwise:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <pre tabindex="0"><code>hy2://&lt;USER&gt;:&lt;URL_ENCODED_PASSWORD&gt;@&lt;YOUR_SERVER_IPV4&gt;:5443/?sni=&lt;CERT_SNI&gt;&amp;insecure=1&amp;pinSHA256=&lt;CERT_SHA256&gt;</code></pre>
+</div><p>The most convenient option for the client app I found - <a href="https://hiddify.com/">Hiddify</a>. It&rsquo;s available on Play Store and App Store.<br>
 You just choose an option to paste the URI from the buffer and you&rsquo;re good to go.<br>
-<strong>Important note for Mac OS:</strong> get the app for <em>ipads</em> from the App Store. Hiddify desktop app build are unstable atm (on March. 2026).</p>
+<strong>Important note for Mac OS:</strong> get the app for <em>ipads</em> from the App Store. Hiddify desktop app builds are unstable atm (on March. 2026).</p>
 <h1 id="pihole-optional-step">PiHole (Optional step)</h1>
 <p>As a final touch - we can also install a <a href="https://docs.pi-hole.net/main/">PiHole</a> on VPN server machine, to also <strong>filter ads</strong>.<br>
 The general idea there is to set the local PiHole app as a DNS endpoint, which acts as a <a href="https://en.wikipedia.org/wiki/DNS_sinkhole">DNS sinkhole</a> for domains associated with ads, and bypasses the rest to the real public DNS.<br>
@@ -331,42 +392,64 @@ Since all the VPN traffic anyway will go through that server, it automatically w
 Pi-hole is designed to be lightweight, but it can experience performance spikes during heavy operations like blocklist updates. If you have a large number of blocklists or are using low-resource hardware (e.g., a device with 256MB RAM), you may observe high CPU usage. <a href="https://docs.pi-hole.net/guides/misc/benchmark/">Here is</a> a nice doc about perf. tuning.</p>
 <h2 id="installation">Installation</h2>
 <p>Following the official site, the easiest way to install is:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl -sSL https://install.pi-hole.net | sudo bash
-</span></span></code></pre></div><p>On some systems the only way to run it - with <code>sudo</code>.<br>
-The installation wizard should appear. It&rsquo;s safe to accept defaults there, and set Cloudfare as a DNS resolver. <br>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl -sSL https://install.pi-hole.net | sudo bash</span></span></code></pre></div>
+</div><p>On some systems the only way to run it - with <code>sudo</code>.<br>
+The installation wizard should appear. It&rsquo;s safe to accept defaults there, and set Cloudflare as a DNS resolver. <br>
 In the end, you should save the admin password which will appear.</p>
-<p>Then, PiHole admin panel to appear, we need to allow 80 in firewall:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo ufw allow <span style="color:#ae81ff">80</span>
-</span></span></code></pre></div><p>It will be available at <code>http://&lt;PI_IPV4&gt;:80/admin</code>.</p>
+<p>Then, for the PiHole admin panel to appear, we need to allow 80 in firewall:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo ufw allow <span style="color:#ae81ff">80</span></span></span></code></pre></div>
+</div><p>It will be available at <code>http://&lt;PI_IPV4&gt;:80/admin</code>.</p>
 <p>And also add the current user to the pihole group to ease the cli auth:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo usermod -aG pihole $USER
-</span></span></code></pre></div><h2 id="local-dns-set-up">Local DNS Set Up</h2>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo usermod -aG pihole $USER</span></span></code></pre></div>
+</div><h2 id="local-dns-set-up">Local DNS Set Up</h2>
 <p>If your OS uses dhcpcd for network configuration, you can add to your <code>/etc/dhcpcd.conf</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>static domain_name_servers<span style="color:#f92672">=</span>127.0.0.1
-</span></span></code></pre></div><p>Otherwise - it requires a couple more steps to complete.<br>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>static domain_name_servers<span style="color:#f92672">=</span>127.0.0.1</span></span></code></pre></div>
+</div><p>Otherwise - it requires a couple more steps to complete.<br>
 First, check the <code>resolv.conf</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cat /etc/resolv.conf
-</span></span></code></pre></div><p>If it doesn&rsquo;t show the <code>nameserver 127.0.0.1</code>, we need to continue the setup.</p>
-<p>First, check the connect name in a network manager:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>nmcli connection show
-</span></span></code></pre></div><p>&ldquo;Wired connection 1&rdquo; at my case.</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cat /etc/resolv.conf</span></span></code></pre></div>
+</div><p>If it doesn&rsquo;t show the <code>nameserver 127.0.0.1</code>, we need to continue the setup.</p>
+<p>First, check the connection name in a network manager:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>nmcli connection show</span></span></code></pre></div>
+</div><p>&ldquo;Wired connection 1&rdquo; at my case.</p>
 <p>Then, set the DNS endpoint to be localhost:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo nmcli connection modify <span style="color:#e6db74">&#34;Wired connection 1&#34;</span> ipv4.dns <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>
-</span></span></code></pre></div><p>Disable automatic DNS from DHCP:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo nmcli connection modify <span style="color:#e6db74">&#34; ipv4.ignore-auto-dns yes
-</span></span></span></code></pre></div><p>Then, reset the box <em>or</em>, if you&rsquo;re running desktop, reload the connection:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo nmcli connection down <span style="color:#e6db74">&#34;Wired connection 1&#34;</span>
-</span></span><span style="display:flex;"><span>sudo nmcli connection up <span style="color:#e6db74">&#34;Wired connection 1&#34;</span>
-</span></span></code></pre></div><p>Recheck <code>cat /etc/resolv.conf</code>.</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo nmcli connection modify <span style="color:#e6db74">&#34;Wired connection 1&#34;</span> ipv4.dns <span style="color:#e6db74">&#34;127.0.0.1&#34;</span></span></span></code></pre></div>
+</div><p>Disable automatic DNS from DHCP:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo nmcli connection modify <span style="color:#e6db74">&#34;Wired connection 1&#34;</span> ipv4.ignore-auto-dns yes</span></span></code></pre></div>
+</div><p>Then, reset the box <em>or</em>, if you&rsquo;re running desktop, reload the connection:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo nmcli connection down <span style="color:#e6db74">&#34;Wired connection 1&#34;</span>
+</span></span><span style="display:flex;"><span>sudo nmcli connection up <span style="color:#e6db74">&#34;Wired connection 1&#34;</span></span></span></code></pre></div>
+</div><p>Recheck <code>cat /etc/resolv.conf</code>.</p>
 <p>Test it, by running:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>dig google.com
-</span></span></code></pre></div><p>You should see:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>SERVER: 127.0.0.1#53
-</span></span></code></pre></div><p>This means:
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>dig google.com</span></span></code></pre></div>
+</div><p>You should see:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>SERVER: 127.0.0.1#53</span></span></code></pre></div>
+</div><p>This means:
 OS &ndash;&gt; Pi-hole &ndash;&gt; upstream DNS</p>
 <p>Then, we need to allow all network interfaces to use PiHole (so any VPN connection could go through there).<br>
-Go to PiHole admin panel &ndash;&gt; settings &ndash;&gt; allow the &ldquo;expert&rdquo; setting &ndash;&gt; DNS listening mode &ndash;&gt; allow &ldquo;ALL&rdquo;.</p>
-<p>And, finally, I suggest to change ratelimiter for PiHole to a higher spikes values. You can do it through the admin panel, by setting rate limit timeout to 60 sec. and increasing max value for some large number, like 50000. Otherwise, this could block the internet access enterily for some time, since there would be not a lot of clients served, and it would be high rps on VPN server and local interfaces.</p>
+Go to PiHole admin panel &ndash;&gt; settings &ndash;&gt; DNS &ndash;&gt; interface settings &ndash;&gt; select &ldquo;Permit all origins&rdquo;.</p>
+<p>And, finally, I suggest to change ratelimiter for PiHole to a higher spikes values. You can do it through the admin panel, by setting the rate limit interval to 60 sec. and increasing the query limit to some large number, like 50000. Otherwise, this could block the internet access entirely for some time, since there would be not a lot of clients served, and it would be high rps on VPN server and local interfaces.</p>
 <p>It should be all setup correctly from now on!<br>
 Double check the actual ads blocking from your desktop, connected to the VPN, with smth like <a href="https://canyoublockit.com/">https://canyoublockit.com/</a>.</p>
 <hr>

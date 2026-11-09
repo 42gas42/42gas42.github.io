@@ -24,8 +24,10 @@ It doesn&rsquo;t have stuff that is not being used by application at runtime: li
   <link rel="stylesheet" href="/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
   
   
-  <link rel="stylesheet" href="/css/custom.c7e593a8810aa2360e6e7baeeda7248137ac4e73e8c30a0b151c3d0de408150af9872b75dfa565c3a5758adb121f6ef23469441e915fee619a1bbe9c07fdbfcf.css" integrity="sha512-x&#43;WTqIEKojYObnuu7ackgTesTnPowwoLFRw9DeQIFQr5hyt136Vlw6V1itsSH27yNGlEHpFf7mGaG76cB/2/zw==" />
+  <link rel="stylesheet" href="/css/custom.a4cdf433851ea883e637fbe7fa9d46d4c7e92ee6757e24e4f8bcaed1f1c4f23c8b5896912bfd15d5ed633578137bb4f922457178d502e3c3c53a5948d6e49863.css" integrity="sha512-pM30M4UeqIPmN/vn&#43;p1G1MfpLuZ1fiTk&#43;Lyu0fHE8jyLWJaRK/0V1e1jNXgTe7T5IkVxeNUC48PFOllI1uSYYw==" />
   
+  
+  <script defer src="/js/copy-code.min.d1553503490b14f11456abfee0e4598e8027a749789d393a9221561aa620ea775d7e63490c617bef04589bac76968063847a2353729f6bbbb0c894da48297877.js" integrity="sha512-0VU1A0kLFPEUVqv&#43;4ORZjoAnp0l4nTk6kiFWGqYg6nddfmNJDGF77wRYm6x2loBjhHojU3Kfa7uwyJTaSCl4dw=="></script>
 </head>
 <body a="auto">
         <main class="page-content" aria-label="Content">
@@ -174,55 +176,81 @@ I think any of the above should work just nice if your application implements si
 I&rsquo;ve used <a href="https://instances.vantage.sh/aws/ec2/m5zn.metal">m5zn.metal</a> machine for experiments, since it&rsquo;s possible to run type 1 hypervisor - it&rsquo;s a real bare-metal aws server.</p>
 <h3 id="install-dependencies">Install dependencies</h3>
 <p>Base:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt -y install build-essential
-</span></span></code></pre></div><p><a href="https://www.rust-lang.org/tools/install">Rust</a>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>curl --proto <span style="color:#e6db74">&#39;=https&#39;</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh
-</span></span></code></pre></div><p>Then reload PATH:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>source <span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.cargo/bin&#34;</span>
-</span></span></code></pre></div><p><a href="https://nasm.us/">NASM</a> assembler:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt update
-</span></span><span style="display:flex;"><span>sudo apt -y install nasm
-</span></span></code></pre></div><h4 id="qemu">QEMU</h4>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt -y install build-essential</span></span></code></pre></div>
+</div><p><a href="https://www.rust-lang.org/tools/install">Rust</a>:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>curl --proto <span style="color:#e6db74">&#39;=https&#39;</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh</span></span></code></pre></div>
+</div><p>Then reload PATH:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>source <span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.cargo/bin&#34;</span></span></span></code></pre></div>
+</div><p><a href="https://nasm.us/">NASM</a> assembler:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt -y install nasm</span></span></code></pre></div>
+</div><h4 id="qemu">QEMU</h4>
 <p>Check that CPU support virtualization:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>grep -E --color <span style="color:#e6db74">&#39;(vmx|svm)&#39;</span> /proc/cpuinfo
-</span></span></code></pre></div><p>If smth found - you&rsquo;re ready to go.</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>grep -E --color <span style="color:#e6db74">&#39;(vmx|svm)&#39;</span> /proc/cpuinfo</span></span></code></pre></div>
+</div><p>If smth found - you&rsquo;re ready to go.</p>
 <p>After that check that KVM virtualization is supported by your OS:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt -y install cpu-checker
-</span></span><span style="display:flex;"><span>kvm-ok
-</span></span></code></pre></div><p>The output should look like that:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>INFO: /dev/kvm exists
-</span></span><span style="display:flex;"><span>KVM acceleration can be used
-</span></span></code></pre></div><p>Install qemu, finally:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt -y install qemu qemu-kvm
-</span></span></code></pre></div><p>This command then should return the qemu and kvm versions:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>apt show qemu-system-x86
-</span></span><span style="display:flex;"><span>kvm -version
-</span></span></code></pre></div><h4 id="rust-bootloader">Rust bootloader</h4>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt -y install cpu-checker
+</span></span><span style="display:flex;"><span>kvm-ok</span></span></code></pre></div>
+</div><p>The output should look like that:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>INFO: /dev/kvm exists
+</span></span><span style="display:flex;"><span>KVM acceleration can be used</span></span></code></pre></div>
+</div><p>Install qemu, finally:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt -y install qemu qemu-kvm</span></span></code></pre></div>
+</div><p>This command then should return the qemu and kvm versions:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>apt show qemu-system-x86
+</span></span><span style="display:flex;"><span>kvm -version</span></span></code></pre></div>
+</div><h4 id="rust-bootloader">Rust bootloader</h4>
 <p>Clone rusty <a href="https://github.com/hermit-os/loader">loader</a>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git clone https://github.com/hermit-os/loader.git
-</span></span></code></pre></div><p>And compile it:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cargo xtask build --target x86_64
-</span></span></code></pre></div><p><a href="https://github.com/hermit-os/loader/blob/d7c4cd33a7cfddb4f33783a5cff0dc2a230d1638/xtask/src/target.rs#L8-L12">Here</a> you can find flags for possible platforms.</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git clone https://github.com/hermit-os/loader.git</span></span></code></pre></div>
+</div><p>And compile it:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cargo xtask build --target x86_64</span></span></code></pre></div>
+</div><p><a href="https://github.com/hermit-os/loader/blob/d7c4cd33a7cfddb4f33783a5cff0dc2a230d1638/xtask/src/target.rs#L8-L12">Here</a> you can find flags for possible platforms.</p>
 <p>You should use the following route to loader when using qemu (compiled binary will be in <code>target/x86_64/</code>).<br>
 Optionally, copy the compiled executable to <code>/use/bin</code> to be able to call it from anywhere in the system.</p>
 <h3 id="build">Build</h3>
 <p>Let&rsquo;s build a simple http server, provided in <a href="https://github.com/hermit-os/hermit-rs/tree/main/examples/httpd">hermit-rs</a>.<br>
 You should first clone the project and go to the subfolder with <code>httpd</code> code.<br>
 And then build it:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cargo build <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -Zbuild-std<span style="color:#f92672">=</span>std,panic_abort <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --target x86_64-unknown-hermit <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --release
-</span></span></code></pre></div><h3 id="run">Run</h3>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cargo build <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    -Zbuild-std<span style="color:#f92672">=</span>std,panic_abort <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    --target x86_64-unknown-hermit <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    --release</span></span></code></pre></div>
+</div><h3 id="run">Run</h3>
 <p>Run and test built unikernel providing compiled bootloader and app:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>qemu-system-x86_64 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -cpu qemu64,apic,fsgsbase,fxsr,rdrand,rdtscp,xsave,xsaveopt <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -smp <span style="color:#ae81ff">1</span> -m 64M <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -device isa-debug-exit,iobase<span style="color:#f92672">=</span>0xf4,iosize<span style="color:#f92672">=</span>0x04 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -display none -serial stdio <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -kernel hermit-loader <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -initrd target/x86_64-unknown-hermit/debug/httpd
-</span></span></code></pre></div><p>Now just check the stdout ;)</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>qemu-system-x86_64 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    -cpu qemu64,apic,fsgsbase,fxsr,rdrand,rdtscp,xsave,xsaveopt <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    -smp <span style="color:#ae81ff">1</span> -m 64M <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    -device isa-debug-exit,iobase<span style="color:#f92672">=</span>0xf4,iosize<span style="color:#f92672">=</span>0x04 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    -display none -serial stdio <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    -kernel hermit-loader <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    -initrd target/x86_64-unknown-hermit/debug/httpd</span></span></code></pre></div>
+</div><p>Now just check the stdout ;)</p>
 <hr>
 
 </article>

@@ -1,82 +1,80 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>░▒▓██▓▒░</title>
-    <link>https://gasparian.github.io/</link>
-    <description>Recent content on ░▒▓██▓▒░</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 30 Dec 2025 16:06:44 +0200</lastBuildDate>
-    <atom:link href="https://gasparian.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Nat Gateway</title>
-      <link>https://gasparian.github.io/nat-gateway/</link>
-      <pubDate>Tue, 30 Dec 2025 16:06:44 +0200</pubDate>
-      <guid>https://gasparian.github.io/nat-gateway/</guid>
-      <description>&lt;h1 id=&#34;motivation&#34;&gt;Motivation&lt;/h1&gt;&#xA;&lt;p&gt;Sometimes, you need some simple way of “proxying” traffic between regions or subnets. One of the simplest and most performant ways to do that is using &lt;a href=&#34;https://en.wikipedia.org/wiki/Network_address_translation&#34;&gt;NAT&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;The thing is, with a “classic” proxy, you create at least two connections, and it often operates at the application layer of the OSI model. But actually, in many cases, simple IP packet forwarding is enough.&lt;/p&gt;&#xA;&lt;p&gt;An example could be cross-region VPN access, where the goal is to have a server in region A and redirect TCP/UDP traffic coming to, let’s say, port 4443, to a VPN server in region B. In that case, you basically just need to rewrite the UDP packet destination IP address, which is an L3 operation, while selecting the packets by looking at the destination port, which is L4. This method does not require heavy encryption or application-level processing, and it runs entirely in kernel space.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>A̶n̶y̶d̶e̶s̶k̶ --&gt; Rustdesk!</title>
-      <link>https://gasparian.github.io/rustdesk/</link>
-      <pubDate>Tue, 21 Oct 2025 20:25:08 +0100</pubDate>
-      <guid>https://gasparian.github.io/rustdesk/</guid>
-      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://anydesk.com/en&#34;&gt;AnyDesk&lt;/a&gt; is one of the most popular remote desktop tools, used worldwide, &lt;em&gt;including&lt;/em&gt; in some security-sensitive industries. The issue is that closed-source software is hard to audit, and it’s especially risky if the vendor operates in jurisdictions you may be concerned with.&lt;/p&gt;&#xA;&lt;p&gt;At a high level, this kind of software uses centralized “rendezvous” (sometimes called “broker” or “signaling”) servers to match clients and help them establish a peer-to-peer (P2P) connection. If a direct P2P connection can’t be established due to NAT, complex network topologies, or restrictive firewalls—the connection typically falls back to a relay server that forwards traffic between the endpoints.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>LLMs for On-Premises Deployment</title>
-      <link>https://gasparian.github.io/llm-on-premise/</link>
-      <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>https://gasparian.github.io/llm-on-premise/</guid>
-      <description>&lt;h1 id=&#34;choosing-the-llm&#34;&gt;Choosing the LLM&lt;/h1&gt;&#xA;&lt;p&gt;If order to find current SOTA LLMs, the best way to start - is to gather various LLM benchmarks.&lt;br&gt;&#xA;There are numerous public LLM benchmarking efforts currently available, with the most influential being the &lt;a href=&#34;https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/?official=true&#34;&gt;Open LLM Leaderboard&lt;/a&gt; provided by Hugging Face, which attracts approximately &lt;a href=&#34;https://www.semrush.com/website/huggingface.co/overview/&#34;&gt;40 million&lt;/a&gt; monthly visits to the platform and consists of evaluation datasets covering a diverse range of challenges, and &lt;a href=&#34;https://lmarena.ai/?ref=top-ai-list&#34;&gt;LMSYS Chatbot Arena&lt;/a&gt; (also known as &amp;ldquo;LMArena&amp;rdquo;), which employs a &lt;a href=&#34;https://arxiv.org/pdf/2403.04132&#34;&gt;custom approach&lt;/a&gt; to rank models based on human preference, engages millions of monthly &amp;ldquo;players&amp;rdquo; on the platform, and conducts pre-release tests for top-tier AI labs such as OpenAI, xAI, Meta, Google, and others.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Unikernels</title>
-      <link>https://gasparian.github.io/unikernels-simple/</link>
-      <pubDate>Sun, 02 Jun 2024 19:31:04 +0200</pubDate>
-      <guid>https://gasparian.github.io/unikernels-simple/</guid>
-      <description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;&#xA;&lt;p&gt;Unikernels are specialized, single-purpose operating systems designed to run directly on a &lt;a href=&#34;https://en.wikipedia.org/wiki/Hypervisor&#34;&gt;hypervisor&lt;/a&gt;. They are compiled from high-level source code into a standalone kernel that includes only the necessary components to run a specific application.&lt;/p&gt;&#xA;&lt;p&gt;The main purpose of unikernels is to deploy applications more efficiently and securely, compared to traditional operating systems.&lt;br&gt;&#xA;They are sealed and immutable at compile-time, reducing the attack surface and preventing unauthorized modifications.&lt;br&gt;&#xA;And due to their specialized nature, unikernels often exhibit better performance for their specific tasks, eliminating unnecessary general-purpose OS overhead (there is no such thing as &amp;ldquo;syscall&amp;rdquo; at all).&lt;br&gt;&#xA;It doesn&amp;rsquo;t have stuff that is not being used by application at runtime: like shell, mouse or floppy-disk driver (current Debian kernels still provide it, lol), etc.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Distroless</title>
-      <link>https://gasparian.github.io/distroless/</link>
-      <pubDate>Sun, 24 Mar 2024 19:42:52 +0100</pubDate>
-      <guid>https://gasparian.github.io/distroless/</guid>
-      <description>&lt;h2 id=&#34;what&#34;&gt;What&lt;/h2&gt;&#xA;&lt;p&gt;ML development relies a lot on large computation frameworks like &lt;code&gt;torch / tensorflow&lt;/code&gt; and wrappers on top of them and we became kind of locked on Python ecosystem. So we got used to deploy python to production.&lt;br&gt;&#xA;For the virtualization, we usually use containers.&lt;br&gt;&#xA;It all comes with the cost of bringing lots of dependencies to our application containers, which leads to huge image sizes and lots of security issues (literally thousands, if you don&amp;rsquo;t update python version/libs versions too often).&lt;br&gt;&#xA;The question is - can we somehow bring only needed pieces of our software stack to prod to reduce the size and increase security of our application?&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Private hardened VPN: VLESS/HYSTERIA2 &#43; PiHole Set Up (upd. 2026)</title>
-      <link>https://gasparian.github.io/home-vpn/</link>
-      <pubDate>Mon, 02 Oct 2023 19:12:58 +0200</pubDate>
-      <guid>https://gasparian.github.io/home-vpn/</guid>
-      <description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;&#xA;&lt;p&gt;VPNs were originally built to securely extend private networks across untrusted infrastructure, letting remote users or separate local networks communicate as if they were on the same internal network.&lt;br&gt;&#xA;Today, the same tunneling model is also commonly used as a privacy layer for routing personal internet traffic more discreetly.&lt;br&gt;&#xA;Comparing to the regular proxy, which just relays application traffic, a VPN is meant to securely extend a network boundary.&lt;br&gt;&#xA;That matters because the original motivation behind VPNs was not “hide my IP,” but: “Make a remote device behave like it is securely attached to a private network.”&lt;br&gt;&#xA;In this post, I&amp;rsquo;ll explain one of the simplest ways to set up a modern anti-sniffing VPN solution for personal use.&lt;br&gt;&#xA;I&amp;rsquo;ll be focusing on running the server part on a RaspberryPi, but this guide would stay the same in case of the VM on a VPC of your choice.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Classic office VPN (OpenVPN)</title>
-      <link>https://gasparian.github.io/openvpn/</link>
-      <pubDate>Wed, 09 Aug 2023 18:13:51 +0100</pubDate>
-      <guid>https://gasparian.github.io/openvpn/</guid>
-      <description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;&#xA;&lt;p&gt;VPN was originally created to extend a private corporate LAN across a public network, allowing remote users to reach internal resources without exposing them directly to the internet. Rather than making file shares, intranet services, databases, or administrative interfaces publicly reachable, the VPN terminates an authenticated, encrypted tunnel at the network edge and then forwards authorized traffic into the internal office subnet.&lt;br&gt;&#xA;OpenVPN became one of the first SSL/TLS-based generation of VPNs (~2002), comparing to older PPTP/IPsec lineage, which applies encription on IP-level.&lt;br&gt;&#xA;Here a simple illustration:&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>cProfile</title>
-      <link>https://gasparian.github.io/python-profiling/</link>
-      <pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate>
-      <guid>https://gasparian.github.io/python-profiling/</guid>
-      <description>&lt;p&gt;There are quite some profiling tools for Python, like popular &lt;a href=&#34;https://github.com/plasma-umass/scalene&#34;&gt;scalene&lt;/a&gt;. But I like python for simplicity and really like to use some &amp;ldquo;default&amp;rdquo; tools from the standard python toolchain - so &lt;a href=&#34;https://docs.python.org/3.8/library/profile.html&#34;&gt;cProfile&lt;/a&gt; is my choice.&lt;br&gt;&#xA;It doesn&amp;rsquo;t require fine-grained code annotation and very simple to use.&lt;br&gt;&#xA;It shows stats on how much time is spent while executing certain functions. Really easy to work and interpret.&lt;/p&gt;&#xA;&lt;h2 id=&#34;run&#34;&gt;Run&lt;/h2&gt;&#xA;&lt;p&gt;For example, the following command will run profiling on each function that is being run inside the &lt;code style=&#34;background-color: #808080;&#34;&gt;main.py&lt;/code&gt; and display the stats sorted by cumulative time:&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>OpenCV CUDA on 🛞`s</title>
-      <link>https://gasparian.github.io/opencv-cuda/</link>
-      <pubDate>Fri, 27 Jan 2023 00:00:00 +0000</pubDate>
-      <guid>https://gasparian.github.io/opencv-cuda/</guid>
-      <description>&lt;p&gt;I think we all know &lt;a href=&#34;https://github.com/opencv/opencv&#34;&gt;opencv&lt;/a&gt; - it’s a pretty old yet widely used and performant computer vision library with a lot of useful algorithms. One of the advantages of it - you can configure opencv how you want to get really nice performance gain. One of the ways - compile it to multiply matrices on GPUs to speed up both &amp;ldquo;old&amp;rdquo; CV filters (which are essentially convolutions) and use deep learning inference (yes, you can do it in opencv with the special module added).&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Harmless car hack</title>
-      <link>https://gasparian.github.io/car-hack/</link>
-      <pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>https://gasparian.github.io/car-hack/</guid>
-      <description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;&#xA;&lt;p&gt;If you&amp;rsquo;re driving a car you&amp;rsquo;ve probably seen the &lt;a href=&#34;https://en.wikipedia.org/wiki/On-board_diagnostics&#34;&gt;On-Board Diagnostics port&lt;/a&gt; (OBD for short) under the steering wheel. That is a standardized interface for accessing the vehicle&amp;rsquo;s diagnostic information. It&amp;rsquo;s typically used by mechanics and diagnostic tools to retrieve data related to the engine, transmission, and other essential systems. They usually use some manufacturer-approved hardware. What makes it interesting is that we can read data from almost any major device in the vehicle and even control some of them. Let&amp;rsquo;s go a bit deeper.&lt;br&gt;&#xA;Here is pin-out of OBD-II port:&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>░▒▓██▓▒░</title>
+		<link>https://gasparian.github.io/</link>
+		<description>Recent content on ░▒▓██▓▒░</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Tue, 30 Dec 2025 16:06:44 +0200</lastBuildDate>
+		
+			<atom:link href="https://gasparian.github.io/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Nat Gateway</title>
+				<link>https://gasparian.github.io/nat-gateway/</link>
+				<pubDate>Tue, 30 Dec 2025 16:06:44 +0200</pubDate>
+				<guid>https://gasparian.github.io/nat-gateway/</guid>
+				<description>&lt;h1 id=&#34;motivation&#34;&gt;Motivation&lt;/h1&gt;&#xA;&lt;p&gt;Sometimes, you need some simple way of “proxying” traffic between regions or subnets. One of the simplest and most performant ways to do that is using &lt;a href=&#34;https://en.wikipedia.org/wiki/Network_address_translation&#34;&gt;NAT&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;The thing is, with a “classic” proxy, you create at least two connections, and it often operates at the application layer of the OSI model. But actually, in many cases, simple IP packet forwarding is enough.&lt;/p&gt;&#xA;&lt;p&gt;An example could be cross-region VPN access, where the goal is to have a server in region A and redirect TCP/UDP traffic coming to, let’s say, port 4443, to a VPN server in region B. In that case, you basically just need to rewrite the UDP packet destination IP address, which is an L3 operation, while selecting the packets by looking at the destination port, which is L4. This method does not require heavy encryption or application-level processing, and it runs entirely in kernel space.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>A̶n̶y̶d̶e̶s̶k̶ --&gt; Rustdesk!</title>
+				<link>https://gasparian.github.io/rustdesk/</link>
+				<pubDate>Tue, 21 Oct 2025 20:25:08 +0100</pubDate>
+				<guid>https://gasparian.github.io/rustdesk/</guid>
+				<description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://anydesk.com/en&#34;&gt;AnyDesk&lt;/a&gt; is one of the most popular remote desktop tools, used worldwide, &lt;em&gt;including&lt;/em&gt; in some security-sensitive industries. The issue is that closed-source software is hard to audit, and it’s especially risky if the vendor operates in jurisdictions you may be concerned with.&lt;/p&gt;&#xA;&lt;p&gt;At a high level, this kind of software uses centralized “rendezvous” (sometimes called “broker” or “signaling”) servers to match clients and help them establish a peer-to-peer (P2P) connection. If a direct P2P connection can’t be established due to NAT, complex network topologies, or restrictive firewalls—the connection typically falls back to a relay server that forwards traffic between the endpoints.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>LLMs for On-Premises Deployment</title>
+				<link>https://gasparian.github.io/llm-on-premise/</link>
+				<pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
+				<guid>https://gasparian.github.io/llm-on-premise/</guid>
+				<description>&lt;h1 id=&#34;choosing-the-llm&#34;&gt;Choosing the LLM&lt;/h1&gt;&#xA;&lt;p&gt;If order to find current SOTA LLMs, the best way to start - is to gather various LLM benchmarks.&lt;br&gt;&#xA;There are numerous public LLM benchmarking efforts currently available, with the most influential being the &lt;a href=&#34;https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/?official=true&#34;&gt;Open LLM Leaderboard&lt;/a&gt; provided by Hugging Face, which attracts approximately &lt;a href=&#34;https://www.semrush.com/website/huggingface.co/overview/&#34;&gt;40 million&lt;/a&gt; monthly visits to the platform and consists of evaluation datasets covering a diverse range of challenges, and &lt;a href=&#34;https://lmarena.ai/?ref=top-ai-list&#34;&gt;LMSYS Chatbot Arena&lt;/a&gt; (also known as &amp;ldquo;LMArena&amp;rdquo;), which employs a &lt;a href=&#34;https://arxiv.org/pdf/2403.04132&#34;&gt;custom approach&lt;/a&gt; to rank models based on human preference, engages millions of monthly &amp;ldquo;players&amp;rdquo; on the platform, and conducts pre-release tests for top-tier AI labs such as OpenAI, xAI, Meta, Google, and others.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Unikernels</title>
+				<link>https://gasparian.github.io/unikernels-simple/</link>
+				<pubDate>Sun, 02 Jun 2024 19:31:04 +0200</pubDate>
+				<guid>https://gasparian.github.io/unikernels-simple/</guid>
+				<description>&lt;h2 id=&#34;purpose&#34;&gt;Purpose&lt;/h2&gt;&#xA;&lt;p&gt;Unikernels are specialized, single-purpose operating systems designed to run directly on a &lt;a href=&#34;https://en.wikipedia.org/wiki/Hypervisor&#34;&gt;hypervisor&lt;/a&gt;. They are compiled from high-level source code into a standalone kernel that includes only the necessary components to run a specific application.&lt;/p&gt;&#xA;&lt;p&gt;The main purpose of unikernels is to deploy applications more efficiently and securely, compared to traditional operating systems.&lt;br&gt;&#xA;They are sealed and immutable at compile-time, reducing the attack surface and preventing unauthorized modifications.&lt;br&gt;&#xA;And due to their specialized nature, unikernels often exhibit better performance for their specific tasks, eliminating unnecessary general-purpose OS overhead (there is no such thing as &amp;ldquo;syscall&amp;rdquo; at all).&lt;br&gt;&#xA;It doesn&amp;rsquo;t have stuff that is not being used by application at runtime: like shell, mouse or floppy-disk driver (current Debian kernels still provide it, lol), etc.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Distroless</title>
+				<link>https://gasparian.github.io/distroless/</link>
+				<pubDate>Sun, 24 Mar 2024 19:42:52 +0100</pubDate>
+				<guid>https://gasparian.github.io/distroless/</guid>
+				<description>&lt;h2 id=&#34;what&#34;&gt;What&lt;/h2&gt;&#xA;&lt;p&gt;ML development relies a lot on large computation frameworks like &lt;code&gt;torch / tensorflow&lt;/code&gt; and wrappers on top of them and we became kind of locked on Python ecosystem. So we got used to deploy python to production.&lt;br&gt;&#xA;For the virtualization, we usually use containers.&lt;br&gt;&#xA;It all comes with the cost of bringing lots of dependencies to our application containers, which leads to huge image sizes and lots of security issues (literally thousands, if you don&amp;rsquo;t update python version/libs versions too often).&lt;br&gt;&#xA;The question is - can we somehow bring only needed pieces of our software stack to prod to reduce the size and increase security of our application?&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Private hardened VPN: VLESS/HYSTERIA2 &#43; PiHole Set Up (upd. 2026)</title>
+				<link>https://gasparian.github.io/home-vpn/</link>
+				<pubDate>Mon, 02 Oct 2023 19:12:58 +0200</pubDate>
+				<guid>https://gasparian.github.io/home-vpn/</guid>
+				<description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;&#xA;&lt;p&gt;VPNs were originally built to securely extend private networks across untrusted infrastructure, letting remote users or separate local networks communicate as if they were on the same internal network.&lt;br&gt;&#xA;Today, the same tunneling model is also commonly used as a privacy layer for routing personal internet traffic more discreetly.&lt;br&gt;&#xA;Comparing to the regular proxy, which just relays application traffic, a VPN is meant to securely extend a network boundary.&lt;br&gt;&#xA;That matters because the original motivation behind VPNs was not “hide my IP,” but: “Make a remote device behave like it is securely attached to a private network.”&lt;br&gt;&#xA;In this post, I&amp;rsquo;ll explain one of the simplest ways to set up a modern anti-sniffing VPN solution for personal use.&lt;br&gt;&#xA;I&amp;rsquo;ll be focusing on running the server part on a RaspberryPi, but this guide would stay the same in case of the VM on a VPC of your choice.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>cProfile</title>
+				<link>https://gasparian.github.io/python-profiling/</link>
+				<pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate>
+				<guid>https://gasparian.github.io/python-profiling/</guid>
+				<description>&lt;p&gt;There are quite some profiling tools for Python, like popular &lt;a href=&#34;https://github.com/plasma-umass/scalene&#34;&gt;scalene&lt;/a&gt;. But I like python for simplicity and really like to use some &amp;ldquo;default&amp;rdquo; tools from the standard python toolchain - so &lt;a href=&#34;https://docs.python.org/3.8/library/profile.html&#34;&gt;cProfile&lt;/a&gt; is my choice.&lt;br&gt;&#xA;It doesn&amp;rsquo;t require fine-grained code annotation and very simple to use.&lt;br&gt;&#xA;It shows stats on how much time is spent while executing certain functions. Really easy to work and interpret.&lt;/p&gt;&#xA;&lt;h2 id=&#34;run&#34;&gt;Run&lt;/h2&gt;&#xA;&lt;p&gt;For example, the following command will run profiling on each function that is being run inside the &lt;code style=&#34;background-color: #808080;&#34;&gt;main.py&lt;/code&gt; and display the stats sorted by cumulative time:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>OpenCV CUDA on 🛞`s</title>
+				<link>https://gasparian.github.io/opencv-cuda/</link>
+				<pubDate>Fri, 27 Jan 2023 00:00:00 +0000</pubDate>
+				<guid>https://gasparian.github.io/opencv-cuda/</guid>
+				<description>&lt;p&gt;I think we all know &lt;a href=&#34;https://github.com/opencv/opencv&#34;&gt;opencv&lt;/a&gt; - it’s a pretty old yet widely used and performant computer vision library with a lot of useful algorithms. One of the advantages of it - you can configure opencv how you want to get really nice performance gain. One of the ways - compile it to multiply matrices on GPUs to speed up both &amp;ldquo;old&amp;rdquo; CV filters (which are essentially convolutions) and use deep learning inference (yes, you can do it in opencv with the special module added).&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Harmless car hack</title>
+				<link>https://gasparian.github.io/car-hack/</link>
+				<pubDate>Tue, 14 Apr 2020 00:00:00 +0000</pubDate>
+				<guid>https://gasparian.github.io/car-hack/</guid>
+				<description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;&#xA;&lt;p&gt;If you&amp;rsquo;re driving a car you&amp;rsquo;ve probably seen the &lt;a href=&#34;https://en.wikipedia.org/wiki/On-board_diagnostics&#34;&gt;On-Board Diagnostics port&lt;/a&gt; (OBD for short) under the steering wheel. That is a standardized interface for accessing the vehicle&amp;rsquo;s diagnostic information. It&amp;rsquo;s typically used by mechanics and diagnostic tools to retrieve data related to the engine, transmission, and other essential systems. They usually use some manufacturer-approved hardware. What makes it interesting is that we can read data from almost any major device in the vehicle and even control some of them. Let&amp;rsquo;s go a bit deeper.&lt;br&gt;&#xA;Here is pin-out of OBD-II port:&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

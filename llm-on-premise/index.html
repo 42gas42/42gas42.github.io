@@ -21,8 +21,10 @@ There are numerous public LLM benchmarking efforts currently available, with the
   <link rel="stylesheet" href="/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
   
   
-  <link rel="stylesheet" href="/css/custom.c7e593a8810aa2360e6e7baeeda7248137ac4e73e8c30a0b151c3d0de408150af9872b75dfa565c3a5758adb121f6ef23469441e915fee619a1bbe9c07fdbfcf.css" integrity="sha512-x&#43;WTqIEKojYObnuu7ackgTesTnPowwoLFRw9DeQIFQr5hyt136Vlw6V1itsSH27yNGlEHpFf7mGaG76cB/2/zw==" />
+  <link rel="stylesheet" href="/css/custom.a4cdf433851ea883e637fbe7fa9d46d4c7e92ee6757e24e4f8bcaed1f1c4f23c8b5896912bfd15d5ed633578137bb4f922457178d502e3c3c53a5948d6e49863.css" integrity="sha512-pM30M4UeqIPmN/vn&#43;p1G1MfpLuZ1fiTk&#43;Lyu0fHE8jyLWJaRK/0V1e1jNXgTe7T5IkVxeNUC48PFOllI1uSYYw==" />
   
+  
+  <script defer src="/js/copy-code.min.d1553503490b14f11456abfee0e4598e8027a749789d393a9221561aa620ea775d7e63490c617bef04589bac76968063847a2353729f6bbbb0c894da48297877.js" integrity="sha512-0VU1A0kLFPEUVqv&#43;4ORZjoAnp0l4nTk6kiFWGqYg6nddfmNJDGF77wRYm6x2loBjhHojU3Kfa7uwyJTaSCl4dw=="></script>
 </head>
 <body a="auto">
         <main class="page-content" aria-label="Content">
@@ -58,83 +60,83 @@ There are numerous public LLM benchmarking efforts currently available, with the
 </ul>
 <p>Since we are focusing on open-source LLMs suitable for on-premises deployment with fewer than 80 billion parameters, capable of running on 1x–2x A100 or 1x H200 GPUs, the following table synthesizes the key attributes of the top three models from official providers (as of February 2025):</p>
 <table>
-  <thead>
-      <tr>
-          <th>Model</th>
-          <th>Parameters</th>
-          <th>Context Window</th>
-          <th>License</th>
-          <th>GPU VRAM*</th>
-          <th>wAvg**</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>Qwen/Qwen2.5-72B-Instruct</td>
-          <td>72B</td>
-          <td>128k tokens</td>
-          <td>Custom Qwen</td>
-          <td>67 GB</td>
-          <td>47.98</td>
-      </tr>
-      <tr>
-          <td>Qwen/Qwen2.5-32B-Instruct</td>
-          <td>32B</td>
-          <td>128k tokens</td>
-          <td>Custom Qwen</td>
-          <td>29.8 GB</td>
-          <td>46.60</td>
-      </tr>
-      <tr>
-          <td>meta-llama/Llama-3.3-70B-Instruct</td>
-          <td>70B</td>
-          <td>128k tokens</td>
-          <td>Llama3.3</td>
-          <td>64.7 GB</td>
-          <td>44.85</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>Model</th>
+					<th>Parameters</th>
+					<th>Context Window</th>
+					<th>License</th>
+					<th>GPU VRAM*</th>
+					<th>wAvg**</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Qwen/Qwen2.5-72B-Instruct</td>
+					<td>72B</td>
+					<td>128k tokens</td>
+					<td>Custom Qwen</td>
+					<td>67 GB</td>
+					<td>47.98</td>
+			</tr>
+			<tr>
+					<td>Qwen/Qwen2.5-32B-Instruct</td>
+					<td>32B</td>
+					<td>128k tokens</td>
+					<td>Custom Qwen</td>
+					<td>29.8 GB</td>
+					<td>46.60</td>
+			</tr>
+			<tr>
+					<td>meta-llama/Llama-3.3-70B-Instruct</td>
+					<td>70B</td>
+					<td>128k tokens</td>
+					<td>Llama3.3</td>
+					<td>64.7 GB</td>
+					<td>44.85</td>
+			</tr>
+	</tbody>
 </table>
 <p>*bfloat16; No KV-cache (<a href="https://huggingface.co/spaces/Vokturz/can-it-run-llm">method</a>).<br>
 **Weighted average of <a href="https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/?official=true">Open LLM metrics</a>.</p>
 <p>The following table lists models from community providers:</p>
 <table>
-  <thead>
-      <tr>
-          <th>Model</th>
-          <th>Parameters</th>
-          <th>Context Window</th>
-          <th>License</th>
-          <th>GPU VRAM*</th>
-          <th>wAvg**</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>MaziyarPanahi/calme-3.2-instruct-78b</td>
-          <td>78B</td>
-          <td>128k tokens</td>
-          <td>Custom Qwen</td>
-          <td>71.5 GB</td>
-          <td>52.08</td>
-      </tr>
-      <tr>
-          <td>MaziyarPanahi/calme-3.1-instruct-78b</td>
-          <td>78B</td>
-          <td>128k tokens</td>
-          <td>Custom Qwen</td>
-          <td>71.5 GB</td>
-          <td>51.29</td>
-      </tr>
-      <tr>
-          <td>dfurman/CalmeRys-78B-Orpo-v0.1</td>
-          <td>78B</td>
-          <td>128k tokens</td>
-          <td>MIT</td>
-          <td>71.5 GB</td>
-          <td>51.23</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>Model</th>
+					<th>Parameters</th>
+					<th>Context Window</th>
+					<th>License</th>
+					<th>GPU VRAM*</th>
+					<th>wAvg**</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>MaziyarPanahi/calme-3.2-instruct-78b</td>
+					<td>78B</td>
+					<td>128k tokens</td>
+					<td>Custom Qwen</td>
+					<td>71.5 GB</td>
+					<td>52.08</td>
+			</tr>
+			<tr>
+					<td>MaziyarPanahi/calme-3.1-instruct-78b</td>
+					<td>78B</td>
+					<td>128k tokens</td>
+					<td>Custom Qwen</td>
+					<td>71.5 GB</td>
+					<td>51.29</td>
+			</tr>
+			<tr>
+					<td>dfurman/CalmeRys-78B-Orpo-v0.1</td>
+					<td>78B</td>
+					<td>128k tokens</td>
+					<td>MIT</td>
+					<td>71.5 GB</td>
+					<td>51.23</td>
+			</tr>
+	</tbody>
 </table>
 <p>*bfloat16; No KV-cache (method).<br>
 **Weighted average of Open LLM metrics.</p>
@@ -144,143 +146,143 @@ There are numerous public LLM benchmarking efforts currently available, with the
 <p>Chatbot Arena adopts a different <a href="https://arxiv.org/pdf/2403.04132">evaluation approach</a>, utilizing crowdsourced, pairwise comparisons of model responses to user-generated prompts. Users vote on their preferred model response, and the platform employs statistical methods, such as the <a href="https://en.wikipedia.org/wiki/Bradley%E2%80%93Terry_model">Bradley-Terry model</a>, to rank models based on these preferences. Key metrics include win rates and confidence intervals for model rankings, ensuring robust and sample-efficient evaluations. The primary benefits of this approach are its real-world relevance (due to diverse, live user prompts), scalability, and transparency, providing an open platform for continuous, human-aligned evaluation of LLMs. The resulting rating is an <a href="https://en.wikipedia.org/wiki/Elo_rating_system">Elo score</a>, calculated based on all &ldquo;games&rdquo; played by the AIs.</p>
 <p>The following table lists the top open-source models, excluding proprietary ones (the top model was xAI’s Grok 3):</p>
 <table>
-  <thead>
-      <tr>
-          <th>Model</th>
-          <th>Parameters</th>
-          <th>Context Window</th>
-          <th>License</th>
-          <th>GPU VRAM*</th>
-          <th>Elo Score</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>DeepSeek R1</td>
-          <td>671B</td>
-          <td>128k tokens</td>
-          <td>MIT</td>
-          <td>1543 GB</td>
-          <td>1361</td>
-      </tr>
-      <tr>
-          <td>DeepSeek V3</td>
-          <td>671B</td>
-          <td>128k tokens</td>
-          <td>DeepSeek</td>
-          <td>1543 GB</td>
-          <td>1317</td>
-      </tr>
-      <tr>
-          <td>Deepseek-V2.5-1210</td>
-          <td>237B</td>
-          <td>164k tokens</td>
-          <td>DeepSeek</td>
-          <td>640 GB</td>
-          <td>1279</td>
-      </tr>
-      <tr>
-          <td>Athene-v2-Chat-72B</td>
-          <td>72B</td>
-          <td>128k tokens</td>
-          <td>NexusFlow</td>
-          <td>67 GB</td>
-          <td>1275</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>Model</th>
+					<th>Parameters</th>
+					<th>Context Window</th>
+					<th>License</th>
+					<th>GPU VRAM*</th>
+					<th>Elo Score</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>DeepSeek R1</td>
+					<td>671B</td>
+					<td>128k tokens</td>
+					<td>MIT</td>
+					<td>1543 GB</td>
+					<td>1361</td>
+			</tr>
+			<tr>
+					<td>DeepSeek V3</td>
+					<td>671B</td>
+					<td>128k tokens</td>
+					<td>DeepSeek</td>
+					<td>1543 GB</td>
+					<td>1317</td>
+			</tr>
+			<tr>
+					<td>Deepseek-V2.5-1210</td>
+					<td>237B</td>
+					<td>164k tokens</td>
+					<td>DeepSeek</td>
+					<td>640 GB</td>
+					<td>1279</td>
+			</tr>
+			<tr>
+					<td>Athene-v2-Chat-72B</td>
+					<td>72B</td>
+					<td>128k tokens</td>
+					<td>NexusFlow</td>
+					<td>67 GB</td>
+					<td>1275</td>
+			</tr>
+	</tbody>
 </table>
 <p>*bfloat16; No KV-cache (<a href="https://huggingface.co/spaces/Vokturz/can-it-run-llm">method</a>).</p>
 <p>In Chatbot Arena, smaller, top-rated models are scarce, with the leaderboard dominated by large DeepSeek models. However, <a href="https://huggingface.co/Nexusflow/Athene-V2-Chat">Athene-v2</a>, trained on the Qwen-2.5 base model using <a href="https://en.wikipedia.org/wiki/Reinforcement_learning_from_human_feedback">RLHF</a> and designed to compete with GPT-4o, is a strong candidate for on-premises deployment due to its open weights.</p>
 <p>Another alternative is the distilled DeepSeek R1 models, also based on Qwen-2.5, as shown in the Open LLM Leaderboard results:</p>
 <table>
-  <thead>
-      <tr>
-          <th>Model</th>
-          <th>Parameters</th>
-          <th>Context Window</th>
-          <th>License</th>
-          <th>GPU VRAM*</th>
-          <th>wAvg**</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>deepseek-ai/DeepSeek-R1-Distill-Qwen-14B</td>
-          <td>14B</td>
-          <td>128k tokens</td>
-          <td>MIT</td>
-          <td>15.64 GB</td>
-          <td>38.22</td>
-      </tr>
-      <tr>
-          <td>deepseek-ai/DeepSeek-R1-Distill-Qwen-70B</td>
-          <td>70B</td>
-          <td>128k tokens</td>
-          <td>MIT</td>
-          <td>77.7 GB</td>
-          <td>27.81</td>
-      </tr>
-      <tr>
-          <td>deepseek-ai/DeepSeek-R1-Distill-Llama-32B</td>
-          <td>32B</td>
-          <td>128k tokens</td>
-          <td>MIT</td>
-          <td>35.75 GB</td>
-          <td>22.96</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>Model</th>
+					<th>Parameters</th>
+					<th>Context Window</th>
+					<th>License</th>
+					<th>GPU VRAM*</th>
+					<th>wAvg**</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>deepseek-ai/DeepSeek-R1-Distill-Qwen-14B</td>
+					<td>14B</td>
+					<td>128k tokens</td>
+					<td>MIT</td>
+					<td>15.64 GB</td>
+					<td>38.22</td>
+			</tr>
+			<tr>
+					<td>deepseek-ai/DeepSeek-R1-Distill-Qwen-70B</td>
+					<td>70B</td>
+					<td>128k tokens</td>
+					<td>MIT</td>
+					<td>77.7 GB</td>
+					<td>27.81</td>
+			</tr>
+			<tr>
+					<td>deepseek-ai/DeepSeek-R1-Distill-Llama-32B</td>
+					<td>32B</td>
+					<td>128k tokens</td>
+					<td>MIT</td>
+					<td>35.75 GB</td>
+					<td>22.96</td>
+			</tr>
+	</tbody>
 </table>
 <p>*bfloat16; No KV-cache (<a href="https://huggingface.co/spaces/Vokturz/can-it-run-llm">method</a>).<br>
 **Weighted average of <a href="https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/?official=true">Open LLM metrics</a>.</p>
 <p>Surprisingly, the smaller <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-14B">DeepSeek-R1-Distill-Qwen-14B</a> model, fine-tuned on domain-specific datasets, achieves the best performance among the distilled models, making it the easiest to serve due to its smaller size.</p>
 <h2 id="licensing-considerations">Licensing Considerations</h2>
 <table>
-  <thead>
-      <tr>
-          <th>License</th>
-          <th>Commercial Use</th>
-          <th>Attribution</th>
-          <th>Redistribution</th>
-          <th>Modifications</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>Qwen</td>
-          <td>&lt;100M MAU</td>
-          <td>Required</td>
-          <td>Allowed</td>
-          <td>Allowed</td>
-      </tr>
-      <tr>
-          <td>Llama3.3</td>
-          <td>&lt;700M MAU</td>
-          <td>Required</td>
-          <td>Allowed</td>
-          <td>Allowed</td>
-      </tr>
-      <tr>
-          <td>DeepSeek</td>
-          <td>+</td>
-          <td>Required</td>
-          <td>Allowed</td>
-          <td>Allowed</td>
-      </tr>
-      <tr>
-          <td>NexusFlow</td>
-          <td>+</td>
-          <td>Required</td>
-          <td>Allowed</td>
-          <td>Allowed</td>
-      </tr>
-      <tr>
-          <td>MIT</td>
-          <td>+</td>
-          <td>Required</td>
-          <td>Allowed</td>
-          <td>Allowed</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>License</th>
+					<th>Commercial Use</th>
+					<th>Attribution</th>
+					<th>Redistribution</th>
+					<th>Modifications</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Qwen</td>
+					<td>&lt;100M MAU</td>
+					<td>Required</td>
+					<td>Allowed</td>
+					<td>Allowed</td>
+			</tr>
+			<tr>
+					<td>Llama3.3</td>
+					<td>&lt;700M MAU</td>
+					<td>Required</td>
+					<td>Allowed</td>
+					<td>Allowed</td>
+			</tr>
+			<tr>
+					<td>DeepSeek</td>
+					<td>+</td>
+					<td>Required</td>
+					<td>Allowed</td>
+					<td>Allowed</td>
+			</tr>
+			<tr>
+					<td>NexusFlow</td>
+					<td>+</td>
+					<td>Required</td>
+					<td>Allowed</td>
+					<td>Allowed</td>
+			</tr>
+			<tr>
+					<td>MIT</td>
+					<td>+</td>
+					<td>Required</td>
+					<td>Allowed</td>
+					<td>Allowed</td>
+			</tr>
+	</tbody>
 </table>
 <p>Meta’s Llama 3.3 custom license prohibits deployment on AWS or Azure marketplaces, while DeepSeek’s Apache 2.0 license offers full flexibility.</p>
 <h2 id="picking-candidates">Picking Candidates</h2>
@@ -317,7 +319,9 @@ There are numerous public LLM benchmarking efforts currently available, with the
 <p>Triton integrates easily with Kubernetes, supporting auto-scaling via Prometheus metrics.</p>
 <h4 id="pipeline-optimization">Pipeline Optimization</h4>
 <p>Triton’s ensemble scheduler chains preprocessing (Python/C++), inference (TensorRT), and postprocessing into a single request. For example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>ensemble {
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>ensemble {
 </span></span><span style="display:flex;"><span>  step [
 </span></span><span style="display:flex;"><span>    {
 </span></span><span style="display:flex;"><span>      model_name: &#34;text_helper&#34;
@@ -330,8 +334,8 @@ There are numerous public LLM benchmarking efforts currently available, with the
 </span></span><span style="display:flex;"><span>      input_map { key: &#34;embedding&#34; value: &#34;text_helper.output&#34; }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  ]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Hosting all models on the same virtual machine using the same GPU(s) significantly reduces latency compared to microservice architectures by eliminating slow network I/O.</p>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</div><p>Hosting all models on the same virtual machine using the same GPU(s) significantly reduces latency compared to microservice architectures by eliminating slow network I/O.</p>
 <h3 id="nvidia-triton-inference-server--vllm-backend">NVIDIA Triton Inference Server + vLLM Backend</h3>
 <p>Since Triton Server v23.10, a <a href="https://github.com/triton-inference-server/vllm_backend">vLLM backend</a> has been available, combining vLLM’s high-throughput techniques with Triton’s benefits. This is particularly convenient for models that do not require distributed inference and can fit on a few A100 GPUs mounted on the same machine. However, there are some drawbacks:</p>
 <ul>

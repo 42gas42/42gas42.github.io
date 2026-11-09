@@ -19,8 +19,10 @@
   <link rel="stylesheet" href="/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
   
   
-  <link rel="stylesheet" href="/css/custom.c7e593a8810aa2360e6e7baeeda7248137ac4e73e8c30a0b151c3d0de408150af9872b75dfa565c3a5758adb121f6ef23469441e915fee619a1bbe9c07fdbfcf.css" integrity="sha512-x&#43;WTqIEKojYObnuu7ackgTesTnPowwoLFRw9DeQIFQr5hyt136Vlw6V1itsSH27yNGlEHpFf7mGaG76cB/2/zw==" />
+  <link rel="stylesheet" href="/css/custom.a4cdf433851ea883e637fbe7fa9d46d4c7e92ee6757e24e4f8bcaed1f1c4f23c8b5896912bfd15d5ed633578137bb4f922457178d502e3c3c53a5948d6e49863.css" integrity="sha512-pM30M4UeqIPmN/vn&#43;p1G1MfpLuZ1fiTk&#43;Lyu0fHE8jyLWJaRK/0V1e1jNXgTe7T5IkVxeNUC48PFOllI1uSYYw==" />
   
+  
+  <script defer src="/js/copy-code.min.d1553503490b14f11456abfee0e4598e8027a749789d393a9221561aa620ea775d7e63490c617bef04589bac76968063847a2353729f6bbbb0c894da48297877.js" integrity="sha512-0VU1A0kLFPEUVqv&#43;4ORZjoAnp0l4nTk6kiFWGqYg6nddfmNJDGF77wRYm6x2loBjhHojU3Kfa7uwyJTaSCl4dw=="></script>
 </head>
 <body a="auto">
         <main class="page-content" aria-label="Content">
@@ -51,68 +53,96 @@ Ideally, lib&rsquo;s developer should put pre-built wheels for the specific plat
 <p>And, also, some libraries may be very slow to build on the CI workers inside the special containers, like <a href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/tritonserver">triton</a>. So, obviously, installing pre-built wheel just with pip install saves a lot of time.</p>
 <h2 id="compile">Compile</h2>
 <p>First, log-in to build machine and install OS dependencies:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>apt-get update -y <span style="color:#f92672">&amp;&amp;</span> apt-get upgrade -y
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>apt-get update -y <span style="color:#f92672">&amp;&amp;</span> apt-get upgrade -y
 </span></span><span style="display:flex;"><span>apt-get install -y <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        build-essential git cmake <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        unzip pkg-config wget <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        libavcodec-dev libavformat-dev libswscale-dev <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        libgtk-3-dev libpng-dev libjpeg-dev <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        libopenexr-dev libtiff-dev libwebp-dev <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        libv4l-dev libxvidcore-dev libx264-dev <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        libgtk-3-dev libatlas-base-dev gfortran
-</span></span></code></pre></div><p>Then, you need to pull the <a href="https://github.com/opencv/opencv-python#manual-builds">opencv-python repo</a> and follow the instructions for the manual build.</p>
+</span></span></span><span style="display:flex;"><span>        build-essential git cmake <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        unzip pkg-config wget <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        libavcodec-dev libavformat-dev libswscale-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        libgtk-3-dev libpng-dev libjpeg-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        libopenexr-dev libtiff-dev libwebp-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        libv4l-dev libxvidcore-dev libx264-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        libgtk-3-dev libatlas-base-dev gfortran</span></span></code></pre></div>
+</div><p>Then, you need to pull the <a href="https://github.com/opencv/opencv-python#manual-builds">opencv-python repo</a> and follow the instructions for the manual build.</p>
 <p>During the build, you need to provide <code style="background-color: #808080;">cmake</code> flags, that suits your use cases. At this particular case, we want CUDA support and extra libs (<code style="background-color: #808080;">ENABLE_CONTRIB</code>) with neural networks support to be compiled. Here is the script:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd opencv-python
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd opencv-python
 </span></span><span style="display:flex;"><span>rm -rf build <span style="color:#f92672">&amp;&amp;</span> mkdir -p build 
 </span></span><span style="display:flex;"><span>pip install numpy<span style="color:#f92672">==</span>1.23.4
 </span></span><span style="display:flex;"><span>export CMAKE_ARGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-D CMAKE_BUILD_TYPE=RELEASE -D INSTALL_PYTHON_EXAMPLES=OFF -D INSTALL_C_EXAMPLES=OFF -D OPENCV_ENABLE_NONFREE=ON -D WITH_CUDA=ON -D WITH_CUDNN=ON -D OPENCV_DNN_CUDA=ON -D ENABLE_FAST_MATH=1 -D CUDA_FAST_MATH=1 -D CUDA_ARCH_BIN=8.6 -D WITH_CUBLAS=1 -D BUILD_EXAMPLES=OFF&#34;</span>
 </span></span><span style="display:flex;"><span>export ENABLE_CONTRIB<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>pip wheel . --verbose -w dist
-</span></span></code></pre></div><p>It could take from 30 mins to couple hours to compile. Be patient.</p>
+</span></span><span style="display:flex;"><span>pip wheel . --verbose -w dist</span></span></code></pre></div>
+</div><p>It could take from 30 mins to couple hours to compile. Be patient.</p>
 <p>If everything works - you’ll have a precious wheel archive in the dist:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>opencv_contrib_python-4.7.0.77db6ba-cp38-cp38-linux_x86_64.whl
-</span></span></code></pre></div><h2 id="install-and-add-runtime-dependencies">Install and add runtime dependencies</h2>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>opencv_contrib_python-4.7.0.77db6ba-cp38-cp38-linux_x86_64.whl</span></span></code></pre></div>
+</div><h2 id="install-and-add-runtime-dependencies">Install and add runtime dependencies</h2>
 <p>Now, you can just install built wheel with pip:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pip install opencv_contrib_python-4.7.0.77db6ba-cp38-cp38-linux_x86_64.whl
-</span></span></code></pre></div><p>After that open Python interpreter and try to import <code style="background-color: #808080;">cv2</code>, most probably you’ll see errors related to some <code style="background-color: #808080;">*.so</code> could not be found:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">ImportError</span>: libhdf5_serial<span style="color:#f92672">.</span>so<span style="color:#ae81ff">.100</span>: cannot open shared object file: No such file <span style="color:#f92672">or</span> directory
-</span></span></code></pre></div><p>That’s because opencv relies on lots of shared libraries that should be installed on OS level and you don’t have them installed yet on your system.</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pip install opencv_contrib_python-4.7.0.77db6ba-cp38-cp38-linux_x86_64.whl</span></span></code></pre></div>
+</div><p>After that open Python interpreter and try to import <code style="background-color: #808080;">cv2</code>, most probably you’ll see errors related to some <code style="background-color: #808080;">*.so</code> could not be found:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">ImportError</span>: libhdf5_serial<span style="color:#f92672">.</span>so<span style="color:#ae81ff">.100</span>: cannot open shared object file: No such file <span style="color:#f92672">or</span> directory</span></span></code></pre></div>
+</div><p>That’s because opencv relies on lots of shared libraries that should be installed on OS level and you don’t have them installed yet on your system.</p>
 <p>In order to debug that issue, you’ll need two tools: <code style="background-color: #808080;">ldd</code> and <code style="background-color: #808080;">apt-file</code>. <code style="background-color: #808080;">ldd</code> is usually presented on most of the Linux distributions and is used to print out all the shared object dependencies. And
 <code style="background-color: #808080;">apt-file</code> is the utility to find <code style="background-color: #808080;">apt</code> package by providing some string pattern to search for. You can install and update cache like that:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt install apt-file <span style="color:#f92672">&amp;&amp;</span> apt-file update
-</span></span></code></pre></div><p>So first you run <code style="background-color: #808080;">ldd</code> against opencv shared object, that should be located somewhere there:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ldd /usr/local/lib/python3.X/dist-packages/cv2*.so
-</span></span></code></pre></div><p>The output of <code style="background-color: #808080;">ldd</code> could look like that:</p>
-<pre tabindex="0"><code>libpthread.so.0 =&gt; /usr/lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f60a55bf000)
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt install apt-file <span style="color:#f92672">&amp;&amp;</span> apt-file update</span></span></code></pre></div>
+</div><p>So first you run <code style="background-color: #808080;">ldd</code> against opencv shared object, that should be located somewhere there:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ldd /usr/local/lib/python3.X/dist-packages/cv2*.so</span></span></code></pre></div>
+</div><p>The output of <code style="background-color: #808080;">ldd</code> could look like that:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <pre tabindex="0"><code>libpthread.so.0 =&gt; /usr/lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f60a55bf000)
 ...
-libhdf5_serial.so.100 =&gt; not found
-</code></pre><p>So you’re interested in not found lines (to make it simple just <code style="background-color: #808080;">ldd</code>+<code style="background-color: #808080;">grep</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ldd cv2*.so | grep <span style="color:#e6db74">&#34;not found&#34;</span>
-</span></span></code></pre></div><p>And then apt-file could be used to find the package those object files are belong to:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>apt-file search libhdf5_serial.so.100
-</span></span></code></pre></div><p>It will output the list of apt packages (there could be duplicates - that’s normal):</p>
-<pre tabindex="0"><code>libhdf5-100: /usr/lib/arm-linux-gnueabihf/libhdf5_serial.so.100
-libhdf5-100: /usr/lib/arm-linux-gnueabihf/libhdf5_serial.so.100.0.1
-</code></pre><p>So you just install that <code style="background-color: #808080;">libhdf5-100</code> with <code style="background-color: #808080;">apt install libhdf5-100</code> and it should be found next time you run <code style="background-color: #808080;">ldd</code>!</p>
+libhdf5_serial.so.100 =&gt; not found</code></pre>
+</div><p>So you’re interested in not found lines (to make it simple just <code style="background-color: #808080;">ldd</code>+<code style="background-color: #808080;">grep</code>:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ldd cv2*.so | grep <span style="color:#e6db74">&#34;not found&#34;</span></span></span></code></pre></div>
+</div><p>And then apt-file could be used to find the package those object files are belong to:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>apt-file search libhdf5_serial.so.100</span></span></code></pre></div>
+</div><p>It will output the list of apt packages (there could be duplicates - that’s normal):</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <pre tabindex="0"><code>libhdf5-100: /usr/lib/arm-linux-gnueabihf/libhdf5_serial.so.100
+libhdf5-100: /usr/lib/arm-linux-gnueabihf/libhdf5_serial.so.100.0.1</code></pre>
+</div><p>So you just install that <code style="background-color: #808080;">libhdf5-100</code> with <code style="background-color: #808080;">apt install libhdf5-100</code> and it should be found next time you run <code style="background-color: #808080;">ldd</code>!</p>
 <p>Repeat that for all the not found dependencies and opencv will finally work!</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> cv2
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> cv2
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> cv2<span style="color:#f92672">.</span>__version__
 </span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;4.7.0&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> print(dir(cv2<span style="color:#f92672">.</span>cuda))
-</span></span><span style="display:flex;"><span>[<span style="color:#f92672">...</span> <span style="color:#e6db74">&#39;ORB&#39;</span>, <span style="color:#e6db74">&#39;ORB_create&#39;</span>, <span style="color:#e6db74">&#39;OpticalFlowDual_TVL1&#39;</span>, <span style="color:#e6db74">&#39;OpticalFlowDual_TVL1_create&#39;</span>, <span style="color:#e6db74">&#39;SHARED_ATOMICS&#39;</span>, <span style="color:#e6db74">&#39;SURF_CUDA&#39;</span>,<span style="color:#f92672">...</span>]
-</span></span></code></pre></div><p>After doing all that, you’ll end up with the list of OS dependencies that should be installed in the container alongside with the built wheel to use it in your apps - so just add it to your Dockerfile. Here is a real missing deps for the <code style="background-color: #808080;">tritonserver</code> container:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>RUN apt-get update -y <span style="color:#f92672">&amp;&amp;</span> apt-get install -y <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libhdf5-103 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libgtk-3-0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libdc1394-22 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libgstreamer-plugins-base1.0-0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libavcodec58 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libavformat58 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libswscale5
-</span></span></code></pre></div><h2 id="test-inference">Test inference</h2>
+</span></span><span style="display:flex;"><span>[<span style="color:#f92672">...</span> <span style="color:#e6db74">&#39;ORB&#39;</span>, <span style="color:#e6db74">&#39;ORB_create&#39;</span>, <span style="color:#e6db74">&#39;OpticalFlowDual_TVL1&#39;</span>, <span style="color:#e6db74">&#39;OpticalFlowDual_TVL1_create&#39;</span>, <span style="color:#e6db74">&#39;SHARED_ATOMICS&#39;</span>, <span style="color:#e6db74">&#39;SURF_CUDA&#39;</span>,<span style="color:#f92672">...</span>]</span></span></code></pre></div>
+</div><p>After doing all that, you’ll end up with the list of OS dependencies that should be installed in the container alongside with the built wheel to use it in your apps - so just add it to your Dockerfile. Here is a real missing deps for the <code style="background-color: #808080;">tritonserver</code> container:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>RUN apt-get update -y <span style="color:#f92672">&amp;&amp;</span> apt-get install -y <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libhdf5-103 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libgtk-3-0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libdc1394-22 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libgstreamer-plugins-base1.0-0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libavcodec58 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libavformat58 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libswscale5</span></span></code></pre></div>
+</div><h2 id="test-inference">Test inference</h2>
 <p>Let&rsquo;s image that we downloaded tensorflow pre-trained <a href="https://github.com/Saafke/FSRCNN_Tensorflow/tree/master/models">FSRCNN</a> model and placed it to the same folder as the run-script:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> cv2
 </span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> cv2 <span style="color:#f92672">import</span> dnn_superres 
@@ -130,11 +160,13 @@ libhdf5-100: /usr/lib/arm-linux-gnueabihf/libhdf5_serial.so.100.0.1
 </span></span><span style="display:flex;"><span>test_img <span style="color:#f92672">=</span> (np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>random((<span style="color:#ae81ff">512</span>, <span style="color:#ae81ff">512</span>, <span style="color:#ae81ff">3</span>)) <span style="color:#f92672">*</span> <span style="color:#ae81ff">255</span>)<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>uint8)
 </span></span><span style="display:flex;"><span>result <span style="color:#f92672">=</span> net<span style="color:#f92672">.</span>upsample(test_img)  
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>print(test_img<span style="color:#f92672">.</span>shape, result<span style="color:#f92672">.</span>shape)
-</span></span></code></pre></div><p>Excpected output:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> 
-</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">512</span>, <span style="color:#ae81ff">512</span>, <span style="color:#ae81ff">3</span>) (<span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">3</span>)
-</span></span></code></pre></div><p>Congrats, it works!</p>
+</span></span><span style="display:flex;"><span>print(test_img<span style="color:#f92672">.</span>shape, result<span style="color:#f92672">.</span>shape)</span></span></code></pre></div>
+</div><p>Excpected output:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> 
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">512</span>, <span style="color:#ae81ff">512</span>, <span style="color:#ae81ff">3</span>) (<span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">1024</span>, <span style="color:#ae81ff">3</span>)</span></span></code></pre></div>
+</div><p>Congrats, it works!</p>
 <hr>
 
 </article>

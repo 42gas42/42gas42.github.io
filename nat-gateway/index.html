@@ -22,8 +22,10 @@ An example could be cross-region VPN access, where the goal is to have a server 
   <link rel="stylesheet" href="/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
   
   
-  <link rel="stylesheet" href="/css/custom.c7e593a8810aa2360e6e7baeeda7248137ac4e73e8c30a0b151c3d0de408150af9872b75dfa565c3a5758adb121f6ef23469441e915fee619a1bbe9c07fdbfcf.css" integrity="sha512-x&#43;WTqIEKojYObnuu7ackgTesTnPowwoLFRw9DeQIFQr5hyt136Vlw6V1itsSH27yNGlEHpFf7mGaG76cB/2/zw==" />
+  <link rel="stylesheet" href="/css/custom.a4cdf433851ea883e637fbe7fa9d46d4c7e92ee6757e24e4f8bcaed1f1c4f23c8b5896912bfd15d5ed633578137bb4f922457178d502e3c3c53a5948d6e49863.css" integrity="sha512-pM30M4UeqIPmN/vn&#43;p1G1MfpLuZ1fiTk&#43;Lyu0fHE8jyLWJaRK/0V1e1jNXgTe7T5IkVxeNUC48PFOllI1uSYYw==" />
   
+  
+  <script defer src="/js/copy-code.min.d1553503490b14f11456abfee0e4598e8027a749789d393a9221561aa620ea775d7e63490c617bef04589bac76968063847a2353729f6bbbb0c894da48297877.js" integrity="sha512-0VU1A0kLFPEUVqv&#43;4ORZjoAnp0l4nTk6kiFWGqYg6nddfmNJDGF77wRYm6x2loBjhHojU3Kfa7uwyJTaSCl4dw=="></script>
 </head>
 <body a="auto">
         <main class="page-content" aria-label="Content">
@@ -48,16 +50,42 @@ An example could be cross-region VPN access, where the goal is to have a server 
 <p>An example could be cross-region VPN access, where the goal is to have a server in region A and redirect TCP/UDP traffic coming to, let’s say, port 4443, to a VPN server in region B. In that case, you basically just need to rewrite the UDP packet destination IP address, which is an L3 operation, while selecting the packets by looking at the destination port, which is L4. This method does not require heavy encryption or application-level processing, and it runs entirely in kernel space.</p>
 <p>In Linux, there is a kernel framework called <a href="https://en.wikipedia.org/wiki/Netfilter">netfilter</a>, which is responsible for packet filtering, NAT, and traffic redirection.</p>
 <p>Historically, there was the <a href="https://en.wikipedia.org/wiki/Iptables">iptables</a> user-space utility for defining packet filtering and NAT rules. But since Linux kernel 3.13, a more modern tool exists: <a href="https://en.wikipedia.org/wiki/Nftables">nftables</a>. Conceptually, nftables uses a small virtual machine inside the kernel, which executes bytecode-like rules to inspect packets, match conditions, and apply actions such as filtering, NAT, or marking packets.</p>
-<p>So let’s configure simple nftables rules that combine firewalling and IPv4 traffic redirection.</p>
+<p>So let’s configure simple nftables rules that combine firewalling and IPv4 traffic redirection, walking through each part along the way, and finish with the complete config file.</p>
 <h1 id="set-up">Set up</h1>
-<p>Check that forwarding enabled:</p>
-<pre tabindex="0"><code>sysctl net.ipv4.ip_forward
-</code></pre><p>If <code>0</code> —&gt; enable it:</p>
-<pre tabindex="0"><code>sudo sysctl -w net.ipv4.ip_forward=1
-echo &#39;net.ipv4.ip_forward=1&#39; | sudo tee /etc/sysctl.d/99-forwarding.conf
-sudo sysctl --system
-</code></pre><p>Create <code>sudo vi /etc/nftables.conf</code>:</p>
-<pre tabindex="0"><code>#!/usr/sbin/nft -f
+<h2 id="enable-ip-forwarding">Enable IP forwarding</h2>
+<p>Before nftables can redirect anything, the kernel must be allowed to forward packets between interfaces. Otherwise, every packet that arrives for another address is dropped immediately.</p>
+<p>Check whether forwarding is enabled:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sysctl net.ipv4.ip_forward</span></span></code></pre></div>
+</div><p>If it prints <code>0</code>, enable it and persist the setting across reboots:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo sysctl -w net.ipv4.ip_forward<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;net.ipv4.ip_forward=1&#39;</span> | sudo tee /etc/sysctl.d/99-forwarding.conf
+</span></span><span style="display:flex;"><span>sudo sysctl --system</span></span></code></pre></div>
+</div><h2 id="start-from-a-clean-ruleset">Start from a clean ruleset</h2>
+<p>Our config begins with <code>flush ruleset</code>, which removes all existing nftables rules before applying the new ones. Be careful with this on a remote server: if the new rules are wrong, you can accidentally lock yourself out.</p>
+<h2 id="the-filter-table-which-traffic-is-allowed">The filter table: which traffic is allowed</h2>
+<p>The <code>inet</code> family applies to both IPv4 and IPv6. The filter table defines what traffic may reach this machine itself, what may be forwarded through it, and what it may send out, via three chains:</p>
+<ul>
+<li><code>input</code> has <code>policy drop</code>, so everything not explicitly allowed gets dropped. The rules accept already-established connections (so replies to our own outgoing traffic still work), loopback traffic, and incoming SSH, HTTP and HTTPS on ports <code>22</code>, <code>80</code> and <code>443</code>.</li>
+<li><code>forward</code> has <code>policy accept</code>, so anything may be forwarded through the machine. The NAT rules decide what actually gets redirected, so forwarding itself stays open.</li>
+<li><code>output</code> has <code>policy accept</code>, so the machine may send any traffic out.</li>
+</ul>
+<h2 id="the-nat-table-rewriting-packet-destinations">The nat table: rewriting packet destinations</h2>
+<p>The <code>ip nat</code> table (IPv4 only) is what actually redirects the traffic. It works in two steps, in two chains:</p>
+<p>In <code>prerouting</code>, we catch incoming TCP and UDP traffic on port <code>4443</code> before the kernel decides where to send it, and rewrite its destination to the backend server <code>2.2.2.2</code>. Since we don’t specify another port, the original port is preserved: <code>this_machine:4443</code> becomes <code>2.2.2.2:4443</code>.</p>
+<p>In <code>postrouting</code>, we apply <code>masquerade</code> to traffic going to that backend. This rewrites the source address to the gateway’s own, so replies from the backend come back through the same path and nftables/conntrack can translate them back to the original client.</p>
+<p>The extra <code>tun0</code> masquerade rule is useful when the same machine also works as a VPN gateway, though in a stricter setup I’d usually limit it by subnet and outgoing interface.</p>
+<h2 id="the-complete-config">The complete config</h2>
+<p>Putting it all together, create <code>/etc/nftables.conf</code>:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo vi /etc/nftables.conf</span></span></code></pre></div>
+</div><div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <pre tabindex="0"><code class="language-nft" data-lang="nft">#!/usr/sbin/nft -f
 
 flush ruleset
 
@@ -86,7 +114,7 @@ table ip nat {
         type nat hook prerouting priority dstnat; policy accept;
 
         tcp dport { 4443 } dnat to 2.2.2.2
-        udp dport { 4443 } dnat to 2.2.2.2 
+        udp dport { 4443 } dnat to 2.2.2.2
     }
 
     chain postrouting {
@@ -97,42 +125,19 @@ table ip nat {
 
         iifname &#34;tun0&#34; masquerade
     }
-}
-</code></pre><h2 id="explanation">Explanation</h2>
-<p>Remove all existing nftables rules before applying this config. Be careful with this on a remote server: if the new rules are wrong, you can accidentally lock yourself out.</p>
-<pre tabindex="0"><code>flush ruleset
-</code></pre><p>The &ldquo;inet&rdquo; family applies to both IPv4 and IPv6. Here we define what traffic is allowed to reach this machine itself (on ports 443, 80, 22), what traffic can be forwarded through it (any), and what traffic it can send out (all).</p>
-<pre tabindex="0"><code>table inet filter {
-        chain input {
-        ...
-        }
-        chain forward {
-        ...
-        }
-        chain output {
-        ...
-        }
-}
-</code></pre><p>Next, is ipv4 <code>nat</code> for traffic redirection:</p>
-<pre tabindex="0"><code>table ip nat {
-    chain prerouting {
-    ...
-    }
-
-    chain postrouting {
-    ...
-    }
-}
-</code></pre><p>In <code>prerouting</code>, we catch incoming TCP and UDP traffic on port <code>4443</code> before the kernel decides where to send it, and rewrite its destination to the backend server <code>2.2.2.2</code>. Since we don’t specify another port, the original port is preserved: <code>this_machine:4443</code> becomes <code>2.2.2.2:4443</code>.</p>
-<p>In <code>postrouting</code>, we apply <code>masquerade</code> for traffic going to that backend. This makes the backend see our machine as the source, so replies come back through the same path and nftables/conntrack can translate them back to the original client. The extra <code>tun0</code> masquerade rule is useful when the same machine also works as a VPN gateway, though in a stricter setup I’d usually limit it by subnet and outgoing interface.</p>
-<h2 id="running">Running</h2>
-<p>Apply new config and restart a service:</p>
-<pre tabindex="0"><code>sudo nft -f /etc/nftables.conf
-sudo systemctl restart nftables
-sudo systemctl status nftables
-</code></pre><p>If all good - enable the service:</p>
-<pre tabindex="0"><code>sudo systemctl enable nftables
-</code></pre><p>You may also use <a href="https://en.wikipedia.org/wiki/Iftop">iftop</a> for network monitoring.</p>
+}</code></pre>
+</div><h1 id="running">Running</h1>
+<p>Apply the new config and restart the service:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo nft -f /etc/nftables.conf
+</span></span><span style="display:flex;"><span>sudo systemctl restart nftables
+</span></span><span style="display:flex;"><span>sudo systemctl status nftables</span></span></code></pre></div>
+</div><p>If all is good, enable the service:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo systemctl enable nftables</span></span></code></pre></div>
+</div><p>You may also use <a href="https://en.wikipedia.org/wiki/Iftop">iftop</a> for network monitoring.</p>
 <hr>
 
 </article>
