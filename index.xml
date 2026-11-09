@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Mon, 21 Sep 2026 12:00:00 +0200</lastBuildDate>
+			<lastBuildDate>Mon, 09 Nov 2026 20:56:56 +0100</lastBuildDate>
 		
 			<atom:link href="https://42gas42.github.io/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Break agents with simulated code</title>
+				<link>https://42gas42.github.io/break-agents-with-simulated-code/</link>
+				<pubDate>Mon, 09 Nov 2026 20:56:56 +0100</pubDate>
+				<guid>https://42gas42.github.io/break-agents-with-simulated-code/</guid>
+				<description>&lt;h1 id=&#34;the-playground&#34;&gt;The playground&lt;/h1&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://gandalf.lakera.ai/agent-breaker&#34;&gt;Gandalf: Agent Breaker&lt;/a&gt; is Lakera&amp;rsquo;s hacking simulator: ten GenAI apps that behave like real agents, five difficulty levels each, one secret or one forbidden action per level. The goal is either to leak the secret or to make the app do something it should not — send an email, poison a document, hand over the contents of its context. I went through levels 1 to 3 on all ten apps.&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>I2P(d) Invisible Internet Project</title>
 				<link>https://42gas42.github.io/invisible-internet/</link>
