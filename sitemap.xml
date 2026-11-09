@@ -2,46 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://gasparian.github.io/arkenfox/</loc>
+    <loc>https://42gas42.github.io/</loc>
+    <lastmod>2026-11-09T10:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://42gas42.github.io/invisible-internet/</loc>
+    <lastmod>2026-09-21T12:00:00+02:00</lastmod>
+  </url><url>
+    <loc>https://42gas42.github.io/arkenfox/</loc>
     <lastmod>2026-07-18T17:06:54+02:00</lastmod>
   </url><url>
-    <loc>https://gasparian.github.io/invisible-internet/</loc>
-    <lastmod>2026-01-28T12:41:53+01:00</lastmod>
-  </url><url>
-    <loc>https://gasparian.github.io/nat-gateway/</loc>
+    <loc>https://42gas42.github.io/nat-gateway/</loc>
     <lastmod>2025-12-30T16:06:44+02:00</lastmod>
   </url><url>
-    <loc>https://gasparian.github.io/rustdesk/</loc>
+    <loc>https://42gas42.github.io/rustdesk/</loc>
     <lastmod>2025-10-21T20:25:08+01:00</lastmod>
   </url><url>
-    <loc>https://gasparian.github.io/llm-on-premise/</loc>
+    <loc>https://42gas42.github.io/llm-on-premise/</loc>
     <lastmod>2025-02-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gasparian.github.io/unikernels-simple/</loc>
+    <loc>https://42gas42.github.io/unikernels-simple/</loc>
     <lastmod>2024-06-02T19:31:04+02:00</lastmod>
   </url><url>
-    <loc>https://gasparian.github.io/distroless/</loc>
+    <loc>https://42gas42.github.io/distroless/</loc>
     <lastmod>2024-03-24T19:42:52+01:00</lastmod>
   </url><url>
-    <loc>https://gasparian.github.io/home-vpn/</loc>
+    <loc>https://42gas42.github.io/home-vpn/</loc>
     <lastmod>2023-10-02T19:12:58+02:00</lastmod>
   </url><url>
-    <loc>https://gasparian.github.io/python-profiling/</loc>
+    <loc>https://42gas42.github.io/python-profiling/</loc>
     <lastmod>2023-05-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gasparian.github.io/opencv-cuda/</loc>
+    <loc>https://42gas42.github.io/opencv-cuda/</loc>
     <lastmod>2023-01-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gasparian.github.io/</loc>
-    <lastmod>2022-08-25T21:30:04+08:00</lastmod>
-  </url><url>
-    <loc>https://gasparian.github.io/car-hack/</loc>
+    <loc>https://42gas42.github.io/car-hack/</loc>
     <lastmod>2020-04-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gasparian.github.io/categories/</loc>
+    <loc>https://42gas42.github.io/categories/</loc>
   </url><url>
-    <loc>https://gasparian.github.io/posts/</loc>
-  </url><url>
-    <loc>https://gasparian.github.io/tags/</loc>
+    <loc>https://42gas42.github.io/tags/</loc>
   </url>
 </urlset>
