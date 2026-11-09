@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="description" content="
+  
+
+Overview
+I2P is an anonymizing peer-to-peer network — the Invisible Internet Project. It started in 2003 as a fork of Freenet, written in Java, and for its early years was led by a pseudonymous developer known as &ldquo;jrandom&rdquo;; others carried the work on after he stepped away. The Wikipedia article has the full history.
+At the end of 2013 a second implementation appeared: i2pd, a C&#43;&#43; rewrite created by a developer known as &ldquo;orignal&rdquo;, who still leads the project. Same network, same protocol, a much lighter implementation — no JVM, one binary, a small memory footprint, so it runs fine on a Raspberry Pi. The &ldquo;purple&rdquo; in the name (Purple I2P) comes from the shirt color on the I2P mascot, to tell it apart from the official Java implementation, where the shirt is red.">  
+
+  <title>
+    
+      I2P(d) Invisible Internet Project
+    
+  </title>
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/" />
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
+  
+  
+  <link rel="stylesheet" href="/css/custom.a8dd9c1741ef7dae6904bc4ce1a50fb2c153f4005ec3927d5e73e703b870a3c697c26ee8a77542d0689924e66a412aaed105e3150fabf7b7af11862a8c469478.css" integrity="sha512-qN2cF0Hvfa5pBLxM4aUPssFT9ABew5J9XnPnA7hwo8aXwm7op3VC0GiZJOZqQSqu0QXjFQ&#43;r97evEYYqjEaUeA==" />
+  
+  
+  <script defer src="/js/copy-code.min.10823c5f7b3055dc200d6e7802c763f631380a54da81b2f1ad8bf52be9baa4b437ffc3fb49671b4e11931260caf29d8c192216a3fdd2d5360a11c438516941f0.js" integrity="sha512-EII8X3swVdwgDW54Asdj9jE4ClTagbLxrYv1K&#43;m6pLQ3/8P7SWcbThGTEmDK8p2MGSIWo/3S1TYKEcQ4UWlB8A=="></script>
+</head>
+<body a="auto">
+        <main class="page-content" aria-label="Content">
+            <div class="w">
+<a href="/">&lt;--</a>
+
+
+<article>
+    <p class="post-meta">
+        <time datetime="2026-01-28 12:41:53 &#43;0100 CET">
+            2026-01-28
+        </time>
+    </p>
+
+    <h1>I2P(d) Invisible Internet Project</h1>
+
+    
+
+    <p style="text-align: center; background: #fff; padding: 1rem 0; border-radius: 6px;">
+  <img src="i2pd-logo.png" alt="i2pd logo" />
+</p>
+<h1 id="overview">Overview</h1>
+<p>I2P is an anonymizing peer-to-peer network — the Invisible Internet Project. It started in 2003 as a fork of Freenet, written in Java, and for its early years was led by a pseudonymous developer known as &ldquo;jrandom&rdquo;; others carried the work on after he stepped away. The <a href="https://en.wikipedia.org/wiki/I2P">Wikipedia article</a> has the full history.</p>
+<p>At the end of 2013 a second implementation appeared: <a href="https://github.com/PurpleI2P/i2pd">i2pd</a>, a C++ rewrite created by a developer known as <a href="https://github.com/orignal">&ldquo;orignal&rdquo;</a>, who still <a href="https://github.com/PurpleI2P/i2pd/wiki/Development-team">leads the project</a>. Same network, same protocol, a much lighter implementation — no JVM, one binary, a small memory footprint, so it runs fine on a Raspberry Pi. The &ldquo;purple&rdquo; in the name (Purple I2P) comes from the shirt color on the I2P mascot, to tell it apart from the official Java implementation, where the shirt is red.</p>
+<p>orignal explained the reasoning in the Russian article <a href="https://habr.com/ru/articles/240815/">&quot;«Пурпурный» I2P — окно в мир C++ приложений&quot;</a>: the official I2P is written in Java, Java is heavy for weak devices, and the strength of cryptography available in Java depends on the country — so a C++ implementation had always been on the agenda.</p>
+<p>Both implementations speak the same protocol, so running i2pd still puts you on the same network. The setup below is i2pd.</p>
+<h1 id="how-it-works">How it works</h1>
+<p>I2P is an overlay network: it runs on top of the public internet and relies on its participants to carry each other&rsquo;s traffic. Your router — i2pd, in our case — maintains connections to a set of peers and builds tunnels through them. A message is encapsulated in several layers of encryption, and every router along the tunnel removes exactly one layer. No single hop can observe both ends of the path, and none of them knows what the payload contains.</p>
+<p>What distinguishes I2P from Tor is the traffic packing model. Instead of a circuit per connection, several messages are bundled into a single &ldquo;garlic&rdquo;: each message is a clove, and a router cannot tell how many cloves it is carrying. This is what the Russian community calls &ldquo;чесночное шифрование&rdquo; — the same principle as onion routing, applied to individual messages.</p>
+<p>Several design consequences follow:</p>
+<ul>
+<li>Tunnels are unidirectional: outbound for your own traffic, inbound so others can reach you. Tor builds a single bidirectional circuit.</li>
+<li>The network is self-contained by design. There are no exit nodes to the clearnet by default — outproxies exist, but they are rare and slow — so I2P is designed for services inside the network, not for browsing regular sites.</li>
+<li>Addresses are cryptographic destinations ending in <code>.i2p</code>, not IPs. Nothing to seize, nothing to block by address.</li>
+<li>The routing database (NetDb) is distributed across floodfill routers, so there is no central directory to take down.</li>
+<li>It is message-oriented and carries UDP, which suits P2P applications.</li>
+</ul>
+<p>The classic picture from the I2P docs shows it better than words — Alice with two inbound and two outbound tunnels, two hops each:</p>
+<p style="text-align: center; background: #e6e6e6; padding: 1rem; border-radius: 6px;">
+  <img src="i2p-topology.png" alt="I2P tunnels: Alice's inbound and outbound tunnels through other routers" />
+</p>
+<p style="text-align: center"><em>Tunnels, destinations and the NetDb — image by the I2P team, <a href="https://commons.wikimedia.org/wiki/File:I2P_network_topology.png">CC BY-SA 4.0</a></em></p>
+<p>Tor is the natural comparison, and the difference is mostly about the goal. Tor was built for anonymous access to the open web: onion routing was researched at the U.S. Naval Research Laboratory in the mid-1990s, Tor was released in 2002, and the code was open-sourced in 2004 with EFF support — the <a href="https://www.torproject.org/about/history/">project history</a>, <a href="https://en.wikipedia.org/wiki/Tor_(network)">Wikipedia</a> and this <a href="https://www.wired.com/2005/05/tor-torches-online-tracking/">2005 Wired piece</a> have the details. The military origin is not a secret; what matters in practice is the model — Tor takes you out to the clearnet through exit nodes, I2P keeps you inside its own network.</p>
+<p>Both share the same operational constraint: the router has to stay online and reachable for tunnels to be built, and browsing is noticeably slower than on the clearnet.</p>
+<h1 id="setup">Setup</h1>
+<p>I run i2pd on a Raspberry Pi as the always-on server and use it from a laptop on the same home network. The Pi holds the tunnels and the console; the laptop only needs a browser and a proxy.</p>
+<h2 id="server-raspberry-pi">Server (Raspberry Pi)</h2>
+<p>Download the .deb from the <a href="https://github.com/PurpleI2P/i2pd/releases">releases page</a> — for Debian on arm64 it looks like <code>i2pd_*.0-1bookworm1_arm64.deb</code> — and install it:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo dpkg -i i2pd_*_arm64.deb</span></span></code></pre></div>
+</div><p>Pick a random port for the router. Do not keep the default 4567; the developers explicitly ask you to choose your own. The helper from the docs:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> socket
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> s <span style="color:#f92672">=</span> socket<span style="color:#f92672">.</span>socket()
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> s<span style="color:#f92672">.</span>bind((<span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#ae81ff">0</span>))
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> print(s<span style="color:#f92672">.</span>getsockname()[<span style="color:#ae81ff">1</span>])</span></span></code></pre></div>
+</div><p>Put the port into <code>/etc/i2pd/i2pd.conf</code>:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#75715e">## Port to listen for connections</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## By default i2pd picks a random port and listens on it.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## If you want to change the port, you MUST pick a random number too.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">port</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">36793</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Enable communication through ipv4 (default: true)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ipv4</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Enable communication through ipv6 (default: false)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ipv6</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">false</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># my provider doesn&#39;t support ipv6 for now</span></span></span></code></pre></div>
+</div><p>Open the router port and let the LAN reach the proxies and the console:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo ufw allow <span style="color:#ae81ff">36793</span>
+</span></span><span style="display:flex;"><span>sudo ufw allow from &lt;your-lan-subnet&gt; to any port <span style="color:#ae81ff">4444</span>
+</span></span><span style="display:flex;"><span>sudo ufw allow from &lt;your-lan-subnet&gt; to any port <span style="color:#ae81ff">4447</span>
+</span></span><span style="display:flex;"><span>sudo ufw allow from &lt;your-lan-subnet&gt; to any port <span style="color:#ae81ff">7070</span></span></span></code></pre></div>
+</div><p>Forward TCP and UDP 36793 on the router to the Pi. That is the only port reachable from the outside; 4444 (HTTP proxy), 4447 (SOCKS proxy) and 7070 (web console) stay on the LAN.</p>
+<p>For the console I prefer an SSH tunnel instead of exposing 7070:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ssh -i ~/.ssh/id_rsa_pi <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -L 7070:127.0.0.1:7070 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -L 4444:127.0.0.1:4444 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -L 4447:127.0.0.1:4447 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  &lt;user&gt;@&lt;pi-lan-ip&gt;</span></span></code></pre></div>
+</div><p>The console is then at <code>http://127.0.0.1:7070</code>. Allow the router 10-15 minutes before testing: tunnels are built gradually, and a fresh router is not usable immediately.</p>
+<p>From the laptop, check the proxy:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl -x http://&lt;pi-lan-ip&gt;:4444 http://example.i2p</span></span></code></pre></div>
+</div><h2 id="client-firefox--arkenfox">Client (Firefox + arkenfox)</h2>
+<p>The browser is a separate Firefox profile hardened with arkenfox. The full setup is in the <a href="/arkenfox/">Arkenfox article</a>, so here is only the delta.</p>
+<p>Create the profile, copy the arkenfox files and <code>user-overrides.js</code> as described there, then put the I2P overrides in place of the defaults.</p>
+<div class="code-block code-scroll">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="code-scroll-body"><div class="highlight" scroll="true"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// proxy: i2pd SOCKS5 only
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.proxy.type&#34;</span>, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.proxy.share_proxy_settings&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// no HTTP proxy: it can use clearnet outproxies
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.proxy.http&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.proxy.http_port&#34;</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.proxy.ssl&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.proxy.ssl_port&#34;</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// the i2pd SOCKS proxy
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.proxy.socks&#34;</span>, <span style="color:#e6db74">&#34;&lt;pi-lan-ip&gt;&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.proxy.socks_port&#34;</span>, <span style="color:#ae81ff">4447</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.proxy.socks_version&#34;</span>, <span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.proxy.socks_remote_dns&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// nothing bypasses the proxy
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.proxy.no_proxies_on&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// .i2p sites are plain http, no TRR, no https upgrades
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.trr.mode&#34;</span>, <span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;dom.security.https_only_mode&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;dom.security.https_only_mode_pbm&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;dom.security.https_first&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;dom.security.https_first_pbm&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.fixup.fallback-to-https&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// background checks off
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.captive-portal-service.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.connectivity-service.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// address bar: no search, no suggestions
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;keyword.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.search.suggest.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.search.suggest.enabled.private&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.searches&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.engines&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.quicksuggest.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.quicksuggest.all&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.quicksuggest.sponsored&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.history&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.bookmark&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.openpage&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.topsites&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.autoFill&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// start on the I2P search engine
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.startup.page&#34;</span>, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.startup.homepage&#34;</span>, <span style="color:#e6db74">&#34;http://ilita.i2p/&#34;</span>);</span></span></code></pre></div></div>
+</div><p>On macOS, allow Firefox to use the local network: System Settings → Privacy &amp; Security → Local Network → enable Firefox. Otherwise the browser cannot reach the proxy on your LAN.</p>
+<p>Then open <code>http://ilita.i2p</code> or <code>http://reg.i2p</code>. When the tunnels are up, you should get the I2P landing page:</p>
+<p style="display: block; margin-left: auto; margin-right: auto; width: 100%; height: auto;">
+  <img src="i2p-homescreen.png" />
+</p>
+<h1 id="using-it">Using it</h1>
+<p>Eepsites are only half of the story. The other half is chat, and the natural place to start is IRC.</p>
+<h2 id="irc">IRC</h2>
+<p>IRC dates back to 1988, when Jarkko Oikarinen wrote the first server and client in Finland; almost forty years later the protocol is still in use — a rare case of old software that never really died. On I2P it is not a museum piece either: IRC2P is the main network, with several federated servers, and the traffic stays inside the network.</p>
+<p>i2pd exposes I2P services as local ports through client tunnels. The config lives in <code>/etc/i2pd/tunnels.conf</code>; for the two main networks — IRC2P and the Russian Ilita — add:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[IRC2P]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">type</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">client</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">address</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">127.0.0.1</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">port</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">6668</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">destination</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">irc.postman.i2p</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">destinationport</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">6667</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">keys</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">irc-keys.dat</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Ilita]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">type</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">client</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">address</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">127.0.0.1</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">port</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">6669</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">destination</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">irc.ilita.i2p</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">destinationport</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">6667</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">keys</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">ilita-keys.dat</span></span></span></code></pre></div>
+</div><p>Restart the service:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl restart i2pd</span></span></code></pre></div>
+</div><p>After a couple of minutes the tunnels appear in the console.</p>
+<p>For the client, <a href="https://weechat.org/">WeeChat</a> is the best fit: terminal, macOS and Linux, good SOCKS support — the official I2P docs recommend it as well.</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>brew install weechat        <span style="color:#75715e"># macOS</span>
+</span></span><span style="display:flex;"><span>sudo apt install weechat    <span style="color:#75715e"># Debian/Ubuntu</span></span></span></code></pre></div>
+</div><p>Connect to the local tunnel port — no proxy settings needed, the tunnel already points at the network:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <pre tabindex="0"><code>/server add irc2p 127.0.0.1/6668
+/connect irc2p</code></pre>
+</div><p>That is roughly what it looks like:</p>
+<p style="text-align: center">
+  <img src="weechat-irc.png" alt="WeeChat connected to an IRC channel" />
+</p>
+<p style="text-align: center"><em>A regular IRC channel in WeeChat — the I2P ones look the same, only the server addresses differ. Screenshot by VulcanSphere, <a href="https://commons.wikimedia.org/wiki/File:WeeChat_3.4_screenshot.png">GPLv3</a></em></p>
+<p><code>#i2p</code> on IRC2P is the sensible starting point; <code>/list</code> shows what else is alive. Ilita is the Russian-language network — add <code>127.0.0.1/6669</code> the same way and look around there.</p>
+<p>If a terminal client is not what you need, there is also <a href="https://xmpp.org/">XMPP</a> — I&rsquo;ll cover it in a separate article.</p>
+<hr>
+
+</article>
+
+                
+    
+    
+        <!-- This is footer.
+You can edit this in ../nostyleplease/layouts/footer.md -->
+
+    
+
+
+            </div>
+        </main>
+    </body>
+</html>

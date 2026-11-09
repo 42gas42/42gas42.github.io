@@ -21,6 +21,13 @@
 				<description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;&#xA;&lt;p&gt;Firefox is a decent browser for privacy out of the box, but a lot is still on by default: telemetry, sponsored suggestions, background connectivity checks, autoplay, and so on. &lt;a href=&#34;https://github.com/arkenfox/user.js&#34;&gt;arkenfox&lt;/a&gt; is a long-running community &lt;code&gt;user.js&lt;/code&gt; preset that turns most of it off.&lt;/p&gt;&#xA;&lt;p&gt;The mechanism is simple. Firefox reads &lt;code&gt;user.js&lt;/code&gt; from the profile directory on every start and applies the prefs listed there. The preset documents every pref it sets, so you can read why it exists and override whatever breaks your workflow.&lt;/p&gt;</description>
 			</item>
 			<item>
+				<title>I2P(d) Invisible Internet Project</title>
+				<link>https://gasparian.github.io/invisible-internet/</link>
+				<pubDate>Wed, 28 Jan 2026 12:41:53 +0100</pubDate>
+				<guid>https://gasparian.github.io/invisible-internet/</guid>
+				<description>&lt;p style=&#34;text-align: center; background: #fff; padding: 1rem 0; border-radius: 6px;&#34;&gt;&#xA;  &lt;img src=&#34;i2pd-logo.png&#34; alt=&#34;i2pd logo&#34; /&gt;&#xA;&lt;/p&gt;&#xA;&lt;h1 id=&#34;overview&#34;&gt;Overview&lt;/h1&gt;&#xA;&lt;p&gt;I2P is an anonymizing peer-to-peer network — the Invisible Internet Project. It started in 2003 as a fork of Freenet, written in Java, and for its early years was led by a pseudonymous developer known as &amp;ldquo;jrandom&amp;rdquo;; others carried the work on after he stepped away. The &lt;a href=&#34;https://en.wikipedia.org/wiki/I2P&#34;&gt;Wikipedia article&lt;/a&gt; has the full history.&lt;/p&gt;&#xA;&lt;p&gt;At the end of 2013 a second implementation appeared: &lt;a href=&#34;https://github.com/PurpleI2P/i2pd&#34;&gt;i2pd&lt;/a&gt;, a C++ rewrite created by a developer known as &lt;a href=&#34;https://github.com/orignal&#34;&gt;&amp;ldquo;orignal&amp;rdquo;&lt;/a&gt;, who still &lt;a href=&#34;https://github.com/PurpleI2P/i2pd/wiki/Development-team&#34;&gt;leads the project&lt;/a&gt;. Same network, same protocol, a much lighter implementation — no JVM, one binary, a small memory footprint, so it runs fine on a Raspberry Pi. The &amp;ldquo;purple&amp;rdquo; in the name (Purple I2P) comes from the shirt color on the I2P mascot, to tell it apart from the official Java implementation, where the shirt is red.&lt;/p&gt;</description>
+			</item>
+			<item>
 				<title>Nat Gateway</title>
 				<link>https://gasparian.github.io/nat-gateway/</link>
 				<pubDate>Tue, 30 Dec 2025 16:06:44 +0200</pubDate>
