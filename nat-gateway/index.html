@@ -78,6 +78,10 @@ An example could be cross-region VPN access, where the goal is to have a server 
 <p>In <code>prerouting</code>, we catch incoming TCP and UDP traffic on port <code>4443</code> before the kernel decides where to send it, and rewrite its destination to the backend server <code>2.2.2.2</code>. Since we don’t specify another port, the original port is preserved: <code>this_machine:4443</code> becomes <code>2.2.2.2:4443</code>.</p>
 <p>In <code>postrouting</code>, we apply <code>masquerade</code> to traffic going to that backend. This rewrites the source address to the gateway’s own, so replies from the backend come back through the same path and nftables/conntrack can translate them back to the original client.</p>
 <p>The extra <code>tun0</code> masquerade rule is useful when the same machine also works as a VPN gateway, though in a stricter setup I’d usually limit it by subnet and outgoing interface.</p>
+<p style="text-align: center">
+  <img src="packet-flow.svg" alt="Packet flow through DNAT prerouting and masquerade postrouting" />
+</p>
+<p style="text-align: center"><em>The client hits the gateway on 4443; prerouting rewrites the destination, postrouting rewrites the source of the reply.</em></p>
 <h2 id="the-complete-config">The complete config</h2>
 <p>Putting it all together, create <code>/etc/nftables.conf</code>:</p>
 <div class="code-block">

@@ -108,6 +108,10 @@ The gap between open-weight and proprietary models closed a lot since this post 
 	</tbody>
 </table>
 <p>*Official checkpoint size, no KV cache — the vendors ship Qwen in bf16 and the rest pre-quantized.</p>
+<p style="text-align: center">
+  <img src="vram-budget.svg" alt="Checkpoint sizes of the five models against single-GPU memory" />
+</p>
+<p style="text-align: center"><em>Checkpoint sizes against single-GPU memory — weights only, before the KV cache.</em></p>
 <p>Qwen3.8-27B is the smallest one here and the easiest to fit — a good default for a single GPU. Qwen3.6-35B-A3B is the fast and cheap option for chat and RAG: 36B total, but only 3B active per token. gpt-oss-120b stays on the shortlist as the one non-Chinese model worth the effort: 117B total, native MXFP4 weights, one 80 GB card. GLM-5.3-Flash and DeepSeek-V4-Flash are the step up for a 3-5 card node — both MIT, both with official weights and vendor deployment notes, and DeepSeek also gives you a real 1M context. DeepSeek&rsquo;s newer <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash">V4.1-Flash</a> (763B total, ~510 GB of weights) is out as well, but at that size it wants a 4-8 GPU node — V4-Flash stays the practical pick.</p>
 <p>All five are Apache 2.0 or MIT — commercial use, modification and redistribution without user-count limits. That&rsquo;s not the norm: Qwen&rsquo;s larger models, DeepSeek&rsquo;s older releases and most Llama derivatives ship custom licenses with extra clauses, so check the model card before the PoC, not after.</p>
 <h1 id="serving">Serving</h1>

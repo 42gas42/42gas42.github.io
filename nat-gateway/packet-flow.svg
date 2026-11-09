@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 310" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="920" height="310" fill="#ffffff"/>
+
+  <!-- return path (drawn first so the postrouting chip hides its middle) -->
+  <path d="M 790 185 L 790 240 L 130 240 L 130 185" fill="none" stroke="#666" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <polygon points="610,235 600,240 610,245" fill="#666"/>
+  <polygon points="125,195 130,185 135,195" fill="#666"/>
+  <text x="772" y="232" font-size="11" text-anchor="end" fill="#555">reply</text>
+
+  <!-- gateway container -->
+  <rect x="300" y="50" width="320" height="240" rx="8" fill="none" stroke="#999" stroke-dasharray="6 4"/>
+  <text x="460" y="74" font-size="13" text-anchor="middle" fill="#555">gateway · nftables</text>
+
+  <rect x="320" y="90" width="280" height="60" rx="6" fill="#f2f2f2" stroke="#bbb"/>
+  <text x="460" y="112" font-size="13" text-anchor="middle" fill="#111">prerouting</text>
+  <text x="460" y="132" font-size="12" text-anchor="middle" fill="#555">dnat to 2.2.2.2:4443</text>
+
+  <rect x="320" y="190" width="280" height="60" rx="6" fill="#f2f2f2" stroke="#bbb"/>
+  <text x="460" y="212" font-size="13" text-anchor="middle" fill="#111">postrouting</text>
+  <text x="460" y="232" font-size="12" text-anchor="middle" fill="#555">masquerade</text>
+
+  <!-- client -->
+  <rect x="40" y="95" width="180" height="90" rx="6" fill="#ffffff" stroke="#111"/>
+  <text x="130" y="132" font-size="14" text-anchor="middle" fill="#111">client</text>
+  <text x="130" y="152" font-size="12" text-anchor="middle" fill="#666">192.0.2.10:51000</text>
+
+  <!-- backend -->
+  <rect x="700" y="95" width="180" height="90" rx="6" fill="#ffffff" stroke="#111"/>
+  <text x="790" y="132" font-size="14" text-anchor="middle" fill="#111">backend</text>
+  <text x="790" y="152" font-size="12" text-anchor="middle" fill="#666">2.2.2.2:4443</text>
+
+  <!-- forward path -->
+  <line x1="220" y1="122" x2="292" y2="122" stroke="#111" stroke-width="1.5"/>
+  <polygon points="292,117 302,122 292,127" fill="#111"/>
+  <text x="268" y="106" font-size="11" text-anchor="middle" fill="#555">tcp/udp 4443</text>
+
+  <line x1="620" y1="122" x2="692" y2="122" stroke="#111" stroke-width="1.5"/>
+  <polygon points="692,117 702,122 692,127" fill="#111"/>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" font-family="ui-monospace, Menlo, Consolas, monospace">
+  <rect width="920" height="400" fill="#ffffff"/>
+
+  <!-- GPU capacity markers -->
+  <line x1="382" y1="60" x2="382" y2="352" stroke="#333" stroke-width="1" stroke-dasharray="6 4"/>
+  <line x1="491" y1="60" x2="491" y2="352" stroke="#777" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="376" y="50" font-size="12" text-anchor="end" fill="#333">80 GB — 1x A100/H100</text>
+  <text x="497" y="50" font-size="12" text-anchor="start" fill="#666">141 GB — 1x H200</text>
+
+  <!-- checkpoint sizes -->
+  <text x="232" y="107" font-size="14" text-anchor="end" fill="#111">Qwen3.8-27B</text>
+  <rect x="240" y="90" width="99.6" height="26" rx="3" fill="#2f7d4f"/>
+  <text x="905" y="107" font-size="13" text-anchor="end" fill="#111">56 GB</text>
+
+  <text x="232" y="162" font-size="14" text-anchor="end" fill="#111">Qwen3.6-35B-A3B</text>
+  <rect x="240" y="145" width="128" height="26" rx="3" fill="#2f7d4f"/>
+  <text x="905" y="162" font-size="13" text-anchor="end" fill="#111">72 GB</text>
+
+  <text x="232" y="217" font-size="14" text-anchor="end" fill="#111">gpt-oss-120b</text>
+  <rect x="240" y="200" width="115.6" height="26" rx="3" fill="#2f7d4f"/>
+  <text x="905" y="217" font-size="13" text-anchor="end" fill="#111">65 GB</text>
+
+  <text x="232" y="272" font-size="14" text-anchor="end" fill="#111">DeepSeek-V4-Flash</text>
+  <rect x="240" y="255" width="284.4" height="26" rx="3" fill="#a86b00"/>
+  <text x="905" y="272" font-size="13" text-anchor="end" fill="#111">160 GB</text>
+
+  <text x="232" y="327" font-size="14" text-anchor="end" fill="#111">GLM-5.3-Flash</text>
+  <rect x="240" y="310" width="583.1" height="26" rx="3" fill="#a33333"/>
+  <text x="905" y="327" font-size="13" text-anchor="end" fill="#111">328 GB</text>
+
+  <!-- axis -->
+  <line x1="240" y1="352" x2="880" y2="352" stroke="#999"/>
+  <line x1="240" y1="352" x2="240" y2="358" stroke="#999"/>
+  <text x="240" y="374" font-size="12" text-anchor="middle" fill="#666">0</text>
+  <line x1="418" y1="352" x2="418" y2="358" stroke="#999"/>
+  <text x="418" y="374" font-size="12" text-anchor="middle" fill="#666">100</text>
+  <line x1="596" y1="352" x2="596" y2="358" stroke="#999"/>
+  <text x="596" y="374" font-size="12" text-anchor="middle" fill="#666">200</text>
+  <line x1="773" y1="352" x2="773" y2="358" stroke="#999"/>
+  <text x="773" y="374" font-size="12" text-anchor="middle" fill="#666">300</text>
+  <text x="880" y="374" font-size="12" text-anchor="end" fill="#666">GB</text>
+
+  <!-- legend -->
+  <rect x="240" y="386" width="10" height="10" fill="#2f7d4f"/>
+  <text x="256" y="395" font-size="11" fill="#555">fits one 80 GB card</text>
+  <rect x="400" y="386" width="10" height="10" fill="#a86b00"/>
+  <text x="416" y="395" font-size="11" fill="#555">fits one H200</text>
+  <rect x="520" y="386" width="10" height="10" fill="#a33333"/>
+  <text x="536" y="395" font-size="11" fill="#555">needs several GPUs</text>
+</svg>

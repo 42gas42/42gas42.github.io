@@ -69,6 +69,10 @@ The mechanism is simple. Firefox reads user.js from the profile directory on eve
 </span></span><span style="display:flex;"><span>cd ~/arkenfox
 </span></span><span style="display:flex;"><span>cp user.js updater.sh prefsCleaner.sh <span style="color:#e6db74">&#34;</span>$PROFILE<span style="color:#e6db74">&#34;</span>/</span></span></code></pre></div>
 </div><p>No <code>sudo</code> here: the profile belongs to your user, and root-owned files inside it will make the updater fail later.</p>
+<p style="text-align: center">
+  <img src="setup-flow.svg" alt="How the arkenfox files fit together" />
+</p>
+<p style="text-align: center"><em>How the files fit together: the repo, the profile, the updater, and what Firefox applies at start.</em></p>
 <h2 id="5-write-user-overridesjs">5. Write user-overrides.js</h2>
 <p><code>user.js</code> is the upstream preset; <code>user-overrides.js</code> is applied on top of it and holds your own choices. Create it next to <code>user.js</code> in the profile folder. Mine keeps the hardening but leaves the profile usable for everyday browsing:</p>
 <div class="code-block code-scroll">
