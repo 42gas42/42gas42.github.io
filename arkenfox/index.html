@@ -1,30 +1,11 @@
 <!DOCTYPE html>
-<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<html lang="en-us"><head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-   <meta name="description" content="Arkenfox setup
-TODO: some intro about what it is and why its needed
-
-Create separate profile in firefox, here it is:
-
-&ldquo;~/Library/Application Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox&rdquo;
-You can find it&rsquo;s location folder by looking at about:profiles.
-
-Create a copy of it:
-
-sudo mkdir -p &ldquo;~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox.bak&rdquo;
-sudo cp -R ~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/* ~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox.bak
-
-
-Clone arkenfox user.js to ~/Documents:
-git clone https://github.com/arkenfox/user.js.git
-
-
-Copy some files from arkenfox repo to profile:
-sudo cp ~/Documents/user.js/user.js /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/
-sudo cp ~/Documents/user.js/updater.sh /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/
-sudo cp ~/Documents/user.js/prefsCleaner.sh /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/">  
+   <meta name="description" content="Intro
+Firefox is a decent browser for privacy out of the box, but a lot is still on by default: telemetry, sponsored suggestions, background connectivity checks, autoplay, and so on. arkenfox is a long-running community user.js preset that turns most of it off.
+The mechanism is simple. Firefox reads user.js from the profile directory on every start and applies the prefs listed there. The preset documents every pref it sets, so you can read why it exists and override whatever breaks your workflow.">  
 
   <title>
     
@@ -37,11 +18,13 @@ sudo cp ~/Documents/user.js/prefsCleaner.sh /Users/gas/Library/Application\ Supp
   
   
   
-  <link rel="stylesheet" href="/css/main.900100e9dbee2d56c58fac8bb717037cae7e26a9c36c29d2ff587bdd65f0cbbe510b41d81a3bb234919cdfdc7550d786b2fab70c8fc507772d732fe097106d12.css" integrity="sha512-kAEA6dvuLVbFj6yLtxcDfK5&#43;JqnDbCnS/1h73WXwy75RC0HYGjuyNJGc39x1UNeGsvq3DI/FB3ctcy/glxBtEg==" />
+  <link rel="stylesheet" href="/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
   
   
-  <link rel="stylesheet" href="/css/custom.c8e1e56572d2f8834784c95261979120d7fa0ad620c99384652a97322238f5f3df327cfe6e7202f2aae7889077f7df104d752d3ec8512583c19a881059e58ab2.css" integrity="sha512-yOHlZXLS&#43;INHhMlSYZeRINf6CtYgyZOEZSqXMiI49fPfMnz&#43;bnIC8qrniJB3998QTXUtPshRJYPBmogQWeWKsg==" />
+  <link rel="stylesheet" href="/css/custom.a8dd9c1741ef7dae6904bc4ce1a50fb2c153f4005ec3927d5e73e703b870a3c697c26ee8a77542d0689924e66a412aaed105e3150fabf7b7af11862a8c469478.css" integrity="sha512-qN2cF0Hvfa5pBLxM4aUPssFT9ABew5J9XnPnA7hwo8aXwm7op3VC0GiZJOZqQSqu0QXjFQ&#43;r97evEYYqjEaUeA==" />
   
+  
+  <script defer src="/js/copy-code.min.10823c5f7b3055dc200d6e7802c763f631380a54da81b2f1ad8bf52be9baa4b437ffc3fb49671b4e11931260caf29d8c192216a3fdd2d5360a11c438516941f0.js" integrity="sha512-EII8X3swVdwgDW54Asdj9jE4ClTagbLxrYv1K&#43;m6pLQ3/8P7SWcbThGTEmDK8p2MGSIWo/3S1TYKEcQ4UWlB8A=="></script>
 </head>
 <body a="auto">
         <main class="page-content" aria-label="Content">
@@ -60,303 +43,306 @@ sudo cp ~/Documents/user.js/prefsCleaner.sh /Users/gas/Library/Application\ Supp
 
     
 
-    <h1 id="arkenfox-setup">Arkenfox setup</h1>
-<p>TODO: some intro about what it is and why its needed</p>
-<ol>
-<li>Create separate profile in firefox, here it is:</li>
-</ol>
-<p>&ldquo;~/Library/Application Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox&rdquo;</p>
-<p>You can find it&rsquo;s location folder by looking at <code>about:profiles</code>.</p>
-<ol>
-<li>Create a copy of it:</li>
-</ol>
-<p>sudo mkdir -p &ldquo;~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox.bak&rdquo;</p>
-<p>sudo cp -R ~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/* ~/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox.bak</p>
-<ol start="3">
-<li>
-<p>Clone arkenfox user.js to <code>~/Documents</code>:
-git clone <a href="https://github.com/arkenfox/user.js.git">https://github.com/arkenfox/user.js.git</a></p>
-</li>
-<li>
-<p>Copy some files from arkenfox repo to profile:
-sudo cp ~/Documents/user.js/user.js /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/
-sudo cp ~/Documents/user.js/updater.sh /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/
-sudo cp ~/Documents/user.js/prefsCleaner.sh /Users/gas/Library/Application\ Support/Firefox/Profiles/kvosl3rg.hardened-arkenfox/</p>
-</li>
-<li>
-<p>Cd to the profile folder and create user-overrides.js in the profile folder:</p>
-</li>
-</ol>
-<pre tabindex="0"><code>// =======================
-// Clearnet Hardened Firefox Profile - Arkenfox Overrides
-// Goal:
-// - DuckDuckGo default search via policies.json, not user.js
-// - No search suggestions / URL-bar suggestions / form history
-// - Blank new tabs and blank home page
-// - Restore previous open tabs + pinned tabs
-// - Clear cookies/storage globally, keep trusted logins via site exceptions
-// - Hardware access only by user consent
-// - Stronger privacy without breaking normal clearnet browsing too much
-// =======================
-
-
-// ======================================================
-// 1. Background network checks
-// ======================================================
-
-user_pref(&#34;network.captive-portal-service.enabled&#34;, false);
-user_pref(&#34;network.connectivity-service.enabled&#34;, false);
-
-
-// ======================================================
-// 2. Address bar / search behavior
-// ======================================================
-
-// Keep URL-bar search enabled for DuckDuckGo via policies.json.
-user_pref(&#34;keyword.enabled&#34;, true);
-
-// Avoid DNS guessing / single-word fixups.
-user_pref(&#34;browser.fixup.dns_first_for_single_words&#34;, false);
-user_pref(&#34;browser.fixup.alternate.enabled&#34;, false);
-
-// Disable search suggestions.
-user_pref(&#34;browser.search.suggest.enabled&#34;, false);
-user_pref(&#34;browser.search.suggest.enabled.private&#34;, false);
-user_pref(&#34;browser.urlbar.suggest.searches&#34;, false);
-user_pref(&#34;browser.urlbar.suggest.engines&#34;, false);
-user_pref(&#34;browser.urlbar.showSearchSuggestionsFirst&#34;, false);
-
-// Disable Firefox Suggest / Quick Suggest / sponsored / trending.
-user_pref(&#34;browser.urlbar.quicksuggest.enabled&#34;, false);
-user_pref(&#34;browser.urlbar.suggest.quicksuggest.all&#34;, false);
-user_pref(&#34;browser.urlbar.suggest.quicksuggest.sponsored&#34;, false);
-user_pref(&#34;browser.urlbar.suggest.trending&#34;, false);
-
-// Disable URL-bar suggestions from local data.
-user_pref(&#34;browser.urlbar.suggest.history&#34;, false);
-user_pref(&#34;browser.urlbar.suggest.bookmark&#34;, false);
-user_pref(&#34;browser.urlbar.suggest.openpage&#34;, false);
-user_pref(&#34;browser.urlbar.suggest.topsites&#34;, false);
-user_pref(&#34;browser.urlbar.autoFill&#34;, false);
-
-// Avoid speculative URL-bar connections.
-user_pref(&#34;browser.urlbar.speculativeConnect.enabled&#34;, false);
-
-// Show full URLs.
-user_pref(&#34;browser.urlbar.trimURLs&#34;, false);
-
-
-// ======================================================
-// 3. Form/search history
-// ======================================================
-
-user_pref(&#34;browser.formfill.enable&#34;, false);
-
-
-// ======================================================
-// 4. Startup / new tab / home page
-// ======================================================
-
-// 3 = restore previous session.
-// Required for previous tabs and pinned tabs.
-user_pref(&#34;browser.startup.page&#34;, 3);
-
-// Blank home page / new window fallback.
-user_pref(&#34;browser.startup.homepage&#34;, &#34;about:blank&#34;);
-
-// Blank new tab.
-user_pref(&#34;browser.newtabpage.enabled&#34;, false);
-user_pref(&#34;browser.newtabpage.activity-stream.enabled&#34;, false);
-user_pref(&#34;browser.newtab.preload&#34;, false);
-
-
-// ======================================================
-// 5. Session restore behavior
-// ======================================================
-
-// Keep crash/session restore enabled.
-user_pref(&#34;browser.sessionstore.resume_from_crash&#34;, true);
-
-// Store only current page per tab, not long back/forward chains.
-user_pref(&#34;browser.sessionstore.max_serialize_back&#34;, 0);
-user_pref(&#34;browser.sessionstore.max_serialize_forward&#34;, 0);
-
-// Do not keep closed-tab/window undo history.
-user_pref(&#34;browser.sessionstore.max_tabs_undo&#34;, 0);
-user_pref(&#34;browser.sessionstore.max_windows_undo&#34;, 0);
-
-// Session data write interval.
-user_pref(&#34;browser.sessionstore.interval&#34;, 15000);
-
-
-// ======================================================
-// 6. Passwords / logins
-// ======================================================
-
-// Keep Firefox password manager.
-user_pref(&#34;signon.rememberSignons&#34;, true);
-
-// Do not autofill saved credentials automatically.
-user_pref(&#34;signon.autofillForms&#34;, false);
-
-
-// ======================================================
-// 7. Shutdown cleanup
-// ======================================================
-
-// Keep sanitize-on-shutdown enabled.
-user_pref(&#34;privacy.sanitize.sanitizeOnShutdown&#34;, true);
-
-// Critical: do NOT clear history/session data,
-// otherwise previous-session restore can break.
-user_pref(&#34;privacy.clearOnShutdown.history&#34;, false);
-user_pref(&#34;privacy.clearOnShutdown_v2.historyFormDataAndDownloads&#34;, false);
-user_pref(&#34;privacy.clearHistory.historyFormDataAndDownloads&#34;, false);
-
-// Do NOT clear site settings; cookie exceptions live there.
-user_pref(&#34;privacy.clearOnShutdown.siteSettings&#34;, false);
-user_pref(&#34;privacy.clearOnShutdown_v2.siteSettings&#34;, false);
-
-// Clear cookies/storage globally.
-// Trusted logins should survive via cookie exceptions.
-user_pref(&#34;privacy.clearOnShutdown.cookies&#34;, true);
-user_pref(&#34;privacy.clearOnShutdown_v2.cookiesAndStorage&#34;, true);
-
-// Clear cache and offline app data.
-user_pref(&#34;privacy.clearOnShutdown.cache&#34;, true);
-user_pref(&#34;privacy.clearOnShutdown_v2.cache&#34;, true);
-user_pref(&#34;privacy.clearOnShutdown.offlineApps&#34;, true);
-
-// Clear downloads/form data on shutdown.
-user_pref(&#34;privacy.clearOnShutdown.downloads&#34;, true);
-user_pref(&#34;privacy.clearOnShutdown.formdata&#34;, true);
-
-
-// ======================================================
-// 8. Tracking protection / HTTPS / attribution
-// ======================================================
-
-// Strong Enhanced Tracking Protection.
-// Usually good UX/privacy balance.
-user_pref(&#34;browser.contentblocking.category&#34;, &#34;strict&#34;);
-
-// HTTPS-Only Mode.
-// May need manual exceptions for old local devices / legacy HTTP sites.
-user_pref(&#34;dom.security.https_only_mode&#34;, true);
-user_pref(&#34;dom.security.https_only_mode_pbm&#34;, true);
-
-// Reduce cross-origin referrer leakage.
-user_pref(&#34;network.http.referer.XOriginTrimmingPolicy&#34;, 2);
-
-// Disable privacy-invasive attribution/reporting surfaces.
-user_pref(&#34;dom.private-attribution.submission.enabled&#34;, false);
-
-
-// ======================================================
-// 9. Geolocation / telemetry / experiments
-// ======================================================
-
-// Block geolocation by default.
-user_pref(&#34;permissions.default.geo&#34;, 2);
-user_pref(&#34;geo.enabled&#34;, false);
-user_pref(&#34;geo.provider.network.url&#34;, &#34;&#34;);
-
-// Disable Firefox telemetry / studies / experiments.
-user_pref(&#34;datareporting.healthreport.uploadEnabled&#34;, false);
-user_pref(&#34;datareporting.policy.dataSubmissionEnabled&#34;, false);
-user_pref(&#34;toolkit.telemetry.enabled&#34;, false);
-user_pref(&#34;toolkit.telemetry.unified&#34;, false);
-user_pref(&#34;toolkit.telemetry.archive.enabled&#34;, false);
-user_pref(&#34;app.shield.optoutstudies.enabled&#34;, false);
-user_pref(&#34;app.normandy.enabled&#34;, false);
-user_pref(&#34;app.normandy.api_url&#34;, &#34;&#34;);
-
-
-// ======================================================
-// 10. Google Safe Browsing minimization
-// ======================================================
-
-// Privacy gain: fewer Google-related Safe Browsing calls.
-// Security cost: weaker malware/phishing/download protection.
-// Keep this block if your priority is &#34;no Google-related network services&#34;.
-user_pref(&#34;browser.safebrowsing.malware.enabled&#34;, false);
-user_pref(&#34;browser.safebrowsing.phishing.enabled&#34;, false);
-user_pref(&#34;browser.safebrowsing.downloads.enabled&#34;, false);
-user_pref(&#34;browser.safebrowsing.downloads.remote.enabled&#34;, false);
-user_pref(&#34;browser.safebrowsing.provider.google4.dataSharing.enabled&#34;, false);
-user_pref(&#34;browser.safebrowsing.provider.google4.updateURL&#34;, &#34;&#34;);
-user_pref(&#34;browser.safebrowsing.provider.google4.gethashURL&#34;, &#34;&#34;);
-user_pref(&#34;browser.safebrowsing.provider.google.updateURL&#34;, &#34;&#34;);
-user_pref(&#34;browser.safebrowsing.provider.google.gethashURL&#34;, &#34;&#34;);
-
-
-// ======================================================
-// 11. Hardware / device access
-// ======================================================
-
-// 0 = ask, 1 = allow, 2 = block.
-user_pref(&#34;permissions.default.camera&#34;, 0);
-user_pref(&#34;permissions.default.microphone&#34;, 0);
-user_pref(&#34;permissions.default.screen&#34;, 0);
-
-// Block noisy/risky permission types.
-user_pref(&#34;permissions.default.desktop-notification&#34;, 2);
-user_pref(&#34;permissions.default.xr&#34;, 2);
-
-// Autoplay off.
-user_pref(&#34;media.autoplay.default&#34;, 5);
-user_pref(&#34;media.autoplay.blocking_policy&#34;, 2);
-
-// Minimize device/sensor APIs.
-user_pref(&#34;dom.webmidi.enabled&#34;, false);
-user_pref(&#34;dom.gamepad.enabled&#34;, false);
-user_pref(&#34;device.sensors.enabled&#34;, false);
-user_pref(&#34;dom.vibrator.enabled&#34;, false);
-
-// WebRTC: keep video calls usable, but limit local IP exposure.
-user_pref(&#34;media.peerconnection.ice.default_address_only&#34;, true);
-user_pref(&#34;media.peerconnection.ice.no_host&#34;, true);
-
-
-// ======================================================
-// 12. Optional integrations / services
-// ======================================================
-
-// Disable Pocket.
-user_pref(&#34;extensions.pocket.enabled&#34;, false);
-
-// Disable Firefox Account / Sync.
-// If you use Firefox Sync, remove this line.
-user_pref(&#34;identity.fxaccounts.enabled&#34;, false);
-
-// Disable DRM.
-// If you use Netflix, Spotify Web Player, some paid streaming sites,
-// remove or set this to true.
-user_pref(&#34;media.eme.enabled&#34;, false);
-</code></pre><ol start="6">
-<li>
-<p>Close Firefox</p>
-</li>
-<li>
-<p>(First time) Change ownership of arkenfox related files and ensure executables:</p>
-</li>
-</ol>
-<pre tabindex="0"><code>sudo chown &#34;$USER&#34;:&#34;$(id -gn)&#34; user.js prefsCleaner.sh user-overrides.js updater.sh
-</code></pre><pre tabindex="0"><code>chmod u+x updater.sh prefsCleaner.sh 
-</code></pre><ol start="8">
-<li>
-<p>While in the profile folder, run <code>./updater.sh</code> and <code>./prefsCleaner.sh</code></p>
-</li>
-<li>
-<p>Run Firefox again, check that it works</p>
-</li>
-<li>
-<p>Add ublock origin extension.</p>
-</li>
-<li>
-<p>Go to the Settings &ndash;&gt; Privacy &amp; Security &ndash;&gt; add expections to the coockies store between sessions, to not log back to certain services, like mail, etc.</p>
-</li>
-</ol>
+    <h1 id="intro">Intro</h1>
+<p>Firefox is a decent browser for privacy out of the box, but a lot is still on by default: telemetry, sponsored suggestions, background connectivity checks, autoplay, and so on. <a href="https://github.com/arkenfox/user.js">arkenfox</a> is a long-running community <code>user.js</code> preset that turns most of it off.</p>
+<p>The mechanism is simple. Firefox reads <code>user.js</code> from the profile directory on every start and applies the prefs listed there. The preset documents every pref it sets, so you can read why it exists and override whatever breaks your workflow.</p>
+<p>Below is the full setup on macOS. On Linux everything is the same, only the profile path changes.</p>
+<h1 id="setup">Setup</h1>
+<h2 id="1-create-a-separate-profile">1. Create a separate profile</h2>
+<p>Open <code>about:profiles</code> and create a new profile, e.g. <code>hardened</code>. Keeping it separate from your daily profile lets you compare behavior and keeps the hardened setup away from the browser you actually use.</p>
+<p>The profile lands in:</p>
+<p><code>~/Library/Application Support/Firefox/Profiles/&lt;profile-id&gt;.hardened</code></p>
+<p><code>about:profiles</code> shows the exact path. The commands below use a <code>PROFILE</code> variable instead of the full path, and repeat it in each block so you can paste them as-is.</p>
+<h2 id="2-back-up-the-fresh-profile">2. Back up the fresh profile</h2>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>PROFILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/Library/Application Support/Firefox/Profiles/&lt;profile-id&gt;.hardened&#34;</span>
+</span></span><span style="display:flex;"><span>cp -R <span style="color:#e6db74">&#34;</span>$PROFILE<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$PROFILE<span style="color:#e6db74">.bak&#34;</span></span></span></code></pre></div>
+</div><h2 id="3-clone-arkenfox">3. Clone arkenfox</h2>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/arkenfox/user.js.git ~/arkenfox</span></span></code></pre></div>
+</div><h2 id="4-copy-the-scripts-into-the-profile">4. Copy the scripts into the profile</h2>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>PROFILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/Library/Application Support/Firefox/Profiles/&lt;profile-id&gt;.hardened&#34;</span>
+</span></span><span style="display:flex;"><span>cd ~/arkenfox
+</span></span><span style="display:flex;"><span>cp user.js updater.sh prefsCleaner.sh <span style="color:#e6db74">&#34;</span>$PROFILE<span style="color:#e6db74">&#34;</span>/</span></span></code></pre></div>
+</div><p>No <code>sudo</code> here: the profile belongs to your user, and root-owned files inside it will make the updater fail later.</p>
+<h2 id="5-write-user-overridesjs">5. Write user-overrides.js</h2>
+<p><code>user.js</code> is the upstream preset; <code>user-overrides.js</code> is applied on top of it and holds your own choices. Create it next to <code>user.js</code> in the profile folder. Mine keeps the hardening but leaves the profile usable for everyday browsing:</p>
+<div class="code-block code-scroll">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="code-scroll-body"><div class="highlight" scroll="true"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// =======================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Clearnet Hardened Firefox Profile - Arkenfox Overrides
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Goal:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// - DuckDuckGo default search via policies.json, not user.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// - No search suggestions / URL-bar suggestions / form history
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// - Blank new tabs and blank home page
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// - Restore previous open tabs + pinned tabs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// - Clear cookies/storage globally, keep trusted logins via site exceptions
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// - Hardware access only by user consent
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// - Stronger privacy without breaking normal clearnet browsing too much
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// =======================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 1. Background network checks
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.captive-portal-service.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.connectivity-service.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 2. Address bar / search behavior
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Keep URL-bar search enabled for DuckDuckGo via policies.json.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;keyword.enabled&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Avoid DNS guessing / single-word fixups.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.fixup.dns_first_for_single_words&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.fixup.alternate.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Disable search suggestions.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.search.suggest.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.search.suggest.enabled.private&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.searches&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.engines&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.showSearchSuggestionsFirst&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Disable Firefox Suggest / Quick Suggest / sponsored / trending.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.quicksuggest.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.quicksuggest.all&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.quicksuggest.sponsored&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.trending&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Disable URL-bar suggestions from local data.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.history&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.bookmark&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.openpage&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.suggest.topsites&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.autoFill&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Avoid speculative URL-bar connections.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.speculativeConnect.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Show full URLs.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.urlbar.trimURLs&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 3. Form/search history
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.formfill.enable&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 4. Startup / new tab / home page
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 3 = restore previous session.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Required for previous tabs and pinned tabs.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.startup.page&#34;</span>, <span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Blank home page / new window fallback.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.startup.homepage&#34;</span>, <span style="color:#e6db74">&#34;about:blank&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Blank new tab.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.newtabpage.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.newtabpage.activity-stream.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.newtab.preload&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 5. Session restore behavior
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Keep crash/session restore enabled.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.sessionstore.resume_from_crash&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Store only current page per tab, not long back/forward chains.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.sessionstore.max_serialize_back&#34;</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.sessionstore.max_serialize_forward&#34;</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Do not keep closed-tab/window undo history.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.sessionstore.max_tabs_undo&#34;</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.sessionstore.max_windows_undo&#34;</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Session data write interval.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.sessionstore.interval&#34;</span>, <span style="color:#ae81ff">15000</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 6. Passwords / logins
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Keep Firefox password manager.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;signon.rememberSignons&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Do not autofill saved credentials automatically.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;signon.autofillForms&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 7. Shutdown cleanup
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Keep sanitize-on-shutdown enabled.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.sanitize.sanitizeOnShutdown&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Critical: do NOT clear history/session data,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// otherwise previous-session restore can break.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearOnShutdown.history&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearOnShutdown_v2.historyFormDataAndDownloads&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearHistory.historyFormDataAndDownloads&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Do NOT clear site settings; cookie exceptions live there.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearOnShutdown.siteSettings&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearOnShutdown_v2.siteSettings&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Clear cookies/storage globally.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Trusted logins should survive via cookie exceptions.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearOnShutdown.cookies&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearOnShutdown_v2.cookiesAndStorage&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Clear cache and offline app data.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearOnShutdown.cache&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearOnShutdown_v2.cache&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearOnShutdown.offlineApps&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Clear downloads/form data on shutdown.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearOnShutdown.downloads&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;privacy.clearOnShutdown.formdata&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 8. Tracking protection / HTTPS / attribution
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Strong Enhanced Tracking Protection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Usually good UX/privacy balance.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.contentblocking.category&#34;</span>, <span style="color:#e6db74">&#34;strict&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// HTTPS-Only Mode.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// May need manual exceptions for old local devices / legacy HTTP sites.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;dom.security.https_only_mode&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;dom.security.https_only_mode_pbm&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Reduce cross-origin referrer leakage.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;network.http.referer.XOriginTrimmingPolicy&#34;</span>, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Disable privacy-invasive attribution/reporting surfaces.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;dom.private-attribution.submission.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 9. Geolocation / telemetry / experiments
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Block geolocation by default.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;permissions.default.geo&#34;</span>, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;geo.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;geo.provider.network.url&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Disable Firefox telemetry / studies / experiments.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;datareporting.healthreport.uploadEnabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;datareporting.policy.dataSubmissionEnabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;toolkit.telemetry.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;toolkit.telemetry.unified&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;toolkit.telemetry.archive.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;app.shield.optoutstudies.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;app.normandy.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;app.normandy.api_url&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 10. Google Safe Browsing minimization
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Privacy gain: fewer Google-related Safe Browsing calls.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Security cost: weaker malware/phishing/download protection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Keep this block if your priority is &#34;no Google-related network services&#34;.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.safebrowsing.malware.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.safebrowsing.phishing.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.safebrowsing.downloads.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.safebrowsing.downloads.remote.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.safebrowsing.provider.google4.dataSharing.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.safebrowsing.provider.google4.updateURL&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.safebrowsing.provider.google4.gethashURL&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.safebrowsing.provider.google.updateURL&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;browser.safebrowsing.provider.google.gethashURL&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 11. Hardware / device access
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 0 = ask, 1 = allow, 2 = block.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;permissions.default.camera&#34;</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;permissions.default.microphone&#34;</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;permissions.default.screen&#34;</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Block noisy/risky permission types.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;permissions.default.desktop-notification&#34;</span>, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;permissions.default.xr&#34;</span>, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Autoplay off.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;media.autoplay.default&#34;</span>, <span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;media.autoplay.blocking_policy&#34;</span>, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Minimize device/sensor APIs.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;dom.webmidi.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;dom.gamepad.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;device.sensors.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;dom.vibrator.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// WebRTC: keep video calls usable, but limit local IP exposure.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;media.peerconnection.ice.default_address_only&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;media.peerconnection.ice.no_host&#34;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 12. Optional integrations / services
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ======================================================
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Disable Pocket.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;extensions.pocket.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Disable Firefox Account / Sync.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// If you use Firefox Sync, remove this line.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;identity.fxaccounts.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Disable DRM.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// If you use Netflix, Spotify Web Player, some paid streaming sites,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// remove or set this to true.
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">user_pref</span>(<span style="color:#e6db74">&#34;media.eme.enabled&#34;</span>, <span style="color:#66d9ef">false</span>);</span></span></code></pre></div></div>
+</div><p>A few lines there are worth a second thought:</p>
+<ul>
+<li><strong>Safe Browsing is disabled.</strong> That removes Google-related network calls, but also weakens malware and phishing protection — a fair trade only if you know what you are doing.</li>
+<li><strong>Cookies and site storage are cleared on shutdown.</strong> Sites you want to stay logged in need an exception, otherwise you will re-authenticate on every launch.</li>
+<li><strong>Sync, Pocket and DRM are off.</strong> Remove those lines if you use Firefox Sync, Pocket, or DRM-protected streaming.</li>
+</ul>
+<h2 id="6-run-the-updater">6. Run the updater</h2>
+<p>Close Firefox first, then:</p>
+<div class="code-block">
+  <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>PROFILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/Library/Application Support/Firefox/Profiles/&lt;profile-id&gt;.hardened&#34;</span>
+</span></span><span style="display:flex;"><span>cd <span style="color:#e6db74">&#34;</span>$PROFILE<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>chmod u+x updater.sh prefsCleaner.sh
+</span></span><span style="display:flex;"><span>./updater.sh
+</span></span><span style="display:flex;"><span>./prefsCleaner.sh</span></span></code></pre></div>
+</div><p><code>updater.sh</code> rebuilds <code>user.js</code> from the upstream release and appends your overrides; <code>prefsCleaner.sh</code> drops prefs that no longer exist upstream. Run both again after every arkenfox update.</p>
+<h2 id="7-start-firefox-and-finish">7. Start Firefox and finish</h2>
+<p>Start Firefox and check that it comes up normally. Then:</p>
+<ul>
+<li>install <a href="https://addons.mozilla.org/firefox/addon/ublock-origin/">uBlock Origin</a>;</li>
+<li>add cookie exceptions for the sites you want to stay logged in: Settings → Privacy &amp; Security → Cookies and Site Data → Manage Exceptions;</li>
+<li>pick the search engine in Settings → Search. The overrides assume DuckDuckGo; the <code>policies.json</code> note in the header only matters if you deploy prefs centrally.</li>
+</ul>
+<hr>
 
 </article>
 

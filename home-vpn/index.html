@@ -25,10 +25,10 @@ I&rsquo;ll be focusing on running the server part on a RaspberryPi, but this gui
   <link rel="stylesheet" href="/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
   
   
-  <link rel="stylesheet" href="/css/custom.a4cdf433851ea883e637fbe7fa9d46d4c7e92ee6757e24e4f8bcaed1f1c4f23c8b5896912bfd15d5ed633578137bb4f922457178d502e3c3c53a5948d6e49863.css" integrity="sha512-pM30M4UeqIPmN/vn&#43;p1G1MfpLuZ1fiTk&#43;Lyu0fHE8jyLWJaRK/0V1e1jNXgTe7T5IkVxeNUC48PFOllI1uSYYw==" />
+  <link rel="stylesheet" href="/css/custom.a8dd9c1741ef7dae6904bc4ce1a50fb2c153f4005ec3927d5e73e703b870a3c697c26ee8a77542d0689924e66a412aaed105e3150fabf7b7af11862a8c469478.css" integrity="sha512-qN2cF0Hvfa5pBLxM4aUPssFT9ABew5J9XnPnA7hwo8aXwm7op3VC0GiZJOZqQSqu0QXjFQ&#43;r97evEYYqjEaUeA==" />
   
   
-  <script defer src="/js/copy-code.min.d1553503490b14f11456abfee0e4598e8027a749789d393a9221561aa620ea775d7e63490c617bef04589bac76968063847a2353729f6bbbb0c894da48297877.js" integrity="sha512-0VU1A0kLFPEUVqv&#43;4ORZjoAnp0l4nTk6kiFWGqYg6nddfmNJDGF77wRYm6x2loBjhHojU3Kfa7uwyJTaSCl4dw=="></script>
+  <script defer src="/js/copy-code.min.10823c5f7b3055dc200d6e7802c763f631380a54da81b2f1ad8bf52be9baa4b437ffc3fb49671b4e11931260caf29d8c192216a3fdd2d5360a11c438516941f0.js" integrity="sha512-EII8X3swVdwgDW54Asdj9jE4ClTagbLxrYv1K&#43;m6pLQ3/8P7SWcbThGTEmDK8p2MGSIWo/3S1TYKEcQ4UWlB8A=="></script>
 </head>
 <body a="auto">
         <main class="page-content" aria-label="Content">
@@ -97,9 +97,9 @@ So, let&rsquo;s configure XRay server and client.</p>
 </div><p>And finally - create the first client ID with <code style="background-color: #808080;">xray uuid</code>.</p>
 <p>You should do it for every new client, and update the server config with the new client entry (see example below).</p>
 <p>Create a config file at <code style="background-color: #808080;">/usr/local/etc/xray/config.json</code>:</p>
-<div class="code-block">
+<div class="code-block code-scroll">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+  <div class="code-scroll-body"><div class="highlight" scroll="true"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;inbounds&#34;</span>: [
 </span></span><span style="display:flex;"><span>    {
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;listen&#34;</span>: <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>,
@@ -143,7 +143,7 @@ So, let&rsquo;s configure XRay server and client.</p>
 </span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;settings&#34;</span>: {}
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  ]
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
 </div><p>Pay attention, that we&rsquo;re using here <code>www.cloudflare.com</code> for masquerading, which should be allowed in the area where client operates. Free to choose your own.<br>
 Also, by masquerading here meant that the specified &ldquo;target&rdquo; websites SNIs will be used for tls handshake, which could be crucial for fooling packet inspection software.</p>
 <p>Test that config is correct:</p>
@@ -169,9 +169,9 @@ Ensure your firewall allows traffic on a selected port using <code style="backgr
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
   <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bash -c <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></span></span></code></pre></div>
 </div><p>Add generated ids and keys to the <code>/usr/local/etc/xray/config.json</code>:</p>
-<div class="code-block">
+<div class="code-block code-scroll">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+  <div class="code-scroll-body"><div class="highlight" scroll="true"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;log&#34;</span>: { <span style="color:#f92672">&#34;loglevel&#34;</span>: <span style="color:#e6db74">&#34;warning&#34;</span> },
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;inbounds&#34;</span>: [
@@ -218,7 +218,7 @@ Ensure your firewall allows traffic on a selected port using <code style="backgr
 </span></span><span style="display:flex;"><span>      }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  ]
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
 </div><p><strong>NOTE:</strong> With that config, you only tunnel the traffic that you explicitly send into Xray’s local proxy ports.</p>
 <p>Then enable and reload the daemon:</p>
 <div class="code-block">

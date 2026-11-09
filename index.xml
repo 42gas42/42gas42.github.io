@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Tue, 30 Dec 2025 16:06:44 +0200</lastBuildDate>
+			<lastBuildDate>Sat, 18 Jul 2026 17:06:54 +0200</lastBuildDate>
 		
 			<atom:link href="https://gasparian.github.io/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Arkenfox</title>
+				<link>https://gasparian.github.io/arkenfox/</link>
+				<pubDate>Sat, 18 Jul 2026 17:06:54 +0200</pubDate>
+				<guid>https://gasparian.github.io/arkenfox/</guid>
+				<description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;&#xA;&lt;p&gt;Firefox is a decent browser for privacy out of the box, but a lot is still on by default: telemetry, sponsored suggestions, background connectivity checks, autoplay, and so on. &lt;a href=&#34;https://github.com/arkenfox/user.js&#34;&gt;arkenfox&lt;/a&gt; is a long-running community &lt;code&gt;user.js&lt;/code&gt; preset that turns most of it off.&lt;/p&gt;&#xA;&lt;p&gt;The mechanism is simple. Firefox reads &lt;code&gt;user.js&lt;/code&gt; from the profile directory on every start and applies the prefs listed there. The preset documents every pref it sets, so you can read why it exists and override whatever breaks your workflow.&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>Nat Gateway</title>
 				<link>https://gasparian.github.io/nat-gateway/</link>
@@ -28,11 +35,11 @@
 				<description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://anydesk.com/en&#34;&gt;AnyDesk&lt;/a&gt; is one of the most popular remote desktop tools, used worldwide, &lt;em&gt;including&lt;/em&gt; in some security-sensitive industries. The issue is that closed-source software is hard to audit, and it’s especially risky if the vendor operates in jurisdictions you may be concerned with.&lt;/p&gt;&#xA;&lt;p&gt;At a high level, this kind of software uses centralized “rendezvous” (sometimes called “broker” or “signaling”) servers to match clients and help them establish a peer-to-peer (P2P) connection. If a direct P2P connection can’t be established due to NAT, complex network topologies, or restrictive firewalls—the connection typically falls back to a relay server that forwards traffic between the endpoints.&lt;/p&gt;</description>
 			</item>
 			<item>
-				<title>LLMs for On-Premises Deployment</title>
+				<title>LLMs for On-Premises Deployment (upd. 2026)</title>
 				<link>https://gasparian.github.io/llm-on-premise/</link>
 				<pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
 				<guid>https://gasparian.github.io/llm-on-premise/</guid>
-				<description>&lt;h1 id=&#34;choosing-the-llm&#34;&gt;Choosing the LLM&lt;/h1&gt;&#xA;&lt;p&gt;If order to find current SOTA LLMs, the best way to start - is to gather various LLM benchmarks.&lt;br&gt;&#xA;There are numerous public LLM benchmarking efforts currently available, with the most influential being the &lt;a href=&#34;https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/?official=true&#34;&gt;Open LLM Leaderboard&lt;/a&gt; provided by Hugging Face, which attracts approximately &lt;a href=&#34;https://www.semrush.com/website/huggingface.co/overview/&#34;&gt;40 million&lt;/a&gt; monthly visits to the platform and consists of evaluation datasets covering a diverse range of challenges, and &lt;a href=&#34;https://lmarena.ai/?ref=top-ai-list&#34;&gt;LMSYS Chatbot Arena&lt;/a&gt; (also known as &amp;ldquo;LMArena&amp;rdquo;), which employs a &lt;a href=&#34;https://arxiv.org/pdf/2403.04132&#34;&gt;custom approach&lt;/a&gt; to rank models based on human preference, engages millions of monthly &amp;ldquo;players&amp;rdquo; on the platform, and conducts pre-release tests for top-tier AI labs such as OpenAI, xAI, Meta, Google, and others.&lt;/p&gt;</description>
+				<description>&lt;h1 id=&#34;intro&#34;&gt;Intro&lt;/h1&gt;&#xA;&lt;p&gt;The gap between open-weight and proprietary models closed a lot since this post was first written in early 2025. A 27B dense model today is close to what used to require 70B, and small MoE models push 100B+ quality onto a single 80 GB GPU. The other thing that changed: the Hugging Face Open LLM Leaderboard was archived in March 2025, so &amp;ldquo;the top of the leaderboard&amp;rdquo; now means something else. The open-weight lead also moved to Chinese labs — Qwen (Alibaba), GLM (Z.ai), DeepSeek — with gpt-oss as the main Western exception, and the shortlist below reflects that.&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Unikernels</title>
