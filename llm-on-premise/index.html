@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us"><head>
+<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,10 +17,10 @@ The gap between open-weight and proprietary models closed a lot since this post 
   
   
   
-  <link rel="stylesheet" href="/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
+  <link rel="stylesheet" href="/css/main.900100e9dbee2d56c58fac8bb717037cae7e26a9c36c29d2ff587bdd65f0cbbe510b41d81a3bb234919cdfdc7550d786b2fab70c8fc507772d732fe097106d12.css" integrity="sha512-kAEA6dvuLVbFj6yLtxcDfK5&#43;JqnDbCnS/1h73WXwy75RC0HYGjuyNJGc39x1UNeGsvq3DI/FB3ctcy/glxBtEg==" />
   
   
-  <link rel="stylesheet" href="/css/custom.948c7e1abeabfbc7e897a7e388e8f9f62ae7f311d23fc1dcc35bd3533cab16b20ce6dc5382d2e79d381de2b86d189ad6759ae5ae50e888f6100c97c64033b40a.css" integrity="sha512-lIx&#43;Gr6r&#43;8fol6fjiOj59irn8xHSP8Hcw1vTUzyrFrIM5txTgtLnnTgd4rhtGJrWdZrlrlDoiPYQDJfGQDO0Cg==" />
+  <link rel="stylesheet" href="/css/custom.221b85686d9e51d5ddfff5a86487d48343cef6e2b42923d310a8174f7552cd11e19170c2b3e4c44b5d610f87d4f6c372546e1cc894b4f5a79bf34facfa62ddf0.css" integrity="sha512-IhuFaG2eUdXd//WoZIfUg0PO9uK0KSPTEKgXT3VSzRHhkXDCs&#43;TES11hD4fU9sNyVG4cyJS09aeb80&#43;s&#43;mLd8A==" />
   
   
   <script defer src="/js/copy-code.min.10823c5f7b3055dc200d6e7802c763f631380a54da81b2f1ad8bf52be9baa4b437ffc3fb49671b4e11931260caf29d8c192216a3fdd2d5360a11c438516941f0.js" integrity="sha512-EII8X3swVdwgDW54Asdj9jE4ClTagbLxrYv1K&#43;m6pLQ3/8P7SWcbThGTEmDK8p2MGSIWo/3S1TYKEcQ4UWlB8A=="></script>
@@ -44,13 +44,9 @@ The gap between open-weight and proprietary models closed a lot since this post 
 
     <h1 id="intro">Intro</h1>
 <p>The gap between open-weight and proprietary models closed a lot since this post was first written in early 2025. A 27B dense model today is close to what used to require 70B, and small MoE models push 100B+ quality onto a single 80 GB GPU. The other thing that changed: the Hugging Face Open LLM Leaderboard was archived in March 2025, so &ldquo;the top of the leaderboard&rdquo; now means something else. The open-weight lead also moved to Chinese labs — Qwen (Alibaba), GLM (Z.ai), DeepSeek — with gpt-oss as the main Western exception, and the shortlist below reflects that.</p>
-<p>Here is a short practical guide: where to look, how dense and MoE differ when you size hardware, and which open models are worth a PoC for 1-2 GPU deployments as of late 2026.</p>
+<p>The shortlist below covers where to look, how dense and MoE differ when you size hardware, and which open models are worth a PoC on 1-2 GPUs as of late 2026.</p>
 <h1 id="where-to-look">Where to look</h1>
-<p>Two sources are enough to keep up:</p>
-<ul>
-<li><a href="https://lmarena.ai/">LMArena</a> — crowdsourced pairwise comparisons, still the best proxy for &ldquo;which model people actually prefer&rdquo;. Covers both open and proprietary models.</li>
-<li><a href="https://artificialanalysis.ai/">Artificial Analysis</a> — independent benchmarks plus speed, latency and price; can be filtered to open weights only.</li>
-</ul>
+<p>Two sources are enough to keep up: <a href="https://lmarena.ai/">LMArena</a> for crowdsourced pairwise comparisons — still the best proxy for &ldquo;which model people actually prefer&rdquo;, open and proprietary both — and <a href="https://artificialanalysis.ai/">Artificial Analysis</a> for independent benchmarks plus speed, latency and price, filterable to open weights only.</p>
 <p>Model cards on Hugging Face fill in the rest: context length, license, quantization support. Don&rsquo;t trust a single benchmark run — check at least two sources, and re-check after every release, because the top five changes every couple of months.</p>
 <h1 id="dense-vs-moe">Dense vs MoE</h1>
 <p>A dense model runs every parameter for every token. VRAM is roughly <code>params × bytes per weight</code>, and compute scales with the same number. Simple to size, simple to quantize.</p>
@@ -60,52 +56,52 @@ The gap between open-weight and proprietary models closed a lot since this post 
 <h1 id="candidates">Candidates</h1>
 <p>Same scope as before: official weights from the vendor (no community merges), a commercially usable license, and a node you can actually rent. The first three fit a single 80 GB GPU (quantize to 8-bit if you need a long context), the last two want a 3-5 card node; all five are supported by vLLM.</p>
 <table>
-	<thead>
-			<tr>
-					<th>Model</th>
-					<th>Params (active)</th>
-					<th>Context</th>
-					<th>License</th>
-					<th>Weights*</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td><a href="https://huggingface.co/Qwen/Qwen3.8-27B">Qwen/Qwen3.8-27B</a></td>
-					<td>27.8B (dense)</td>
-					<td>256k</td>
-					<td>Apache 2.0</td>
-					<td>~56 GB</td>
-			</tr>
-			<tr>
-					<td><a href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B">Qwen/Qwen3.6-35B-A3B</a></td>
-					<td>36B (3B)</td>
-					<td>256k</td>
-					<td>Apache 2.0</td>
-					<td>~72 GB</td>
-			</tr>
-			<tr>
-					<td><a href="https://huggingface.co/openai/gpt-oss-120b">openai/gpt-oss-120b</a></td>
-					<td>117B (5.1B)</td>
-					<td>128k</td>
-					<td>Apache 2.0</td>
-					<td>~65 GB (MXFP4)</td>
-			</tr>
-			<tr>
-					<td><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash">deepseek-ai/DeepSeek-V4-Flash</a></td>
-					<td>284B (13B)</td>
-					<td>1M</td>
-					<td>MIT</td>
-					<td>~160 GB</td>
-			</tr>
-			<tr>
-					<td><a href="https://huggingface.co/zai-org/GLM-5.3-Flash">zai-org/GLM-5.3-Flash</a></td>
-					<td>320B (18B)</td>
-					<td>300k</td>
-					<td>MIT</td>
-					<td>~328 GB</td>
-			</tr>
-	</tbody>
+  <thead>
+      <tr>
+          <th>Model</th>
+          <th>Params (active)</th>
+          <th>Context</th>
+          <th>License</th>
+          <th>Weights*</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><a href="https://huggingface.co/Qwen/Qwen3.8-27B">Qwen/Qwen3.8-27B</a></td>
+          <td>27.8B (dense)</td>
+          <td>256k</td>
+          <td>Apache 2.0</td>
+          <td>~56 GB</td>
+      </tr>
+      <tr>
+          <td><a href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B">Qwen/Qwen3.6-35B-A3B</a></td>
+          <td>36B (3B)</td>
+          <td>256k</td>
+          <td>Apache 2.0</td>
+          <td>~72 GB</td>
+      </tr>
+      <tr>
+          <td><a href="https://huggingface.co/openai/gpt-oss-120b">openai/gpt-oss-120b</a></td>
+          <td>117B (5.1B)</td>
+          <td>128k</td>
+          <td>Apache 2.0</td>
+          <td>~65 GB (MXFP4)</td>
+      </tr>
+      <tr>
+          <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash">deepseek-ai/DeepSeek-V4-Flash</a></td>
+          <td>284B (13B)</td>
+          <td>1M</td>
+          <td>MIT</td>
+          <td>~160 GB</td>
+      </tr>
+      <tr>
+          <td><a href="https://huggingface.co/zai-org/GLM-5.3-Flash">zai-org/GLM-5.3-Flash</a></td>
+          <td>320B (18B)</td>
+          <td>300k</td>
+          <td>MIT</td>
+          <td>~328 GB</td>
+      </tr>
+  </tbody>
 </table>
 <p>*Official checkpoint size, no KV cache — the vendors ship Qwen in bf16 and the rest pre-quantized.</p>
 <p style="text-align: center">
@@ -115,25 +111,18 @@ The gap between open-weight and proprietary models closed a lot since this post 
 <p>Qwen3.8-27B is the smallest one here and the easiest to fit — a good default for a single GPU. Qwen3.6-35B-A3B is the fast and cheap option for chat and RAG: 36B total, but only 3B active per token. gpt-oss-120b stays on the shortlist as the one non-Chinese model worth the effort: 117B total, native MXFP4 weights, one 80 GB card. GLM-5.3-Flash and DeepSeek-V4-Flash are the step up for a 3-5 card node — both MIT, both with official weights and vendor deployment notes, and DeepSeek also gives you a real 1M context. DeepSeek&rsquo;s newer <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash">V4.1-Flash</a> (763B total, ~510 GB of weights) is out as well, but at that size it wants a 4-8 GPU node — V4-Flash stays the practical pick.</p>
 <p>All five are Apache 2.0 or MIT — commercial use, modification and redistribution without user-count limits. That&rsquo;s not the norm: Qwen&rsquo;s larger models, DeepSeek&rsquo;s older releases and most Llama derivatives ship custom licenses with extra clauses, so check the model card before the PoC, not after.</p>
 <h1 id="serving">Serving</h1>
-<p>Two engines cover most on-prem deployments now:</p>
-<ul>
-<li><a href="https://github.com/vllm-project/vllm">vLLM</a> — still the default. Broadest model support, PagedAttention, continuous batching, OpenAI-compatible API. All the models above are in the <a href="https://docs.vllm.ai/en/latest/models/supported_models.html">supported list</a>.</li>
-<li><a href="https://github.com/sgl-project/sglang">SGLang</a> — the better pick for MoE and long context: RadixAttention for prefix sharing, expert parallelism across GPUs, OpenAI-compatible API too. On a 3-5 card node with GLM-5.3-Flash or DeepSeek-V4-Flash this is the one to benchmark first.</li>
-</ul>
+<p>Two engines cover most on-prem deployments now. <a href="https://github.com/vllm-project/vllm">vLLM</a> is still the default: broadest model support, PagedAttention, continuous batching, OpenAI-compatible API, and all the models above are in the <a href="https://docs.vllm.ai/en/latest/models/supported_models.html">supported list</a>.</p>
+<p><a href="https://github.com/sgl-project/sglang">SGLang</a> is the better pick for MoE and long context — RadixAttention for prefix sharing, expert parallelism across GPUs, OpenAI-compatible API too — and on a 3-5 card node with GLM-5.3-Flash or DeepSeek-V4-Flash it is the one to benchmark first.</p>
 <p><a href="https://github.com/NVIDIA/TensorRT-LLM">TensorRT-LLM</a> still pulls the most raw throughput out of NVIDIA hardware, but you pay with engine compilation, version pinning and much slower support for new architectures. <a href="https://github.com/triton-inference-server/server">Triton Inference Server</a> remains useful as an orchestration layer around vLLM or TensorRT-LLM backends — it doesn&rsquo;t replace the engine.</p>
 <p>There is no separate model-specific runtime to install: DeepSeek, Qwen and Z.ai all ship official vLLM/SGLang recipes with the weights, and DeepSeek keeps a reference inference implementation in the repo. Check the model card for the recommended engine version — DeepSeek V4, for example, wants Hopper-class GPUs for the stock kernels.</p>
 <p>For multi-node serving, Ray Serve + vLLM/SGLang or <a href="https://github.com/ai-dynamo/dynamo">NVIDIA Dynamo</a> on top is the usual path — at the cost of running a cluster on Kubernetes.</p>
 <h1 id="sizing-the-kv-cache">Sizing the KV cache</h1>
-<p>Weights are only half of the story. KV cache grows linearly with context and concurrency:</p>
+<p>Weights are only half the footprint. KV cache grows linearly with context and concurrency:</p>
 <p><code>kv_bytes = 2 × layers × kv_heads × head_dim × tokens × batch × bytes_per_element</code></p>
 <p>Qwen3.8-27B has 64 layers, 4 KV heads and 256-dim heads: ~128 KB per token at FP8 KV, so one 128k request needs ~16 GB and a 256k request ~32 GB — on top of the ~56 GB of weights. Batch a few long requests and an 80 GB card is full.</p>
 <p>Two cheap wins: set <code>max_model_len</code> to what you actually serve, and read the model card — newer architectures compress KV hard. DeepSeek V4 keeps ~10% of V3.2&rsquo;s KV at 1M context, at the price of a much more complex attention stack.</p>
 <h1 id="conclusion">Conclusion</h1>
-<ul>
-<li>Single 80 GB GPU: <strong>Qwen3.8-27B</strong> if you want a plain dense model; <strong>Qwen3.6-35B-A3B</strong> or <strong>gpt-oss-120b</strong> if you want MoE throughput on the same card.</li>
-<li>3-5 GPU node: <strong>DeepSeek-V4-Flash</strong> (284B, 13B active, MIT, 1M context) or <strong>GLM-5.3-Flash</strong> (320B, 18B active, MIT) — the two strongest open options in that size class.</li>
-<li>Whichever engine you pick, the real footprint is weights plus KV cache at your actual context and concurrency.</li>
-</ul>
+<p>On a single 80 GB GPU, <strong>Qwen3.8-27B</strong> if you want a plain dense model, or <strong>Qwen3.6-35B-A3B</strong> / <strong>gpt-oss-120b</strong> if you want MoE throughput on the same card. On a 3-5 GPU node, <strong>DeepSeek-V4-Flash</strong> (284B, 13B active, MIT, 1M context) or <strong>GLM-5.3-Flash</strong> (320B, 18B active, MIT) — the two strongest open options in that size class. Whichever engine you pick, the real footprint is weights plus KV cache at your actual context and concurrency.</p>
 <hr>
 
 </article>
