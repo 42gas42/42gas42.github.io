@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<html lang="en-us"><head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,10 +20,10 @@ The question is - can we somehow bring only needed pieces of our software stack 
   
   
   
-  <link rel="stylesheet" href="/css/main.900100e9dbee2d56c58fac8bb717037cae7e26a9c36c29d2ff587bdd65f0cbbe510b41d81a3bb234919cdfdc7550d786b2fab70c8fc507772d732fe097106d12.css" integrity="sha512-kAEA6dvuLVbFj6yLtxcDfK5&#43;JqnDbCnS/1h73WXwy75RC0HYGjuyNJGc39x1UNeGsvq3DI/FB3ctcy/glxBtEg==" />
+  <link rel="stylesheet" href="/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
   
   
-  <link rel="stylesheet" href="/css/custom.221b85686d9e51d5ddfff5a86487d48343cef6e2b42923d310a8174f7552cd11e19170c2b3e4c44b5d610f87d4f6c372546e1cc894b4f5a79bf34facfa62ddf0.css" integrity="sha512-IhuFaG2eUdXd//WoZIfUg0PO9uK0KSPTEKgXT3VSzRHhkXDCs&#43;TES11hD4fU9sNyVG4cyJS09aeb80&#43;s&#43;mLd8A==" />
+  <link rel="stylesheet" href="/css/custom.948c7e1abeabfbc7e897a7e388e8f9f62ae7f311d23fc1dcc35bd3533cab16b20ce6dc5382d2e79d381de2b86d189ad6759ae5ae50e888f6100c97c64033b40a.css" integrity="sha512-lIx&#43;Gr6r&#43;8fol6fjiOj59irn8xHSP8Hcw1vTUzyrFrIM5txTgtLnnTgd4rhtGJrWdZrlrlDoiPYQDJfGQDO0Cg==" />
   
   
   <script defer src="/js/copy-code.min.10823c5f7b3055dc200d6e7802c763f631380a54da81b2f1ad8bf52be9baa4b437ffc3fb49671b4e11931260caf29d8c192216a3fdd2d5360a11c438516941f0.js" integrity="sha512-EII8X3swVdwgDW54Asdj9jE4ClTagbLxrYv1K&#43;m6pLQ3/8P7SWcbThGTEmDK8p2MGSIWo/3S1TYKEcQ4UWlB8A=="></script>
@@ -64,7 +64,7 @@ And we have multiple choices, including:</p>
 <p>For example, here are some of the shared libs that are needed to run <code>gunicorn</code> web-server (a default one for python web apps):</p>
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1
 </span></span><span style="display:flex;"><span>/usr/lib/x86_64-linux-gnu/libffi.so.7
 </span></span><span style="display:flex;"><span>/usr/lib/x86_64-linux-gnu/libffi.so.7.1.0
 </span></span><span style="display:flex;"><span>/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0
@@ -83,32 +83,32 @@ And we have multiple choices, including:</p>
 <p>Create Dockerfile as usual, for example like this:</p>
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:3.9.2-slim as py</span><span style="color:#960050;background-color:#1e0010">
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">python:3.9.2-slim</span> <span style="color:#66d9ef">as</span> <span style="color:#e6db74">py</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> DEBIAN_FRONTEND<span style="color:#f92672">=</span>noninteractive
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ARG</span> DEBIAN_FRONTEND<span style="color:#f92672">=</span>noninteractive
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">RUN</span> apt-get clean <span style="color:#f92672">&amp;&amp;</span> apt-get update <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    apt-get -y install --no-install-recommends <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        build-essential <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        libev-dev <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        ca-certificates <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        software-properties-common <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        openssh-client <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        strace <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    rm -rf /var/lib/apt/lists/*<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span>    apt-get -y install --no-install-recommends <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        build-essential <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        libev-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        ca-certificates <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        software-properties-common <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        openssh-client <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        strace <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>        <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    rm -rf /var/lib/apt/lists/*<span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> requirements.txt /app/requirements.txt<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> requirements.txt /app/requirements.txt<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WORKDIR</span> <span style="color:#e6db74">/app</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install -U pip <span style="color:#f92672">&amp;&amp;</span> python3 -m pip install -r requirements.txt<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">RUN</span> pip install -U pip <span style="color:#f92672">&amp;&amp;</span> python3 -m pip install -r requirements.txt<span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apt-get update <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> apt-get purge -y <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>       build-essential <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> apt-get clean <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> apt-get autoremove -y <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> rm -rf /var/lib/apt/lists/* /tmp/* /var/cache/apt/*</span></span></code></pre></div>
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">RUN</span> apt-get update <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#f92672">&amp;&amp;</span> apt-get purge -y <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>       build-essential <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#f92672">&amp;&amp;</span> apt-get clean <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#f92672">&amp;&amp;</span> apt-get autoremove -y <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#f92672">&amp;&amp;</span> rm -rf /var/lib/apt/lists/* /tmp/* /var/cache/apt/*</span></span></code></pre></div>
 </div><h3 id="determine-which-shared-libs-need-to-be-picked">Determine which shared libs need to be picked</h3>
 <p>The idea is to run application inside a container and track which <code>open</code> (and similar) sys-calls the app process uses. So we can find all the shared libs that the process really need to operate. Here is what you need to do:</p>
 <ul>
@@ -116,24 +116,24 @@ And we have multiple choices, including:</p>
 <li>run container with the shared volume to keep trace files on the host machine:
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run --rm -it <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --name<span style="color:#f92672">=</span>&lt;service-name&gt; <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -v /tmp/traces:/traces <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --entrypoint /bin/sh <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    &lt;service-name&gt;:latest</span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run --rm -it <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    --name<span style="color:#f92672">=</span>&lt;service-name&gt; <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    -v /tmp/traces:/traces <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    --entrypoint /bin/sh <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    &lt;service-name&gt;:latest</span></span></code></pre></div>
 </div></li>
 <li>go to the running container’s shell and collect trace log of the running app:
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>strace -fe trace<span style="color:#f92672">=</span>open,openat,name_to_handle_at -o /traces/run.trace ./serve.sh</span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>strace -fe trace<span style="color:#f92672">=</span>open,openat,name_to_handle_at -o /traces/run.trace ./serve.sh</span></span></code></pre></div>
 </div></li>
 </ul>
 <p>After logs has been collected - let’s get only those libs which relates to the needed OS deps.<br>
 Create the script, let&rsquo;s call it <code>trace_analyze.sh</code> (change grep patterns to include/exclude paths depending on your needs):</p>
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Apps needed to run that script:</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#     echo, grep (ggrep on macOS), cat, sort, uniq</span>
 </span></span><span style="display:flex;"><span>
@@ -152,18 +152,18 @@ Create the script, let&rsquo;s call it <code>trace_analyze.sh</code> (change gre
 </span></span><span style="display:flex;"><span>concatenated_content<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;</span>$concatenated_content<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    | $GREP_CMD -E <span style="color:#e6db74">&#39;/lib/x86_64-linux-gnu/|/usr/lib/x86_64-linux-gnu/|/usr/local/cuda/lib64/&#39;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    | $GREP_CMD -v -E <span style="color:#e6db74">&#39;/usr/local/lib/python|opencv_python|etc|libJitPI|.cache|python3[^/]+\.so|/lib/x86_64-linux-gnu/tls/|/usr/lib/x86_64-linux-gnu/tls/|libittnotify.so|/glibc-hwcaps/&#39;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    | $GREP_CMD -oP <span style="color:#e6db74">&#39;(?&lt;=\&#34;).*?(?=\&#34;)&#39;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    | sort | uniq</span></span></code></pre></div>
+</span></span></span><span style="display:flex;"><span>    | $GREP_CMD -E <span style="color:#e6db74">&#39;/lib/x86_64-linux-gnu/|/usr/lib/x86_64-linux-gnu/|/usr/local/cuda/lib64/&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    | $GREP_CMD -v -E <span style="color:#e6db74">&#39;/usr/local/lib/python|opencv_python|etc|libJitPI|.cache|python3[^/]+\.so|/lib/x86_64-linux-gnu/tls/|/usr/lib/x86_64-linux-gnu/tls/|libittnotify.so|/glibc-hwcaps/&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    | $GREP_CMD -oP <span style="color:#e6db74">&#39;(?&lt;=\&#34;).*?(?=\&#34;)&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    | sort | uniq</span></span></code></pre></div>
 </div><p>And run it against the collected file with traces:</p>
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./trace_analyze.sh /tmp/traces/*.trace &gt; trace_filtered.txt</span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./trace_analyze.sh /tmp/traces/*.trace &gt; trace_filtered.txt</span></span></code></pre></div>
 </div><p>You will get the list of libs in the following format:</p>
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>/lib/x86_64-linux-gnu/libbz2.so.1.0.4
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>/lib/x86_64-linux-gnu/libbz2.so.1.0.4
 </span></span><span style="display:flex;"><span>/lib/x86_64-linux-gnu/libz.so
 </span></span><span style="display:flex;"><span>/usr/lib/x86_64-linux-gnu/libGL.so.1
 </span></span><span style="display:flex;"><span>/usr/lib/x86_64-linux-gnu/libc.so.6 // &lt;-- drop
@@ -177,82 +177,82 @@ Save the resulting list of libs somewhere.</p>
 <p>So your Dockerfile could look like this:</p>
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span>...<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Create group and user for app runtime</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> groupadd -g <span style="color:#ae81ff">1001</span> -r app <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    useradd -u <span style="color:#ae81ff">1001</span> -r -d /app -g app app<span style="color:#960050;background-color:#1e0010">
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span>...<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># Create group and user for app runtime</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">RUN</span> groupadd -g <span style="color:#ae81ff">1001</span> -r app <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    useradd -u <span style="color:#ae81ff">1001</span> -r -d /app -g app app<span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Save `app` user data separately, it will always be the last row</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> tail -n <span style="color:#ae81ff">1</span> /etc/passwd &gt; /passwd <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    tail -n <span style="color:#ae81ff">1</span> /etc/group &gt; /group <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    tail -n <span style="color:#ae81ff">1</span> /etc/gshadow &gt; /gshadow <span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># Save `app` user data separately, it will always be the last row</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">RUN</span> tail -n <span style="color:#ae81ff">1</span> /etc/passwd &gt; /passwd <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    tail -n <span style="color:#ae81ff">1</span> /etc/group &gt; /group <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    tail -n <span style="color:#ae81ff">1</span> /etc/gshadow &gt; /gshadow <span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Python 3.9</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> gcr.io/distroless/python3-debian11</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># Python 3.9</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">gcr.io/distroless/python3-debian11</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># python packages</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>py /usr/local/lib/python3.9/site-packages /site-packages<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># python packages</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>py /usr/local/lib/python3.9/site-packages /site-packages<span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> PYTHONPATH<span style="color:#f92672">=</span>/site-packages<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> LANG C.UTF-8</span></span></code></pre></div>
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ENV</span> PYTHONPATH<span style="color:#f92672">=</span>/site-packages<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ENV</span> LANG C.UTF-8</span></span></code></pre></div>
 </div><p>Copy executables needed to run app/tests:</p>
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span>...<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>py <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/local/bin/gunicorn <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/bin/<span style="color:#960050;background-color:#1e0010">
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span>...<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>py <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/local/bin/gunicorn <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/bin/<span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># system level shared libs</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>py <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /lib/x86_64-linux-gnu/libpcre.so.3 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /lib/x86_64-linux-gnu/<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># system level shared libs</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>py <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /lib/x86_64-linux-gnu/libpcre.so.3 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /lib/x86_64-linux-gnu/<span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>py <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libwebp.so.6.0.2 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libwebp.so.6 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libwebpmux.so.3.0.1 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libwebpmux.so.3 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libGL.so.1 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libGLX.so.0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libGLdispatch.so.0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libX11.so.6 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libXau.so.6 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libXdmcp.so.6 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libXext.so.6 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libbsd.so.0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libffi.so.7 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libffi.so.7.1.0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libgthread-2.0.so.0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libssl.so.1.1 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libstdc++.so.6 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/libxcb.so.1 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /usr/lib/x86_64-linux-gnu/</span></span></code></pre></div>
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>py <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libwebp.so.6.0.2 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libwebp.so.6 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libwebpmux.so.3.0.1 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libwebpmux.so.3 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libGL.so.1 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libGLX.so.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libGLdispatch.so.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libX11.so.6 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libXau.so.6 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libXdmcp.so.6 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libXext.so.6 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libbsd.so.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libffi.so.7 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libffi.so.7.1.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libgthread-2.0.so.0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libssl.so.1.1 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libstdc++.so.6 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/libxcb.so.1 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /usr/lib/x86_64-linux-gnu/</span></span></code></pre></div>
 </div><p>Copy user credentials and files, specifying the owner (app in this case):</p>
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span>...<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># copy `app` user credentials</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>py <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /passwd <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /group <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /gshadow <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    /etc/<span style="color:#960050;background-color:#1e0010">
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span>...<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># copy `app` user credentials</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>py <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /passwd <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /group <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /gshadow <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    /etc/<span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --chown<span style="color:#f92672">=</span>app:app --chmod<span style="color:#f92672">=</span><span style="color:#ae81ff">744</span> . /app/service</span></span></code></pre></div>
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> --chown<span style="color:#f92672">=</span>app:app --chmod<span style="color:#f92672">=</span><span style="color:#ae81ff">744</span> . /app/service</span></span></code></pre></div>
 </div><p>Finally, you need to specify env variables and define the entrypoint. But keep in mind that it could be only sh or no shell at all. For example in deb11 a simple shell is still present, and I’ve used it to run the app:</p>
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span>...<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;/bin/sh&#34;</span>, <span style="color:#e6db74">&#34;/app/service/serve_distroless.sh&#34;</span>]</span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span>...<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;/bin/sh&#34;</span>, <span style="color:#e6db74">&#34;/app/service/serve_distroless.sh&#34;</span>]</span></span></code></pre></div>
 </div><p>Also, in your runner script, usually it is better to specify full paths to executables, like /usr/bin/gunicorn.</p>
 <h3 id="add-cuda-support">Add CUDA support</h3>
 <p>Basically, everything said in the previous section stays the same, except that you can use a specialized cuda image as a base one, like that:</p>
 <div class="code-block">
   <button class="copy-btn" type="button" aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu20.04 as py</span></span></span></code></pre></div>
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu20.04</span> <span style="color:#66d9ef">as</span> <span style="color:#e6db74">py</span></span></span></code></pre></div>
 </div><p>In case of <code>pytorch</code> - it already has needed cuda libs shipped inside a wheel, the only thing is that host machine should share the device properly. In case of other dl frameworks, like <code>tensorflow</code>, you may need to copy some libs like <code>libcudnn.so</code> and <code>libcudart.so</code> to the second stage (like described <a href="https://github.com/uvarc/rivanna-docker/blob/a1d6d02069643ae4d3063f57f2cc965fc208577b/tensorflow/2.4.0/Dockerfile.distroless">here</a>).</p>
 <h2 id="results">Results</h2>
 <p>Setup:</p>
